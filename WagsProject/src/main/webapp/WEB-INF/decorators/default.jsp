@@ -20,8 +20,7 @@ body {
 	font-family: 'GongGothicMedium';
 	margin: 0px;
 	padding:0px;
-	background-color:#333;
-	color:white;
+	background-color:white;
 	text-align:center;
 }
 
