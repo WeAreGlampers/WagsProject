@@ -39,6 +39,10 @@ section{
   width:150px;
   float:right;
 }
+#dateChk{
+  display:inline-block;
+  float:left;
+}
 #chk{
   display:inline-block;
   float:left;
@@ -56,12 +60,7 @@ section{
   float:left;
 }
 #second{
-  width:470px;
-  height:50px;
-  line-height:50px;
-  text-align:right;
-}
-#third{
+  margin-top:10px;
   width:1100px;
 }
 #room{
@@ -97,12 +96,12 @@ section{
 #cal{
   position:absolute;
   width:1100px;
-  margin-top:80px;
+  margin-top:40px;
 }
 #cal #mainTable{
   border-spacing:0px;
   width:500px;
-  height:380px;
+  height:400px;
   text-align:center;
   background:white;
 }
@@ -111,17 +110,45 @@ section{
   background:white;
 
 }
+#su{
+  width:20px;
+  text-align:center;
+  border:none;
+  outline:none;
+  font-weight:600;
+}
+#number{
+  display:inline-block;
+  width:74px;
+  height:28px;
+  border:1px solid #005ae0;
+  padding-top:2px;
+  border-radius:3px;
+  margin-bottom:10px;
+}
+#chkPeople{
+  border:1px solid black;
+  width:500px;
+  height:200px;
+  text-align:center;
+  background:white;
+  margin:auto;
+  padding-top:40px;
+}
+
 </style>
 <script>
 var start="";
 var end="";
-var sd=0,sm=0;
-var ed=0,em=0;
+var sd=0,sm=0,sy=0;
+var ed=0,em=0,ey=0;
+var ty=0,tm=0;
 function makeCal(y,m){
 	if(y==-1){
 		var today=new Date();
 		y=today.getFullYear();
 		m=today.getMonth(); //0~11
+		ty=y; tm=m;
 	}
 	if(m==-1){
 		y--;
@@ -143,7 +170,9 @@ function makeCal(y,m){
 	var ju=Math.ceil((chong+yoil)/7);
 	var calData="<table align='center' border='1' id='mainTable'>";
 	calData+="<caption><h3>";
-	calData+="<a href='javascript:makeCal("+y+","+(m-1)+")'>이전 </a>";
+	if((ty==y && tm<m) || ty<y){
+		calData+="<a href='javascript:makeCal("+y+","+(m-1)+")'>이전 </a>";
+	}
 	calData+=y+"년 "+(m+1)+"월 ";
 	calData+="<a href='javascript:makeCal("+y+","+(m+1)+")'>다음</a>";
 	calData+="</h3></caption>";
@@ -164,7 +193,6 @@ function makeCal(y,m){
 			if((i==0 && j<yoil) || day>chong){
 				calData+="<td>&nbsp;</td>";
 			}
-			alert("1");
 			else if(start!="" && end==""){
 				if(start==dateString(y,m,day)){
 					calData+="<td onclick='dateChk("+y+","+m+","+day+")' class='calDay' style='background:pink;'>"+day+"</td>";
@@ -175,13 +203,16 @@ function makeCal(y,m){
 					day++;
 				}
 			}
-			alert("2");
 			else if(end!=""){
-				if(em==m && day<=ed){
+				if(ey==y && sy==y && em==m && sm==m && day>=sd && day<=ed){
 					calData+="<td onclick='dateChk("+y+","+m+","+day+")' class='calDay' style='background:pink;'>"+day+"</td>";
 					day++;
 				}
-				else if(sm==m && day>=sd){
+				else if(ey==y && em==m && sm!=m && day<=ed){
+					calData+="<td onclick='dateChk("+y+","+m+","+day+")' class='calDay' style='background:pink;'>"+day+"</td>";
+					day++;
+				}
+				else if(sy==y && sm==m && em!=m && day>=sd){
 					calData+="<td onclick='dateChk("+y+","+m+","+day+")' class='calDay' style='background:pink;'>"+day+"</td>";
 					day++;
 				}
@@ -190,7 +221,6 @@ function makeCal(y,m){
 					day++;
 				}
 			}
-			alert("3");
 			else{
 				calData+="<td onclick='dateChk("+y+","+m+","+day+")' class='calDay'>"+day+"</td>";
 				day++;
@@ -198,43 +228,61 @@ function makeCal(y,m){
 		}
 		calData+="</tr>";
 	}
+	calData+="<tr><td colspan='7'><input type='button' value='완료' onclick='calDel()'></td></tr>"
 	calData+="</table>";
 	document.getElementById("cal").innerHTML=calData;
+	event.stopPropagation();
 }
 function dateChk(y,m,d){
 	var calDay=document.getElementsByClassName("calDay");
 	if(start==""){
 		start=dateString(y,m,d);
 		calDay[d-1].style.background="pink";
-		sd=d; sm=m;
+		sd=d; sm=m; sy=y;
 	}
 	else if(end==""){
-		end=dateString(y,m,d);
-		if(sm==m){
-			for(i=sd-1;i<d;i++){
-				calDay[i].style.background="yellow";
+		if(sy==y){
+			if(sm==m){
+				for(i=sd-1;i<d;i++){
+					calDay[i].style.background="pink";
+				}
+				ed=d; em=m; ey=y;
+				end=dateString(y,m,d);
 			}
-			ed=d; em=m;
+			else if(sm<m){
+				for(i=0;i<d;i++){
+					calDay[i].style.background="pink";
+				}
+				ed=d; em=m; ey=y;
+				end=dateString(y,m,d);
+			}
+			else{
+				start=dateString(y,m,d);
+				calDay[d-1].style.background="pink";
+				sd=d; sm=m; sy=y;
+			}
 		}
-		else if(sm<m){
+		else if(sy<y){
 			for(i=0;i<d;i++){
-				calDay[i].style.background="yellow";
+				calDay[i].style.background="pink";
 			}
-			ed=d; em=m;
+			ed=d; em=m; ey=y;
+			end=dateString(y,m,d);
 		}
 		else{
 			start=dateString(y,m,d);
 			calDay[d-1].style.background="pink";
-			sd=d; sm=m;
+			sd=d; sm=m; sy=y;
 		}
+		
 	}
 	else{
 		for(i=0;i<calDay.length;i++){
 			calDay[i].style.background="white";
 		}
 		start=dateString(y,m,d);
-		end=""; ed=0; em=0;
-		sd=d; sm=m;
+		end=""; ed=0; em=0; ey=0;
+		sd=d; sm=m; sy=y;
 		calDay[d-1].style.background="pink";
 	}
 
@@ -247,6 +295,47 @@ function dateString(y,m,d){
 	d=d.padStart(2,"0");
 	return y+"-"+m+"-"+d;
 }
+function calDel(){
+	if(start!=""){
+		document.getElementById("dateChk").innerText=start+"~"+end;
+	}
+	document.getElementById("cal").innerHTML="";
+}
+function showChk(){
+	var calData="<div id='chkPeople'>";
+	calData+="<div style='margin-bottom:10px;'><b>인원을 선택하세요</b></div>";
+	calData+="인원  <div id='number'>";
+	calData+="<img src='../static/minus.png' valign='middle' onclick='downSu()'>";
+	calData+="<input type='text' name='su' value='1' id='su' readonly>";
+	calData+="<img src='../static/plus.png' valign='middle' onclick='upSu()'>";
+	calData+="</div><div><input type='button' value='검색' onclick='productList()'></div></div>";
+	document.getElementById("cal").innerHTML=calData;
+	
+}
+function downSu(){
+	var num=document.getElementById("su").value;
+	if(num>1){
+		document.getElementById("su").value=--num;
+	}
+}
+function upSu(){
+	var num=document.getElementById("su").value;
+	document.getElementById("su").value=++num;
+}
+function productList(){
+	var num=document.getElementById("su").value;
+	location="productList?inday="+start+"&outday="+end+"&num="+num;
+}
+window.onload=function(){
+	if("${inday}"!=""){
+		document.getElementById("dateChk").innerText="${inday}"+"~"+"${outday}";
+	}
+	if("${num}"!=""){
+		document.getElementById("chk").innerText="${num}"+"명";
+	}
+	
+}
+
 </script>
 </head>
 <body>
@@ -256,24 +345,19 @@ function dateString(y,m,d){
   <div id="first">
     <div id="outer">
       <div id="left" onclick="makeCal(-1,-1)">
-        <div id="chk">일정선택</div> 
+        <div id="dateChk">일정선택</div> 
         <div id="down">∨</div>
       </div>
       <div id="line">|</div>
-      <div id="right">
+      <div id="right" onclick="showChk()">
         <div id="chk">인원선택</div>
         <div id="down">∨</div>
       </div>
     </div>
   </div>
   <div id="second">
-    <input type="button" value="전체">
-    <input type="button" value="카라반">
-    <input type="button" value="글램핑">
-  </div>
-  <div id="third">
     <c:forEach items="${plist}" var="pdto">
-      <div id="room">
+      <div id="room" onclick="location='productContent?pcode=${pdto.pcode}'">
         <img src="../static/product/${pdto.pimg}" width="500" height="270">
         <div id="title">${pdto.title}</div>
         <div id="price">

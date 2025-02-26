@@ -7,4 +7,12 @@
 select * from product
 order by id desc
 </select>
+<select id="isCheck" resultType="Boolean">
+<![CDATA[ select count(*) from reservation where inday < #{outday} and outday >= #{outday} and pcode=#{pcode} ]]>
+</select>
+<select id="productList2" resultType="com.example.demo.dto.ProductDto">
+select * from product
+where <![CDATA[ max>=num ]]>
+order by id desc
+</select>
 </mapper>
