@@ -12,6 +12,8 @@ public interface MemberMapper {
 	public void memberInputOk(MemberDto mdto);
 
 	public void getSave(String userid);
+
+	public MemberDto getMemInfo(String userid);
 	
 
 }

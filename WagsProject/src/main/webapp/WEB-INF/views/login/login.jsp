@@ -81,34 +81,50 @@
 </style>
 <script>
 	function viewUform() {
+		document.getElementById("view").innerText="";
 		document.getElementById("uform").style.display="block";
 		document.getElementById("pform").style.display="none";
 		// 숨겨지는 비밀번호 폼의 입력값이 있을 수 있으므로 숨겨질 때 지운다..! 
 		document.getElementById("pform").userid.value="";
 		document.getElementById("pform").name.value="";
-		document.getElementById("pform").email.value="";
+		document.getElementById("pform").phone.value="";
 	}
 	
 	function viewPform() {
+		document.getElementById("view").innerText="";
 		document.getElementById("pform").style.display="block";
 		document.getElementById("uform").style.display="none";
 		document.getElementById("uform").name.value="";
-		document.getElementById("uform").email.value="";
+		document.getElementById("uform").phone.value="";
 	}
 	
 	function getUserid(form) {
-		var fidName = form.fidName.value;
-		var fidPhone = form.fidPhone.value;
+		var name = form.name.value;
+		var phone = form.phone.value;
 		
 		var chk = new XMLHttpRequest();
 		chk.onload = function() {
 			//alert(chk.responseText);
+			
 			document.getElementById("uform").style.display="none";
-			document.getElementById("uform").fidName.value="";
-			document.getElementById("uform").fidPhone.value="";
+			document.getElementById("uform").name.value="";
+			document.getElementById("uform").phone.value="";
 			document.getElementById("view").innerText=chk.responseText;
 		}
-		chk.open("get","getUserid?name="+fidName+"&phone="+fidPhone);
+		chk.open("get","getUserid?name="+name+"&phone="+phone);
+		chk.send();
+	}
+	
+	function getPwd(form) {
+		var userid = form.userid.value;
+		var name = form.name.value;
+		var phone = form.phone.value;
+		
+		var chk = new XMLHttpRequest();
+		chk.onload = function() {
+			document.getElementById("view").innerText=chk.responseText;
+		}
+		chk.open("get","getPwd?userid="+userid+"&name="+name+"&phone="+phone);
 		chk.send();
 	}
 </script>
@@ -134,8 +150,8 @@
     <!-- 아이디 찾기 폼 -->
     <form id="uform">
     <h4>아이디 찾기</h4>
-    	<div><input type="text" name="fidName" id="txt2" placeholder="이 름"></div>
-    	<div><input type="text" name="fidPhone" id="txt2" placeholder="전화번호(-포함)"></div>
+    	<div><input type="text" name="name" id="txt2" placeholder="이 름"></div>
+    	<div><input type="text" name="phone" id="txt2" placeholder="전화번호(-포함)"></div>
     	<div><input type="button" value="아이디찾기" class="submit2" onclick="getUserid(this.form)"></div>
     </form>        
     

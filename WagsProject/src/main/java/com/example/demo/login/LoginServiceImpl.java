@@ -50,9 +50,33 @@ public class LoginServiceImpl implements LoginService {
 			if(userid==null) {
 				return "찾으시는 정보의 아이디가 없습니다.";
 			} else {
-				return "아이디 : "+ userid;
+				return "아이디 : " + userid;
 			}
 	}
+
+	@Override
+	public String getPwd(HttpServletRequest request) {
+		String userid=request.getParameter("userid");
+		String name=request.getParameter("name");
+		String phone=request.getParameter("phone");
+		String pwd = mapper.getPwd(userid,name,phone);
+		if(pwd != null) {
+			String temp = "";
+			for (int i = 0; i < 8; i++) {
+				int num = (int)(Math.random() * 90); // 0~89
+				num = num + 33;
+				
+				temp = temp + (char)num;
+			}
+			mapper.tempPwdChg(userid,temp);
+			return "임시 비밀번호 : " + temp;
+		} else {
+			return "일치하는 정보가 존재하지 않습니다";
+		}
+		
+		
+	}
+	
 	
 
 }

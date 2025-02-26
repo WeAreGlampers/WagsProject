@@ -15,4 +15,6 @@ public interface LoginService {
 
 	public String getUserid(HttpServletRequest request);
 
+	public String getPwd(HttpServletRequest request);
+
 }

@@ -39,4 +39,14 @@ public class MemberController {
 			HttpSession session) {
 		return service.memberInfo(model,session);
 	}
+	
+	@PostMapping("/member/chgMemPChk")
+	public String chgMemPChk(HttpSession session, String pwd) {
+		return service.chgMemPChk(session, pwd);
+	}
+	
+	@GetMapping("/member/chgMemInfo")
+	public String chgMemInfo(Model model, HttpSession session,String pwd) {
+		return service.chgMemInfo(model, session,pwd);
+	}
 }

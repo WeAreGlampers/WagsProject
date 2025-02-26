@@ -17,4 +17,8 @@ public interface MemberService {
 
 	public String memberInfo(Model model, HttpSession session);
 
+	public String chgMemPChk(HttpSession session, String pwd);
+
+	public String chgMemInfo(Model model, HttpSession session,String pwd);
+
 }

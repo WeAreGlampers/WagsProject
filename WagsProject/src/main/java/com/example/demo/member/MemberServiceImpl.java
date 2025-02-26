@@ -1,5 +1,6 @@
 package com.example.demo.member;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,11 +57,48 @@ public class MemberServiceImpl implements MemberService {
 		if (session.getAttribute("userid")==null) {
 			return "redirect:/login/login";
 		} else {
+			String userid = (String)session.getAttribute("userid");
+			MemberDto mdto = mapper.getMemInfo(userid);
+			
+			model.addAttribute("mdto",mdto);
+			DecimalFormat df = new DecimalFormat("#,###");
+			String saveStr = df.format(mdto.getSave());
+			mdto.setSaveStr(saveStr);			
 			return "/member/memberInfo";
 		}
 		
 		
 	}
-	
+
+	@Override
+	public String chgMemPChk(HttpSession session, String pwd) {
+		if (session.getAttribute("userid")==null) {
+			return "login/login";
+		} else {
+			String userid=(String)session.getAttribute("userid");
+			MemberDto mdto = mapper.getMemInfo(userid);
+			if(mdto == null) {
+				return "redirect:/member/memberInfo?err=1";
+			} else {
+				return "redirect:/member/chgMemInfo";
+			}
+		}
+	}
+
+	@Override
+	public String chgMemInfo(Model model, HttpSession session,String pwd) {
+		if (session.getAttribute("userid")==null) {
+			return "login/login";
+		} else {
+			String userid=(String)session.getAttribute("userid");
+			MemberDto mdto = mapper.getMemInfo(userid);
+			model.addAttribute("mdto",mdto);
+			if (mdto.getPwd().equals(pwd)) {
+				return "/member/chgMemInfo";
+			} else {
+				return "redirect:/member/memberInfo?err=2";
+			}
+		}
+	}	
 
 }

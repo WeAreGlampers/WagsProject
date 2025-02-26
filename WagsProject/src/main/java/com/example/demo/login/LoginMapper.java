@@ -11,4 +11,8 @@ public interface LoginMapper {
 
 	public String getUserid(String name, String phone);
 
+	public String getPwd(String userid, String name, String phone);
+
+	public void tempPwdChg(String userid, String temp);
+
 }

@@ -18,4 +18,9 @@
    		update member set save = save + 5000
    		where userid=#{userid}
    	</update>
+   	
+   	<select id="getMemInfo" resultType="com.example.demo.dto.MemberDto">
+   		select * from member
+   		where userid=#{userid}
+   	</select>
    </mapper> 

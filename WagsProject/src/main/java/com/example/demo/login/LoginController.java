@@ -35,4 +35,9 @@ public class LoginController {
 		return service.getUserid(request);
 	}
 	
+	@GetMapping("/login/getPwd")
+	public @ResponseBody String getPwd(HttpServletRequest request) {
+		return service.getPwd(request);
+	}
+	
 }
