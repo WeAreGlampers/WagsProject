@@ -33,15 +33,18 @@ section{
   float:left;
   padding-left:50px;
 }
+#datepicker{
+  width:240px;
+  height:25px;
+  outline:none;
+  border:none;
+  font-size:16px;
+}
 #right{
   display:inline-block;
   line-height:30px;
   width:150px;
   float:right;
-}
-#dateChk{
-  display:inline-block;
-  float:left;
 }
 #chk{
   display:inline-block;
@@ -98,18 +101,6 @@ section{
   width:1100px;
   margin-top:40px;
 }
-#cal #mainTable{
-  border-spacing:0px;
-  width:500px;
-  height:400px;
-  text-align:center;
-  background:white;
-}
-#cal #mainTable > caption{
-  border:1px solid black;
-  background:white;
-
-}
 #su{
   width:20px;
   text-align:center;
@@ -138,169 +129,6 @@ section{
 
 </style>
 <script>
-var start="";
-var end="";
-var sd=0,sm=0,sy=0;
-var ed=0,em=0,ey=0;
-var ty=0,tm=0;
-function makeCal(y,m){
-	if(y==-1){
-		var today=new Date();
-		y=today.getFullYear();
-		m=today.getMonth(); //0~11
-		ty=y; tm=m;
-	}
-	if(m==-1){
-		y--;
-		m=11;
-	}
-	if(m==12){
-		y++;
-		m=0;
-	}
-	var xday=new Date(y,m,1);
-	var yoil=xday.getDay(); // 0~6(일~토)
-	var nums=[31,28,31,30,31,30,31,31,30,31,30,31];
-	var chong=nums[m];
-	if(m==1){ // 윤년인 경우 2월 총 일수
-		if( (y%4==0 && y%100!=0) || y%400==0 ){
-			chong++;
-		}
-	}
-	var ju=Math.ceil((chong+yoil)/7);
-	var calData="<table align='center' border='1' id='mainTable'>";
-	calData+="<caption><h3>";
-	if((ty==y && tm<m) || ty<y){
-		calData+="<a href='javascript:makeCal("+y+","+(m-1)+")'>이전 </a>";
-	}
-	calData+=y+"년 "+(m+1)+"월 ";
-	calData+="<a href='javascript:makeCal("+y+","+(m+1)+")'>다음</a>";
-	calData+="</h3></caption>";
-	calData+"<tr>";
-	calData+="<td>일</td>";
-	calData+="<td>월</td>";
-	calData+="<td>화</td>";
-	calData+="<td>수</td>";
-	calData+="<td>목</td>";
-	calData+="<td>금</td>";
-	calData+="<td>토</td>";
-	calData+="</tr>";
-	
-	var day=1;
-	for(i=0;i<ju;i++){
-		calData+="<tr>";
-		for(j=0;j<7;j++){
-			if((i==0 && j<yoil) || day>chong){
-				calData+="<td>&nbsp;</td>";
-			}
-			else if(start!="" && end==""){
-				if(start==dateString(y,m,day)){
-					calData+="<td onclick='dateChk("+y+","+m+","+day+")' class='calDay' style='background:pink;'>"+day+"</td>";
-					day++;
-				}
-				else{
-					calData+="<td onclick='dateChk("+y+","+m+","+day+")' class='calDay'>"+day+"</td>";
-					day++;
-				}
-			}
-			else if(end!=""){
-				if(ey==y && sy==y && em==m && sm==m && day>=sd && day<=ed){
-					calData+="<td onclick='dateChk("+y+","+m+","+day+")' class='calDay' style='background:pink;'>"+day+"</td>";
-					day++;
-				}
-				else if(ey==y && em==m && sm!=m && day<=ed){
-					calData+="<td onclick='dateChk("+y+","+m+","+day+")' class='calDay' style='background:pink;'>"+day+"</td>";
-					day++;
-				}
-				else if(sy==y && sm==m && em!=m && day>=sd){
-					calData+="<td onclick='dateChk("+y+","+m+","+day+")' class='calDay' style='background:pink;'>"+day+"</td>";
-					day++;
-				}
-				else{
-					calData+="<td onclick='dateChk("+y+","+m+","+day+")' class='calDay'>"+day+"</td>";
-					day++;
-				}
-			}
-			else{
-				calData+="<td onclick='dateChk("+y+","+m+","+day+")' class='calDay'>"+day+"</td>";
-				day++;
-			}
-		}
-		calData+="</tr>";
-	}
-	calData+="<tr><td colspan='7'><input type='button' value='완료' onclick='calDel()'></td></tr>"
-	calData+="</table>";
-	document.getElementById("cal").innerHTML=calData;
-	event.stopPropagation();
-}
-function dateChk(y,m,d){
-	var calDay=document.getElementsByClassName("calDay");
-	if(start==""){
-		start=dateString(y,m,d);
-		calDay[d-1].style.background="pink";
-		sd=d; sm=m; sy=y;
-	}
-	else if(end==""){
-		if(sy==y){
-			if(sm==m){
-				for(i=sd-1;i<d;i++){
-					calDay[i].style.background="pink";
-				}
-				ed=d; em=m; ey=y;
-				end=dateString(y,m,d);
-			}
-			else if(sm<m){
-				for(i=0;i<d;i++){
-					calDay[i].style.background="pink";
-				}
-				ed=d; em=m; ey=y;
-				end=dateString(y,m,d);
-			}
-			else{
-				start=dateString(y,m,d);
-				calDay[d-1].style.background="pink";
-				sd=d; sm=m; sy=y;
-			}
-		}
-		else if(sy<y){
-			for(i=0;i<d;i++){
-				calDay[i].style.background="pink";
-			}
-			ed=d; em=m; ey=y;
-			end=dateString(y,m,d);
-		}
-		else{
-			start=dateString(y,m,d);
-			calDay[d-1].style.background="pink";
-			sd=d; sm=m; sy=y;
-		}
-		
-	}
-	else{
-		for(i=0;i<calDay.length;i++){
-			calDay[i].style.background="white";
-		}
-		start=dateString(y,m,d);
-		end=""; ed=0; em=0; ey=0;
-		sd=d; sm=m; sy=y;
-		calDay[d-1].style.background="pink";
-	}
-
-}
-function dateString(y,m,d){
-	m++;
-	m=m+"";
-	m=m.padStart(2,"0");
-	d=d+"";
-	d=d.padStart(2,"0");
-	return y+"-"+m+"-"+d;
-}
-function calDel(){
-	if(start!=""){
-		document.getElementById("dateChk").innerText=start+"~"+end;
-	}
-	document.getElementById("cal").innerHTML="";
-}
 function showChk(){
 	var calData="<div id='chkPeople'>";
 	calData+="<div style='margin-bottom:10px;'><b>인원을 선택하세요</b></div>";
@@ -309,8 +137,7 @@ function showChk(){
 	calData+="<input type='text' name='su' value='1' id='su' readonly>";
 	calData+="<img src='../static/plus.png' valign='middle' onclick='upSu()'>";
 	calData+="</div><div><input type='button' value='검색' onclick='productList()'></div></div>";
-	document.getElementById("cal").innerHTML=calData;
-	
+	document.getElementById("cal").innerHTML=calData;	
 }
 function downSu(){
 	var num=document.getElementById("su").value;
@@ -324,19 +151,25 @@ function upSu(){
 }
 function productList(){
 	var num=document.getElementById("su").value;
-	location="productList?inday="+start+"&outday="+end+"&num="+num;
+	var datepicker=document.getElementById("datepicker").value;
+	if(datepicker.length>23){
+		location="productList?num="+num;
+	}
+	else{
+		location="productList?date="+datepicker+"&num="+num;
+	}
 }
 window.onload=function(){
-	if("${inday}"!=""){
-		document.getElementById("dateChk").innerText="${inday}"+"~"+"${outday}";
+	if("${date}"!=""){
+		document.getElementById("datepicker").value="${date}";
 	}
 	if("${num}"!=""){
 		document.getElementById("chk").innerText="${num}"+"명";
 	}
 	
 }
-
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.js"></script>
 </head>
 <body>
 <section>
@@ -344,9 +177,10 @@ window.onload=function(){
   </div>
   <div id="first">
     <div id="outer">
-      <div id="left" onclick="makeCal(-1,-1)">
-        <div id="dateChk">일정선택</div> 
-        <div id="down">∨</div>
+      <div id="left">
+        <input type="text" id="datepicker" readonly value="일정선택                                    ∨"> 
+        <input type="hidden" id="inday">
+        <input type="hidden" id="outday">
       </div>
       <div id="line">|</div>
       <div id="right" onclick="showChk()">
@@ -369,5 +203,23 @@ window.onload=function(){
     </c:forEach>
   </div>
 </section>
+<script>
+      const picker = new easepick.create({
+        element: document.getElementById('datepicker'),
+        css: [
+          'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css',
+        ],
+        plugins: ['RangePlugin','LockPlugin'],
+        format: 'YYYY-MM-DD',
+        RangePlugin: {
+          tooltipNumber(num) {
+            return num - 1;
+          },
+        },
+        LockPlugin: {
+            minDate: new Date(),
+        }
+      });
+</script>
 </body>
 </html>

@@ -20,12 +20,13 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public String productList(HttpServletRequest request,Model model) {
 		ArrayList<ProductDto> plist;
-		if(request.getParameter("inday")!=null) {
-			String inday=request.getParameter("inday");
-			String outday=request.getParameter("outday");
+		if(request.getParameter("date")!=null) {
+			String date=request.getParameter("date");
+			String[] dates=date.split("-");
+			String inday=dates[0]+"-"+dates[1]+"-"+dates[2];
+			String outday=dates[3].trim()+"-"+dates[4]+"-"+dates[5];
 			int num=Integer.parseInt(request.getParameter("num"));
-			model.addAttribute("inday",inday);
-			model.addAttribute("outday",outday);
+			model.addAttribute("date",date);
 			model.addAttribute("num",num);
 			ArrayList<ProductDto> plistOld=mapper.productList();
 			plist=new ArrayList<ProductDto>();

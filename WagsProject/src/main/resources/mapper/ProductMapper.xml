@@ -12,7 +12,7 @@ order by id desc
 </select>
 <select id="productList2" resultType="com.example.demo.dto.ProductDto">
 select * from product
-where <![CDATA[ max>=num ]]>
+where <![CDATA[ max>=${num} ]]>
 order by id desc
 </select>
 </mapper>
