@@ -54,7 +54,148 @@ a {
 	color:black;
 }
 </style>
-<script>	
+<script>
+	function minus(n) {
+		var quantity=document.getElementsByClassName("quantity")[n];
+		//alert(n+" "+quantity.value)
+		//alert(--quantity.value);
+		if(quantity.value > 1)
+			quantity.value = --quantity.value;
+	}
+	
+	function plus(n) {
+		var quantity=document.getElementsByClassName("quantity")[n];
+		quantity.value = ++quantity.value;
+	}
+	
+	function addCart() {
+		var fireWood=document.getElementsByClassName("quantity")[0].value;
+		var grill=document.getElementsByClassName("quantity")[1].value;
+		
+		var chk=new XMLHttpRequest();
+		chk.onload=function() {
+			if(chk.responseText != "1") {
+				alert("오류")
+			} else {
+				// 장바구니 메시지 띄우기
+				document.getElementById("cartLayer").style.visibility="visible";
+				
+				// 3초 뒤 숨기기
+				ss=setTimeout(function(){
+					document.getElementById("cartLayer").style.visibility="hidden";
+					clearTimeout(ss);
+				},3000);
+			}
+		}
+		chk.open("GET","addCart?fireWood="+fireWood+"&grill="+grill);
+		chk.send();
+	}
+</script>
+</head>
+<body>
+<section>
+	<div></div> <!-- 그림 -->
+		<div id="cartLayer">
+			현재 상품을 장바구니에 담았습니다. <p>
+			<input type="button" value="장바구니로 이동" onclick="location='../member/cartView'">
+		</div>
+		
+		<div id="first">
+			<div> 
+				<caption> <h3> 어반티지 글램핑 카라반 펜션 </h3> </caption>
+					<c:if test="${ok == 0}">
+						<img src="../static/jjim1.png" id="heart" onclick="jjimOk()" valign="middle">
+					</c:if>
+					<c:if test="${ok == 1}">
+						<img src="../static/jjim2.png" id="heart" onclick="jjimDel()" valign="middle">
+					</c:if>
+				
+			</div>
+			<div> 방문자 리뷰 5,392 </div>
+			<div> 숲속의 마을 어빈티지 글램핑 펜션 </div>
+			
+		<div>
+			<tr>
+				<td> 거리뷰 </td>
+				<td> 공유 </td>
+			</tr>
+		</div>
+		
+		<div>
+			<input type="button" value="객실예약" onclick="location='../product/productList'">
+		</div>
+		
+	</div> <!-- first close -->
+	
+	<div id="menu">
+		<ul>
+			<li> 객실 </li>
+			<li> 리뷰 </li>
+			<li> Q&A </li>
+			<li> 부가 서비스 </li>
+		</ul>
+	</div> <!-- menu close -->
+	
+	<div id="second">
+		<div>
+				<input type="button" value="일정선택 ▽" id="datepicker">
+		</div>
+		
+		<div> <img src="../static/room.png"> </div> 
+		
+		<div>
+				<div> 캠프닉 최대 이용시간 6시간 </div>
+				<div> title </div>
+				<div> price </div>
+		</div>
+		
+		<div>
+				<div> 최대인원 : <!-- 글램핑, 기준 : 2인 (최대 3인) --> <!-- ${max} --> </div>
+				<div> 설명 : <!-- 침실 1, 침대 1 -->  </div>
+				<div> 영업시간 : <!-- 6시간 이용(오후 03:00 ~ 오후 09:00) --> </div>
+		</div>
+		
+		<!-- 옵션 선택 -->
+		<div id="option">
+			<h2> 부가 서비스 선택 </h2>
+			<div> 픽업 </div>
+			<div> 장작 
+				<div id="number">
+					<img src="../static/minus.png" valign="middle" onclick="minus(0)">
+		          	<input type="text" name="quantity" value="0" class="quantity" readonly>
+		         	<img src="../static/plus.png" valign="middle" onclick="plus(0)">
+		         	<span> price </span>
+				</div>
+			</div>
+			<div> 바베큐 그릴 서비스 
+				<div id="number">
+					<img src="../static/minus.png" valign="middle" onclick="minus(1)">
+		          	<input type="text" name="quantity" value="0" class="quantity" readonly>
+		         	<img src="../static/plus.png" valign="middle" onclick="plus(1)">
+					<span> price </span>							     		
+				</div>
+			</div>
+		</div>
+		
+		
+		<div>
+			<input type="button" value="장바구니 담기" onclick="addCart()"> 
+			<input type="button" value="예약" onclick="location='../product/reservation'"> <!-- 기간 보내기 -->
+		</div>
+		
+	</div>	<!-- second close -->
+	
+	<div id="third"> <!-- reviw 읽어와서 출력 -->
+		
+	
+	</div>
+	
+	
+	
+	
+</section>
+
+<!-- <script>	
 	function reservationCal(y,m,n) {
 		
 		// 해당 월의 1일 구하기
@@ -130,11 +271,7 @@ a {
 	    
 	    document.getElementById("calendar").innerHTML=calData;
 	}
-	
-	
-	
-	
-</script>
+</script> -->
 
 <!-- easePick 달력 라이브러리 사용 -->
 
@@ -176,73 +313,5 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-</head>
-<body>
-<section>
-	<div></div> <!-- 그림 -->
-		<div id="first">
-			<div> 어반티지 글램핑 카라반 펜션 <span> 캠핑,야영장 </span>
-				<%-- <c:if test="${ok == 0}">
-					<img src="../static/jjim1.png" id="heart" onclick="jjimOk()" valign="middle">
-				</c:if>
-				<c:if test="${ok == 1}">
-					<img src="../static/jjim1.png" id="heart" onclick="jjimDel()" valign="middle">
-				</c:if> --%>
-			</div>
-			<div> 방문자 리뷰 5,392 </div>
-			<div> 숲속의 마을 어빈티지 글램핑 펜션 </div>
-			
-		<div>
-			<tr>
-				<td> 거리뷰 </td>
-				<td> 공유 </td>
-			</tr>
-		</div>
-		
-		<div>
-			<input type="button" value="객실예약" onclick="location='../product/productList'">
-		</div>
-		
-	</div> <!-- first close -->
-	
-	<div id="menu">
-		<ul>
-			<li> 상품상세 </li>
-			<li> 상품평 </li>
-			<li> 상품문의 </li>
-			<li> 환불 </li>
-		</ul>
-	</div> <!-- menu close -->
-	
-	<div id="second">
-		<div id="calendar"></div>
-		<div>
-			<div id="search" align="center" style="height:40px; line-height:40px;">
-				<input type="button" value="일정선택 ▽" onclick="reservationCal(-1,-1,0)">
-				 <input id="datepicker" type="text" readonly placeholder="예약 날짜 선택" />
-		</div>
-		
-		<div> <img src="../static/room.png"> </div> 
-		
-		<div>
-				<div> 캠프닉 최대 이용시간 6시간 </div>
-				<div> title </div>
-				<div> price </div>
-		</div>
-		
-		<div>
-				<div> 최대인원 : <!-- 글램핑, 기준 : 2인 (최대 3인) --> <!-- ${max} --> </div>
-				<div> 설명 : <!-- 침실 1, 침대 1 -->  </div>
-				<div> 영업시간 : <!-- 6시간 이용(오후 03:00 ~ 오후 09:00) --> </div>
-		</div>
-		
-		<div> 
-			<input type="button" value="예약" onclick="location='../product/reservation'"> <!-- 기간 보내기 -->
-		</div>
-		
-	</div>	<!-- second close -->
-	
-</section>
-
 </body>
 </html>

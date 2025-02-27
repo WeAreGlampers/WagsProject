@@ -101,52 +101,14 @@ nav ul li {
 	cursor:pointer; 
 }
 
-nav #category #firstCategory #firstSub {
+nav .category .sub {
 	visibility:hidden;
-}
-nav #category #firstCategory #firstSub li{
-	font-size:12px;
-	width:100px;
 }
 
-nav #category #secondCategory #secondSub {
-	visibility:hidden;
-}
-nav #category #secondCategory #secondSub li {
-	font-size:12px;
+nav .category .sub .li {
+	font-size:10px;
 	width:100px;
-}
-
-nav #category #thirdCategory #thirdSub {
-	visibility:hidden;
-}
-nav #category #thirdCategory #thirdSub li {
-	font-size:12px;
-	width:100px;
-}
-
-nav #category #fourthCategory #fourthSub {
-	visibility:hidden;
-}
-nav #category #fourthCategory #fourthSub li {
-	font-size:12px;
-	width:100px;
-}
-
-nav #category #fifthCategory #fifthSub {
-	visibility:hidden;
-}
-nav #category #fifthCategory #fifthSub li {
-	font-size:12px;
-	width:100px;
-}
-
-nav #category #sixthCategory #sixthSub {
-	visibility:hidden;
-}
-nav #category #sixthCategory #sixthSub li {
-	font-size:12px;
-	width:100px;
+	
 }
 
 #logo img {
@@ -173,52 +135,13 @@ footer {
 		document.getElementById("privateSub").style.visibility="hidden";		
 	}
 	
-	// 카테고리 첫번재
-	function viewFirst() {
-		document.getElementById("firstSub").style.visibility="visible";
-	}
-	function hideFirst() {
-		document.getElementById("firstSub").style.visibility="hidden";
+	// 카테고리 보였다 숨기기
+	function viewCategory(n) {
+		document.getElementsByClassName("sub")[n].style.visibility="visible";
 	}
 	
-	// 카테고리 두번째
-	function viewSecond() {
-		document.getElementById("secondSub").style.visibility="visible";
-	}
-	function hideSecond() {
-		document.getElementById("secondSub").style.visibility="hidden";
-	}
-	
-	// 카테고리 세번재
-	function viewThird() {
-		document.getElementById("thirdSub").style.visibility="visible";
-	}
-	function hideThird() {
-		document.getElementById("thirdSub").style.visibility="hidden";
-	}
-	
-	// 카테고리 네번째
-	function viewFourth() {
-		document.getElementById("fourthSub").style.visibility="visible";
-	}
-	function hideFourth() {
-		document.getElementById("fourthSub").style.visibility="hidden";
-	}
-	
-	// 카테고리 다섯번째
-	function viewFifth() {
-		document.getElementById("fifthSub").style.visibility="visible";
-	}
-	function hideFifth() {
-		document.getElementById("fifthSub").style.visibility="hidden";
-	}
-	
-	// 카테고리 여섯번째
-	function viewSixth() {
-		document.getElementById("sixthSub").style.visibility="visible";
-	}
-	function hideSixth() {
-		document.getElementById("sixthSub").style.visibility="hidden";
+	function hideCategory(n) {
+		document.getElementsByClassName("sub")[n].style.visibility="hidden";
 	}
 	
 </script>
@@ -266,11 +189,11 @@ footer {
 
 
 	<nav>
-		<ul id="category">
+		<ul>
 			<!-- first -->
 			<li>
-				<span id="firstCategory" onmouseover="viewFirst()" onmouseout="hideFirst()"> GLAMPING & CARAVAN
-				 	<ul id="firstSub">
+				<span class="category" onmouseover="viewCategory(0)" onmouseout="hideCategory(0)"> GLAMPING & CARAVAN
+				 	<ul class="sub">
 				 		<li> 인사말 </li>
 				 		<li> 찾아오시는 길 </li>	
 				 	</ul>
@@ -279,8 +202,8 @@ footer {
 			
 			<!-- first -->
 			<li>
-				<span id="secondCategory" onmouseover="viewSecond()" onmouseout="hideSecond()"> ROOMS
-				  	<ul id="secondSub">
+				<span class="category" onmouseover="viewCategory(1)" onmouseout="hideCategory(1)"> ROOMS
+				  	<ul class="sub">
 				  		<li> 카라반 </li>
 				  		<li> 글램핑 </li>
 				  	</ul>
@@ -289,8 +212,8 @@ footer {
 			
 			<!-- first -->
 			<li>
-				<span id="thirdCategory" onmouseover="viewThird()" onmouseout="hideThird()"> RESERVATION
-					<ul id="thirdSub">
+				<span class="category" onmouseover="viewCategory(2)" onmouseout="hideCategory(2)"> RESERVATION
+					<ul class="sub">
 						<li> 예약 종합 안내 </li>
 						<li> 온라인 예약 </li>
 					</ul>				
@@ -299,8 +222,8 @@ footer {
 			
 			<!-- first -->
 			<li>
-				<span id="fourthCategory" onmouseover="viewFourth()" onmouseout="hideFourth()"> SPECIALTY
-					<ul id="fourthSub">
+				<span class="category" onmouseover="viewCategory(3)" onmouseout="hideCategory(3)"> SPECIALTY
+					<ul class="sub">
 						<li> 글램핑 </li>
 						<li> 카라반 </li>
 						<li> 수영장 </li>
@@ -312,8 +235,8 @@ footer {
 			
 			<!-- first -->
 			<li>
-				<span id="fifthCategory" onmouseover="viewFifth()" onmouseout="hideFifth()"> TOUR
-					<ul id="fifthSub">
+				<span class="category" onmouseover="viewCategory(4)" onmouseout="hideCategory(4)"> TOUR
+					<ul class="sub">
 						<li> 주변 여행지 정보를 알려드립니다. </li>
 					</ul>				
 				</span>
@@ -321,8 +244,8 @@ footer {
 			
 			<!-- first -->
 			<li>
-			<span id="sixthCategory" onmouseover="viewSixth()" onmouseout="hideSixth()"> COMMUNITY TOUR
-					<ul id="sixthSub">
+			<span class="category" onmouseover="viewCategory(5)" onmouseout="hideCategory(5)"> COMMUNITY TOUR
+					<ul class="sub">
 						<li> 공지사항 </li>
 						<li> 이벤트 </li>
 						<li> 게시판 </li>

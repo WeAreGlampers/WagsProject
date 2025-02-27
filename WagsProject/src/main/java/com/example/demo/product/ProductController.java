@@ -7,7 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.example.demo.dto.CartDto;
+
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -21,9 +24,9 @@ public class ProductController {
 		return service.productContent(session, request, model);
 	}
 	
-	@GetMapping("/product/ex")
-	public String ex() {
-		return "/product/ex";
+	@GetMapping("/product/addCart")
+	public String addCart(CartDto cdto, HttpServletRequest request, HttpSession session) {
+		return service.addCart(cdto,request,session);
 	}
 	
 	
