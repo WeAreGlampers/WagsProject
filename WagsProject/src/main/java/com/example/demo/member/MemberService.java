@@ -21,4 +21,6 @@ public interface MemberService {
 
 	public String chgMemInfo(Model model, HttpSession session,String pwd);
 
+	public String exisPwd(HttpSession session, String pwd);
+
 }

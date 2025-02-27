@@ -77,12 +77,13 @@ public class MemberServiceImpl implements MemberService {
 		} else {
 			String userid=(String)session.getAttribute("userid");
 			MemberDto mdto = mapper.getMemInfo(userid);
-			if(mdto == null) {
-				return "redirect:/member/memberInfo?err=1";
-			} else {
+			//System.out.println(mdto.getPwd() + " " + pwd);
+			if (mdto.getPwd().equals(pwd)) {
 				return "redirect:/member/chgMemInfo";
+			} else {
+				return "redirect:/member/memberInfo?err=2";
 			}
-		}
+		}	
 	}
 
 	@Override
@@ -92,13 +93,26 @@ public class MemberServiceImpl implements MemberService {
 		} else {
 			String userid=(String)session.getAttribute("userid");
 			MemberDto mdto = mapper.getMemInfo(userid);
+			DecimalFormat df = new DecimalFormat("#,###");
+			String saveStr = df.format(mdto.getSave());
+			mdto.setSaveStr(saveStr);	
 			model.addAttribute("mdto",mdto);
-			if (mdto.getPwd().equals(pwd)) {
-				return "/member/chgMemInfo";
-			} else {
-				return "redirect:/member/memberInfo?err=2";
-			}
+
+			return "/member/chgMemInfo";
+
 		}
+	}
+
+	@Override
+	public String exisPwd(HttpSession session, String pwd) {
+		String userid=(String)session.getAttribute("userid");
+		MemberDto mdto = mapper.getMemInfo(userid);
+		
+			if(mdto.getPwd().equals(pwd)) {
+				return "1";
+			} else {
+				return "0";
+			}	
 	}	
 
 }

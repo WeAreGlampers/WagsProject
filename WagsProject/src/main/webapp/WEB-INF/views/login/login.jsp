@@ -132,7 +132,7 @@
 <body> <!-- login/login.jsp -->
 <section>
     <h3 align="center"> 로그인 </h3>
-    <form method="post" action="loginOk">
+    <form method="post" action="../login/loginOk">
       <div> <input type="text" name="userid" class="txt" placeholder="아이디"> </div>
       <div> <input type="password" name="pwd" class="txt" placeholder="비밀번호"></div>
       <div> <input type="submit" value="로그인" id="submit"> <p>

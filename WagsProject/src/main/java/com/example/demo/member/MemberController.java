@@ -49,4 +49,10 @@ public class MemberController {
 	public String chgMemInfo(Model model, HttpSession session,String pwd) {
 		return service.chgMemInfo(model, session,pwd);
 	}
+	
+	@GetMapping("/member/exisPwd")
+	public @ResponseBody String exisPwd(HttpSession session, String pwd) {
+		return service.exisPwd(session,pwd);
+	}
+	
 }

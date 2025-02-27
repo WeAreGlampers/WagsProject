@@ -106,7 +106,7 @@ section #cform {
 			</div>
 			
 			<div id="cform">
-				<form method="post" action="chgMemPChk">
+				<form method="post" action="../member/chgMemPChk">
 					비밀번호 <input type="password" name="pwd">
 					<p>
 					<input type="submit" value="확인">
