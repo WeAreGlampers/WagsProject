@@ -113,6 +113,17 @@ public class MemberServiceImpl implements MemberService {
 			} else {
 				return "0";
 			}	
+	}
+
+	@Override
+	public String chgMemInfoOk(MemberDto mdto,HttpSession session) {
+		if (session.getAttribute("userid")==null) {
+			return "login/login";
+		} else {
+			
+			return "redirect:/member/memerInfo";
+		}
+
 	}	
 
 }

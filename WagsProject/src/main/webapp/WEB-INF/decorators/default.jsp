@@ -171,7 +171,7 @@ footer {
 		<c:if test="${userid != null}">
 			<span id="privateMenu" onmouseover="viewPrivate()" onmouseout="hidePrivate()"> ${name} 님 
 				<ul id="privateSub">
-					<li> 마이페이지 </li>				
+					<li> <a href="../member/memberInfo"> 마이페이지 </a></li>				
 				</ul>
 			</span>		
 		

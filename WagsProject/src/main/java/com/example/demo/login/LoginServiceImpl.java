@@ -33,7 +33,9 @@ public class LoginServiceImpl implements LoginService {
 		if (name==null) {
 			return "redirect:/login/login?err=1";
 		} else {
-			session.setAttribute("name", mdto.getName());
+			
+			System.out.println(name);
+			session.setAttribute("name", name);
 			session.setAttribute("userid", mdto.getUserid());
 			
 			return "redirect:/main/main";

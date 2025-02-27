@@ -23,4 +23,6 @@ public interface MemberService {
 
 	public String exisPwd(HttpSession session, String pwd);
 
+	public String chgMemInfoOk(MemberDto mdto, HttpSession session);
+
 }

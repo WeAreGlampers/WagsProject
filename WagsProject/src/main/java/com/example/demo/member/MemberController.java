@@ -55,4 +55,8 @@ public class MemberController {
 		return service.exisPwd(session,pwd);
 	}
 	
+	@PostMapping("/member/chgMemInfoOk")
+	public String chgMemInfoOk(MemberDto mdto,HttpSession session) {
+		return service.chgMemInfoOk(mdto,session);
+	}
 }

@@ -56,6 +56,7 @@ section #pwd2Msg {
 }
 </style>
 <script>
+	var appr = 0;
 	function pwdChk1(pwd) {
 		var len = pwd.trim().length;
 		if ( len < 4 ) {
@@ -75,6 +76,7 @@ section #pwd2Msg {
 				} else {
 					document.getElementById("pwd1Msg").style.visibility="hidden";
 					document.getElementById("pwd1Msg").innerText="";
+					appr = 1;
 				}
 			}
 			chk.open("get","exisPwd?pwd="+pwd);
@@ -84,16 +86,18 @@ section #pwd2Msg {
 	
 	function pwdChk2(pwd2) {
 		var pwd1 = document.chgForm.pwd.value;
-		if(pwd1 == pwd2) {
-			document.getElementById("pwd2Msg").style.display="block";
-			document.getElementById("pwd2Msg").innerText="비밀번호 일치";
-			document.getElementById("pwd2Msg").style.color="blue";
-			document.getElementById("pwd2Msg").style.fontSize="12px";	
-		} else {
-			document.getElementById("pwd2Msg").style.display="block";
-			document.getElementById("pwd2Msg").innerText="비밀번호 불일치";
-			document.getElementById("pwd2Msg").style.color="red";
-			document.getElementById("pwd2Msg").style.fontSize="12px";
+		if (appr==1) {
+			if(pwd1 == pwd2) {
+				document.getElementById("pwd2Msg").style.visibility="visible";
+				document.getElementById("pwd2Msg").innerText="비밀번호 일치";
+				document.getElementById("pwd2Msg").style.color="blue";
+				document.getElementById("pwd2Msg").style.fontSize="12px";	
+			} else {
+				document.getElementById("pwd2Msg").style.visibility="visible";
+				document.getElementById("pwd2Msg").innerText="비밀번호 불일치";
+				document.getElementById("pwd2Msg").style.color="red";
+				document.getElementById("pwd2Msg").style.fontSize="12px";
+			}
 		}
 	}
 </script>
@@ -130,18 +134,22 @@ section #pwd2Msg {
 				<div class="rightDiv">
 					 <input type="password" name="pwd" onblur="pwdChk1(this.value)">				 				
 				</div>
-					<span id="pwd1Msg"></span> <p>
+				<span id="pwd1Msg"></span>
+			</div>
+			
+			<div class="oneLine">
 				<div class="leftDiv">비밀번호 확인</div>
 				<div class="rightDiv">
-					 <input type="password" name="pwd2" onkeyup="pwdChk2(this.value)">
-					 				
+					 <input type="password" name="pwd2" onkeyup="pwdChk2(this.value)">		 				
 				</div>
 				<span id="pwd2Msg"></span>
-				<div class="oneLine">
-					<div  align="center"> <input type="submit" value="수정하기"> </div>
-				</div>
+			</div>
+			<div class="oneLine">
+				<div  align="center"> <input type="submit" value="수정하기"> </div>
+			</div>
+			 
 				</form>
-			</div> 
+			</div>
 			
 			
 		
