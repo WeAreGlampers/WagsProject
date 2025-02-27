@@ -1,5 +1,9 @@
 package com.example.demo.product;
 
-public interface ProductService {
+import org.springframework.ui.Model;
 
+import jakarta.servlet.http.HttpServletRequest;
+
+public interface ProductService {
+	public String productList(HttpServletRequest request,Model model);
 }
