@@ -3,16 +3,38 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.product.ProductMapper">
+	
+	<insert id="addCart" parameterType="com.example.demo.dto.CartDto">
+		<!-- insert into(userid,pcode,writeday,fireWood,grill)
+		values(#{userid},#{pcode},now(),#{fireWood},#{grill}) -->
+		insert into(writeday,fireWood,grill)
+		values(now(),#{fireWood},#{grill})
+	</insert>
+	
+	<select id="isCart" resultType="Boolean">
+		select count(*) from cart
+		where userid=#{userid} and pcode=#{pcode}
+	</select>
+	
+	<update id="upCart" parameterType="com.example.demo.dto.CartDto">
+		update cart
+		set grill=${grill} and fireWood=#{fireWood}
+		where userid=#{userid}
+	</update>
+	
 <select id="productList" resultType="com.example.demo.dto.ProductDto">
 select * from product
 order by id desc
 </select>
+  
 <select id="isCheck" resultType="Boolean">
 <![CDATA[ select count(*) from reservation where inday < #{outday} and outday >= #{outday} and pcode=#{pcode} ]]>
 </select>
+  
 <select id="productList2" resultType="com.example.demo.dto.ProductDto">
 select * from product
 where <![CDATA[ max>=${num} ]]>
 order by id desc
 </select>
+
 </mapper>
