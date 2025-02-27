@@ -4,5 +4,23 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
    <mapper namespace="com.example.demo.member.MemberMapper">
-   
+   	<select id="useridDupChk" resultType="Boolean">
+   		select count(*) from member
+   		where userid = #{userid}
+   	</select>
+   	
+   	<insert id="memberInputOk" parameterType="com.example.demo.dto.MemberDto">
+		insert into member (userid,pwd,name,email,phone,writeday)
+		values (#{userid},#{pwd},#{name},#{email},#{phone},now())
+   	</insert>
+   	
+   	<update id="getSave">
+   		update member set save = save + 5000
+   		where userid=#{userid}
+   	</update>
+   	
+   	<select id="getMemInfo" resultType="com.example.demo.dto.MemberDto">
+   		select * from member
+   		where userid=#{userid}
+   	</select>
    </mapper> 
