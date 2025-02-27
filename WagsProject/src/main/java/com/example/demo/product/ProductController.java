@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.example.demo.dto.CartDto;
+import com.example.demo.dto.ReservationDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,6 +33,10 @@ public class ProductController {
 	@RequestMapping("/product/productList")
 	public String productList(HttpServletRequest request,Model model) {
 		return service.productList(request,model);
+	}
+	@RequestMapping("/product/reservation")
+	public String reservation(ReservationDto rdto,HttpSession session,Model model) {
+		return service.reservation(rdto, session, model);
 	}
 
 }

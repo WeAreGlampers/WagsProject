@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import com.example.demo.dto.ProductDto;
+import com.example.demo.dto.ReservationDto;
 
 @Service
 @Qualifier("ps")
@@ -96,6 +97,17 @@ public class ProductServiceImpl implements ProductService{
 		}
 		model.addAttribute("plist",plist);
 		return "/product/productList";
+	}
+
+	@Override
+	public String reservation(ReservationDto rdto, HttpSession session, Model model) {
+		if(session.getAttribute("userid")==null) {
+			return "redirect:/login/login";
+		}
+		else {
+			model.addAttribute("rdto",rdto);
+			return "/product/reservation";
+		}
 	}
 
 }
