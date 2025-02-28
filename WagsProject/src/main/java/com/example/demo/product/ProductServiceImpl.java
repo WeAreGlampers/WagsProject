@@ -22,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
 
 	public String productContent(HttpSession session, HttpServletRequest request, Model model) {
 		String pcode=request.getParameter("pcode");
-		ProductDto pdto = mapper.getRoom(pcode);
+		ProductDto pdto = mapper.getRoom(pcode); // pcode에 대한 정보들
 		
 		model.addAttribute("pdto",pdto);
 		

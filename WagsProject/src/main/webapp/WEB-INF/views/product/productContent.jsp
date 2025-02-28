@@ -145,15 +145,12 @@ a {
 		<div> <img src="../static/room.png"> </div> 
 		
 		<div>
-				<div> 캠프닉 최대 이용시간 6시간 </div>
-				<div> title </div>
-				<div> price </div>
+				<div> ${pdto.title} </div>
+				<div> ${pdto.price} 원 </div>
 		</div>
 		
 		<div>
-				<div> 최대인원 : <!-- 글램핑, 기준 : 2인 (최대 3인) --> <!-- ${max} --> </div>
-				<div> 설명 : <!-- 침실 1, 침대 1 -->  </div>
-				<div> 영업시간 : <!-- 6시간 이용(오후 03:00 ~ 오후 09:00) --> </div>
+				<div> 기준 : ${pdto.standard}인 (최대 ${pdto.max}인) --> <!-- ${max} --> </div>
 		</div>
 		
 		<!-- 옵션 선택 -->
