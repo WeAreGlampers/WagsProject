@@ -78,6 +78,13 @@ public class LoginServiceImpl implements LoginService {
 		
 		
 	}
+
+	@Override
+	public String logout(HttpSession session) {
+			session.invalidate();
+			return "redirect:/main/main";
+
+	}
 	
 	
 

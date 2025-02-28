@@ -71,7 +71,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String chgMemPChk(HttpSession session, String pwd) {
+	public String pwdUpdateChk(HttpSession session, String pwd) {
 		if (session.getAttribute("userid")==null) {
 			return "login/login";
 		} else {
@@ -79,7 +79,7 @@ public class MemberServiceImpl implements MemberService {
 			MemberDto mdto = mapper.getMemInfo(userid);
 			//System.out.println(mdto.getPwd() + " " + pwd);
 			if (mdto.getPwd().equals(pwd)) {
-				return "redirect:/member/chgMemInfo";
+				return "redirect:/member/pwdUpdate";
 			} else {
 				return "redirect:/member/memberInfo?err=2";
 			}
@@ -87,18 +87,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String chgMemInfo(Model model, HttpSession session,String pwd) {
+	public String pwdUpdate(Model model, HttpSession session,String pwd) {
 		if (session.getAttribute("userid")==null) {
 			return "login/login";
 		} else {
 			String userid=(String)session.getAttribute("userid");
-			MemberDto mdto = mapper.getMemInfo(userid);
-			DecimalFormat df = new DecimalFormat("#,###");
-			String saveStr = df.format(mdto.getSave());
-			mdto.setSaveStr(saveStr);	
+			MemberDto mdto = mapper.getMemInfo(userid);	
 			model.addAttribute("mdto",mdto);
 
-			return "/member/chgMemInfo";
+			return "/member/pwdUpdate";
 
 		}
 	}
@@ -116,14 +113,39 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String chgMemInfoOk(MemberDto mdto,HttpSession session) {
+	public String pwdUpdateOk(MemberDto mdto,HttpSession session) {
 		if (session.getAttribute("userid")==null) {
 			return "login/login";
 		} else {
-			
-			return "redirect:/member/memerInfo";
+			String userid = session.getAttribute("userid").toString();
+			mdto.setUserid(userid);
+			mapper.pwdUpdateOk(mdto);
+			return "redirect:/member/memberInfo";
 		}
 
+	}
+
+	@Override
+	public String updatePhone(Model model, HttpSession session) {
+		String userid=session.getAttribute("userid").toString();
+		MemberDto mdto = mapper.getMemInfo(userid);
+		model.addAttribute("mdto",mdto);
+		
+		return "member/updatePhone";
+	}
+
+	@Override
+	public String updateEmail(Model model, HttpSession session) {
+		return "member/updateEmail";
+	}
+
+	@Override
+	public String updatePhoneOk(HttpServletRequest request, HttpSession session) {
+		String userid=session.getAttribute("userid").toString();
+		String phone = request.getParameter("phone");
+		mapper.phoneUpdateOk(userid,phone);
+		return "1";
+		
 	}	
 
 }

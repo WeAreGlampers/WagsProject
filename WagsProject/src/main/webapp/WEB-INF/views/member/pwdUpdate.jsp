@@ -56,6 +56,7 @@ section #pwd2Msg {
 }
 </style>
 <script>
+	var infoChk = 0;
 	var appr = 0;
 	function pwdChk1(pwd) {
 		var len = pwd.trim().length;
@@ -91,24 +92,36 @@ section #pwd2Msg {
 				document.getElementById("pwd2Msg").style.visibility="visible";
 				document.getElementById("pwd2Msg").innerText="비밀번호 일치";
 				document.getElementById("pwd2Msg").style.color="blue";
-				document.getElementById("pwd2Msg").style.fontSize="12px";	
+				document.getElementById("pwd2Msg").style.fontSize="12px";
+				infoChk = 0;
 			} else {
 				document.getElementById("pwd2Msg").style.visibility="visible";
 				document.getElementById("pwd2Msg").innerText="비밀번호 불일치";
 				document.getElementById("pwd2Msg").style.color="red";
 				document.getElementById("pwd2Msg").style.fontSize="12px";
+				infoChk = 1;
 			}
 		}
+	}
+	
+	function check() {
+		if (infoChk == "1") {
+			alert("변경할 비밀번호를 확인해주세요.")
+			return false;	
+		} else {
+			return true;
+		}
+		
 	}
 </script>
 </head>
 <body>  <!-- member/chgMemInfo.jsp -->
 <section>
 	<caption>
-			<h3 align="center">회원 정보 수정</h3>
+			<h3 align="center">비밀번호 수정</h3>
 		</caption>
 		<div id="container">
-		<form name="chgForm" method="post" action="cghMemInfoOk">
+		<form name="chgForm" method="post" action="pwdUpdateOk" onsubmit="return check()">
 			<div class="oneLine">
 				<div class="leftDiv">이름</div>
 				<div class="rightDiv">${mdto.name}</div>
@@ -117,16 +130,6 @@ section #pwd2Msg {
 			<div class="oneLine">
 				<div class="leftDiv">아이디</div>
 				<div class="rightDiv">${mdto.userid}</div>
-			</div>
-
-			<div class="oneLine">
-				<div class="leftDiv">전화번호</div>
-				<div class="rightDiv"> <input type="text" value="${mdto.phone}" name="phone"> </div>
-			</div>
-
-			<div class="oneLine">
-				<div class="leftDiv">이메일</div>
-				<div class="rightDiv"> <input type="text" value="${mdto.email}" name="email"> </div>
 			</div>
 			
 			<div class="oneLine">

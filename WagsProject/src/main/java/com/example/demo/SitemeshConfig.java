@@ -9,6 +9,8 @@ public class SitemeshConfig extends ConfigurableSiteMeshFilter{
 	protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
 
 		builder.addDecoratorPath("*", "/default.jsp");
+		
+		builder.addExcludedPath("/member/update*");
 	}
 	
 }

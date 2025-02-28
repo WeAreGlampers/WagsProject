@@ -42,7 +42,7 @@ section .leftDiv {
 
 section .rightDiv {
 	display: inline-block;
-	text-align:left;
+	text-align:center;
 }
 
 section #cform {
@@ -63,6 +63,14 @@ section #cform {
 	function cformClose() {
 		document.getElementById("cform").style.visibility="hidden";
 	}
+	
+	function updatePhone() {
+		open("updatePhone","upPhone","width=500,height=600");
+	}
+	
+	function updateEmail() {
+		open("updateEmail","upPhone","width=500,height=600");
+	}
 </script>
 </head>
 <body>
@@ -75,6 +83,7 @@ section #cform {
 			<div class="oneLine">
 				<div class="leftDiv">이름</div>
 				<div class="rightDiv">${mdto.name}</div>
+
 			</div>
 
 			<div class="oneLine">
@@ -84,12 +93,18 @@ section #cform {
 
 			<div class="oneLine">
 				<div class="leftDiv">전화번호</div>
-				<div class="rightDiv">${mdto.phone}</div>
+				<div class="rightDiv">
+					${mdto.phone}
+					<input type="button" value="수정" onclick="updatePhone()">
+				</div>
 			</div>
 
 			<div class="oneLine">
 				<div class="leftDiv">이메일</div>
-				<div class="rightDiv">${mdto.email}</div>
+				<div class="rightDiv">
+					${mdto.email}
+					<input type="button" value="수정" onclick="updateEmail()">
+				</div>
 			</div>
 
 			<div class="oneLine">
@@ -102,11 +117,11 @@ section #cform {
 				<div class="rightDiv">${mdto.saveStr} 원</div>
 			</div>
 			<div class="oneLine">
-				<div> <input type="button" value="회원정보 수정" onclick="chgMemInfo()"> </div>
+				<div> <input type="button" value="비밀번호 수정" onclick="chgMemInfo()"> </div>
 			</div>
 			
 			<div id="cform">
-				<form method="post" action="../member/chgMemPChk">
+				<form method="post" action="../member/pwdUpdateChk">
 					비밀번호 <input type="password" name="pwd">
 					<p>
 					<input type="submit" value="확인">

@@ -23,4 +23,6 @@
    		update member set pwd=#{temp}
    		where userid=#{userid}
    	</update>
+   	
+
    </mapper>

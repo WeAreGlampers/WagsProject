@@ -40,14 +40,14 @@ public class MemberController {
 		return service.memberInfo(model,session);
 	}
 	
-	@PostMapping("/member/chgMemPChk")
-	public String chgMemPChk(HttpSession session, String pwd) {
-		return service.chgMemPChk(session, pwd);
+	@PostMapping("/member/pwdUpdateChk")
+	public String pwdUpdateChk(HttpSession session, String pwd) {
+		return service.pwdUpdateChk(session, pwd);
 	}
 	
-	@GetMapping("/member/chgMemInfo")
-	public String chgMemInfo(Model model, HttpSession session,String pwd) {
-		return service.chgMemInfo(model, session,pwd);
+	@GetMapping("/member/pwdUpdate")
+	public String pwdUpdate(Model model, HttpSession session,String pwd) {
+		return service.pwdUpdate(model, session,pwd);
 	}
 	
 	@GetMapping("/member/exisPwd")
@@ -55,8 +55,24 @@ public class MemberController {
 		return service.exisPwd(session,pwd);
 	}
 	
-	@PostMapping("/member/chgMemInfoOk")
-	public String chgMemInfoOk(MemberDto mdto,HttpSession session) {
-		return service.chgMemInfoOk(mdto,session);
+	@PostMapping("/member/pwdUpdateOk")
+	public String pwdUpdateOk(MemberDto mdto,HttpSession session) {
+		return service.pwdUpdateOk(mdto,session);
+	}
+	
+	@GetMapping("/member/updatePhone")
+	public String updatePhone(Model model, HttpSession session) {
+		return service.updatePhone(model,session);
+	}
+	
+	@GetMapping("/member/updateEmail")
+	public String updateEmail(Model model, HttpSession session) {
+		return service.updateEmail(model,session);
+	}
+	
+	@GetMapping("/member/phoneUpdateOk")
+	public @ResponseBody String phoneUpdateOk(HttpServletRequest request,
+			HttpSession session) {
+		return service.updatePhoneOk(request,session);
 	}
 }

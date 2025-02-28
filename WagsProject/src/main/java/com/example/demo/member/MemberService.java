@@ -17,12 +17,18 @@ public interface MemberService {
 
 	public String memberInfo(Model model, HttpSession session);
 
-	public String chgMemPChk(HttpSession session, String pwd);
+	public String pwdUpdateChk(HttpSession session, String pwd);
 
-	public String chgMemInfo(Model model, HttpSession session,String pwd);
+	public String pwdUpdate(Model model, HttpSession session,String pwd);
 
 	public String exisPwd(HttpSession session, String pwd);
 
-	public String chgMemInfoOk(MemberDto mdto, HttpSession session);
+	public String pwdUpdateOk(MemberDto mdto, HttpSession session);
+
+	public String updatePhone(Model model, HttpSession session);
+
+	public String updateEmail(Model model, HttpSession session);
+
+	public String updatePhoneOk(HttpServletRequest request, HttpSession session);
 
 }

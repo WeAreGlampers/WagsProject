@@ -23,4 +23,15 @@
    		select * from member
    		where userid=#{userid}
    	</select>
+   	
+   	<update id="pwdUpdateOk">
+   		update member set
+   		pwd = #{pwd}
+   		where userid = #{userid}
+   	</update>
+   	<update id="phoneUpdateOk">
+   		update member set
+   		phone = #{phone}
+   		where userid = #{userid}
+   	</update>
    </mapper> 

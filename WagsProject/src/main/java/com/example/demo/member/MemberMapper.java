@@ -14,6 +14,10 @@ public interface MemberMapper {
 	public void getSave(String userid);
 
 	public MemberDto getMemInfo(String userid);
+
+	public void pwdUpdateOk(MemberDto mdto);
+
+	public void phoneUpdateOk(String phone, String userid);
 	
 
 }
