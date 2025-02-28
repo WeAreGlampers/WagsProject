@@ -13,5 +13,5 @@ public interface ProductMapper {
 	public ArrayList<ProductDto> productList();
 	public boolean isCheck(String outday,String pcode);
 	public ArrayList<ProductDto> productList2(int num);
-
+	public ProductDto getRoom(String pcode);
 }

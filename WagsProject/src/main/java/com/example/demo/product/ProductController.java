@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ProductController {
@@ -25,7 +26,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/product/addCart")
-	public String addCart(CartDto cdto, HttpServletRequest request, HttpSession session) {
+	public @ResponseBody String addCart(CartDto cdto, HttpServletRequest request, HttpSession session) {
 		return service.addCart(cdto,request,session);
 	}
 	

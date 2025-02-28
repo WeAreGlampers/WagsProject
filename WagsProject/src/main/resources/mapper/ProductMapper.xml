@@ -7,8 +7,8 @@
 	<insert id="addCart" parameterType="com.example.demo.dto.CartDto">
 		<!-- insert into(userid,pcode,writeday,fireWood,grill)
 		values(#{userid},#{pcode},now(),#{fireWood},#{grill}) -->
-		insert into(writeday,fireWood,grill)
-		values(now(),#{fireWood},#{grill})
+		insert into cart(pcode,writeday,fireWood,grill,userid)
+		values(#{pcode},now(),#{fireWood},#{grill},#{userid})
 	</insert>
 	
 	<select id="isCart" resultType="Boolean">
@@ -21,6 +21,14 @@
 		set grill=${grill} and fireWood=#{fireWood}
 		where userid=#{userid}
 	</update>
+	
+	<select id="getRoom" resultType="com.example.demo.dto.ProductDto">
+		select * from product
+		where pcode=#{pcode}
+	</select>
+		
+	<!-- 내꺼 -->
+	
 	
 <select id="productList" resultType="com.example.demo.dto.ProductDto">
 select * from product

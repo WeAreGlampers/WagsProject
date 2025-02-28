@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +72,7 @@ a {
 	function addCart() {
 		var fireWood=document.getElementsByClassName("quantity")[0].value;
 		var grill=document.getElementsByClassName("quantity")[1].value;
-		
+	
 		var chk=new XMLHttpRequest();
 		chk.onload=function() {
 			if(chk.responseText != "1") {
@@ -87,7 +88,7 @@ a {
 				},3000);
 			}
 		}
-		chk.open("GET","addCart?fireWood="+fireWood+"&grill="+grill);
+		chk.open("GET","addCart?pcode=${pdto.pcode}&fireWood="+fireWood+"&grill="+grill);
 		chk.send();
 	}
 </script>

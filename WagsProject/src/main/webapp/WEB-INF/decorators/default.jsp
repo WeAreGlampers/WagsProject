@@ -164,12 +164,12 @@ footer {
 		<!-- 비로그인 상태 -->
 		<c:if test="${userid == null}">
 			<a href="../login/login"> 로그인 </a>
-			<a href="../member/member"> 회원가입 </a>
+			<a href="../member/memberInput"> 회원가입 </a>
 		</c:if> 
 		
 		<!-- 로그인 상태 -->
 		<c:if test="${userid != null}">
-			<span id="privateMenu" onmouseover="viewPrivate()" onmouseout="hidePrivate()"> ${name} 님 
+			<span id="privateMenu" onmouseover="viewPrivate()" onmouseout="hidePrivate()"> ${userid} 님 
 				<ul id="privateSub">
 					<li> 마이페이지 </li>				
 				</ul>
@@ -204,8 +204,8 @@ footer {
 			<li>
 				<span class="category" onmouseover="viewCategory(1)" onmouseout="hideCategory(1)"> ROOMS
 				  	<ul class="sub">
-				  		<li> 카라반 </li>
-				  		<li> 글램핑 </li>
+				  		<li> <a href="../product/productList"> 카라반 </a> </li>
+				  		<li> <a href="../product/productList"> 글램핑 </a> </li>
 				  	</ul>
 				  </span>
 			</li>
