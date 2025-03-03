@@ -1,6 +1,9 @@
 package com.example.demo.product;
 
 
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -101,13 +104,22 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public String reservation(ReservationDto rdto, HttpSession session, Model model) {
-		if(session.getAttribute("userid")==null) {
-			return "redirect:/login/login";
-		}
-		else {
+		    rdto.setGrill(1);
+		    rdto.setFireWood(1);
+		    rdto.setTotalPrice(200000);
+		    rdto.setInday("2025-02-27");
+		    rdto.setOutday("2025-03-01");
+		    rdto.setPcode("p0101");
+		    ProductDto pdto=mapper.getProduct(rdto.getPcode());
+		    LocalDate inday=LocalDate.parse(rdto.getInday());
+		    LocalDate outday=LocalDate.parse(rdto.getOutday());
+		    model.addAttribute("day",ChronoUnit.DAYS.between(inday,outday));
 			model.addAttribute("rdto",rdto);
+			model.addAttribute("pdto",pdto);
+			model.addAttribute("grill",pdto.getGrill()*rdto.getGrill());
+			model.addAttribute("fireWood",pdto.getFireWood()*rdto.getFireWood());
 			return "/product/reservation";
-		}
+		
 	}
 
 }
