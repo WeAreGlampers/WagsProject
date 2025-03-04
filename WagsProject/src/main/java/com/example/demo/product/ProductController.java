@@ -30,6 +30,17 @@ public class ProductController {
 		return service.addCart(cdto,request,session);
 	}
 	
+	@GetMapping("/product/dibsOk")
+	public @ResponseBody String dibsOk(HttpSession session,HttpServletRequest request) {
+		return service.dibsOk(session,request);
+	}
+	
+	@GetMapping("/product/dibsDel")
+	public @ResponseBody String dibsDel(HttpSession session,HttpServletRequest request) {
+		return service.dibsDel(session,request);
+	}
+	
+	
 	@RequestMapping("/product/productList")
 	public String productList(HttpServletRequest request,Model model) {
 		return service.productList(request,model);

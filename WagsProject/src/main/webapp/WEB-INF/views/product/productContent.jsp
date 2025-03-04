@@ -8,6 +8,23 @@
 <title>Insert title here</title>
 <style>
 
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+section {
+    width: 1150px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 section #menu {
 	width: 1100px;
 	height: 50px;
@@ -34,48 +51,77 @@ section #menu ul li {
 	line-height: 50px;
 }
 
-section #calendar {
-	border-spacing:0px;
-	border-collaps:collapse;
-}
-
-section #calendar #cal {
-	background:white;
-	border-spacing:0px;
-	width:1100px;
-	height:500px;
-}
-
-section #calendar #caption {
-	height:40px;
-}
-
 a {
 	text-decoration:none;
 	color:black;
 }
+
+input[type="button"] {
+	background: #FFE08C;
+    color: #CC723D;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+input[type="button"]:hover {
+    background: #0056b3;
+}
+
+.quantity {
+    width: 40px;
+    text-align: center;
+    border: none;
+    font-size: 16px;
+    background: transparent; /* 배경 투명 */
+}
+
+section #cartLayer {
+	position:absolute;
+	visibility:hidden;
+}
+
+section .number {
+	width:400px;
+	margin:auto; /* 중앙 정렬 */
+	border:1px solid red;
+}
+
 </style>
 <script>
+
+	// 수량 빼기
 	function minus(n) {
 		var quantity=document.getElementsByClassName("quantity")[n];
+		var optionPrice=document.getElementsByClassName("optionPrice")[n];
 		//alert(n+" "+quantity.value)
 		//alert(--quantity.value);
-		if(quantity.value > 1)
+		if(quantity.value > 0) {
 			quantity.value = --quantity.value;
+			optionPrice.textContent =  quantity.value * 20000;
+		}
 	}
 	
+	// 수량 더하기
 	function plus(n) {
 		var quantity=document.getElementsByClassName("quantity")[n];
+		var optionPrice=document.getElementsByClassName("optionPrice")[n];
+
 		quantity.value = ++quantity.value;
+		optionPrice.innerText = quantity.value * 20000;
 	}
 	
-	function addCart() {
+	// 장바구니에 상품 추가
+	function addCart() { 
 		var fireWood=document.getElementsByClassName("quantity")[0].value;
 		var grill=document.getElementsByClassName("quantity")[1].value;
 	
 		var chk=new XMLHttpRequest();
 		chk.onload=function() {
-			if(chk.responseText != "1") {
+			if(chk.responseText.trim() != "1") {
 				alert("오류")
 			} else {
 				// 장바구니 메시지 띄우기
@@ -91,6 +137,47 @@ a {
 		chk.open("GET","addCart?pcode=${pdto.pcode}&fireWood="+fireWood+"&grill="+grill);
 		chk.send();
 	}
+	
+	// 찜 안 됐을 때 클릭(찜 상태로 변경)
+	function dibsOk() {
+		// 로그인 상태
+		<c:if test="${userid != null}">
+				
+			var chk = new XMLHttpRequest();
+			chk.onload=function() {
+				if(chk.responseText == "0") {
+					location="../login/login";
+				} else {
+					document.getElementById("heart").src="../static/jjim2.png";
+					document.getElementById("heart").setAttribute("onclick","dibsDel()");
+				}
+			}
+			chk.open("GET","dibsOk?pcode=${pdto.pcode}");
+			chk.send();
+			
+		</c:if>
+
+		// 비로그인 상태
+		<c:if test="${userid == null}">
+			location="../login/login";
+		</c:if>
+	}
+	
+	// 찜 됐을 때 클릭(찜 안됐을 때로 변경)
+	function dibsDel() {
+		var chk= new XMLHttpRequest();
+		chk.onload=function() {
+			if(chk.responseText == "0") {
+				location="../login/login";
+			} else {
+				document.getElementById("heart").src="../static/jjim1.png";
+				document.getElementById("heart").setAttribute("onclick","dibsOk()");
+			}		
+		}
+		chk.open("GET","dibsDel?pcode=${pdto.pcode}");
+		chk.send();
+	}
+	
 </script>
 </head>
 <body>
@@ -103,27 +190,24 @@ a {
 		
 		<div id="first">
 			<div> 
-				<caption> <h3> 어반티지 글램핑 카라반 펜션 </h3> </caption>
+				<h3> ${pdto.title}
 					<c:if test="${ok == 0}">
-						<img src="../static/jjim1.png" id="heart" onclick="jjimOk()" valign="middle">
+						<img src="../static/jjim1.png" id="heart" onclick="dibsOk()" valign="middle">
 					</c:if>
 					<c:if test="${ok == 1}">
-						<img src="../static/jjim2.png" id="heart" onclick="jjimDel()" valign="middle">
+						<img src="../static/jjim2.png" id="heart" onclick="dibsDel()" valign="middle">
 					</c:if>
-				
+				</h3>
+				<div> ${pdto.price} 원 </div>
+				<div> 기준 : ${pdto.standard}인 (최대 ${pdto.max}인) --> </div>
 			</div>
-			<div> 방문자 리뷰 5,392 </div>
-			<div> 숲속의 마을 어빈티지 글램핑 펜션 </div>
-			
-		<div>
 			<tr>
 				<td> 거리뷰 </td>
 				<td> 공유 </td>
 			</tr>
-		</div>
 		
 		<div>
-			<input type="button" value="객실예약" onclick="location='../product/productList'">
+			<input type="button" value="객실예약" onclick="location='productList'">
 		</div>
 		
 	</div> <!-- first close -->
@@ -137,6 +221,7 @@ a {
 		</ul>
 	</div> <!-- menu close -->
 	
+	<form method="post" action="">
 	<div id="second">
 		<div>
 				<input type="button" value="일정선택 ▽" id="datepicker">
@@ -144,53 +229,37 @@ a {
 		
 		<div> <img src="../static/room.png"> </div> 
 		
-		<div>
-				<div> ${pdto.title} </div>
-				<div> ${pdto.price} 원 </div>
-		</div>
-		
-		<div>
-				<div> 기준 : ${pdto.standard}인 (최대 ${pdto.max}인) --> <!-- ${max} --> </div>
-		</div>
-		
 		<!-- 옵션 선택 -->
 		<div id="option">
 			<h2> 부가 서비스 선택 </h2>
-			<div> 픽업 </div>
-			<div> 장작 
-				<div id="number">
+			<div> 
+			<span> 장작 </span> 
+				<div class="number">
 					<img src="../static/minus.png" valign="middle" onclick="minus(0)">
 		          	<input type="text" name="quantity" value="0" class="quantity" readonly>
 		         	<img src="../static/plus.png" valign="middle" onclick="plus(0)">
-		         	<span> price </span>
+		         	가격(인당 20,000원) : <span class="optionPrice"> 0 </span> 원  
 				</div>
-			</div>
-			<div> 바베큐 그릴 서비스 
-				<div id="number">
+			
+			<span> 바베큐 그릴 서비스 </span> 
+				<div class="number">
 					<img src="../static/minus.png" valign="middle" onclick="minus(1)">
 		          	<input type="text" name="quantity" value="0" class="quantity" readonly>
 		         	<img src="../static/plus.png" valign="middle" onclick="plus(1)">
-					<span> price </span>							     		
+					가격(인당 20,000원) : <span class="optionPrice"> 0 </span> 원 					     		
 				</div>
 			</div>
 		</div>
 		
 		
 		<div>
-			<input type="button" value="장바구니 담기" onclick="addCart()"> 
-			<input type="button" value="예약" onclick="location='../product/reservation'"> <!-- 기간 보내기 -->
+			<input type="button" value="장바구니 담기" onclick="addCart()">  
+			<!-- 기간 + 기간에 따른 요금 + pcode + fireWood + grill -->
+				<input type="button" value="예약" onclick="location='reservation?pcode=${pdto.pcode}'"> 
 		</div>
 		
 	</div>	<!-- second close -->
-	
-	<div id="third"> <!-- reviw 읽어와서 출력 -->
-		
-	
-	</div>
-	
-	
-	
-	
+	</form> <!-- form close -->
 </section>
 
 <!-- <script>	

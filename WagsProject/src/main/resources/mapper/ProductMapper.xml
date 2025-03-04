@@ -27,8 +27,20 @@
 		where pcode=#{pcode}
 	</select>
 		
-	<!-- 내꺼 -->
+	<insert id="dibsOk">
+		insert into dibs(userid,pcode,writeday)
+		values(#{userid},#{pcode},now())
+	</insert>
 	
+	<delete id="dibsDel">
+		delete from dibs
+		where userid=#{userid} and pcode=#{pcode}
+	</delete>
+	
+	<select id="isDibs" resultType="Integer">
+		select count(*) from dibs
+		where userid=#{userid} and pcode=#{pcode}
+	</select>
 	
 <select id="productList" resultType="com.example.demo.dto.ProductDto">
 select * from product

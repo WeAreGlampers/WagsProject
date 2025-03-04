@@ -48,6 +48,7 @@ body {
 	line-height:40px;
 	text-align:center;
 	color:black;
+	
 }
 
 #outer #first #close {
@@ -69,7 +70,7 @@ body {
 
 header {
 	width: 1100px;
-	height: 70px;
+	height: 100px;
 	margin: auto;
 	background:white;
 	color:black;
@@ -85,7 +86,7 @@ nav {
 
 nav ul {
 	list-style:none; /* li 태그 맨 앞 점 지우기 */
-	margin: 0 15px;
+	margin: 0px;
 	padding: 0px;
 	display:flex; /* 가로 정렬 */
 	justify-content:space-around; /* 메뉴 항목 균등 정렬 */
@@ -94,25 +95,30 @@ nav ul {
 }
 
 nav ul li {
+	position:relative;
 	color:black;
 	text-decoration:none;  /* 링크 밑줄 지우기 */
 	font-size:14px;
 	font-weight:bold;
-	cursor:pointer; 
+	cursor:pointer;
+	padding:10px 15px;
 }
 
 nav .category .sub {
 	visibility:hidden;
+	position:absolute;
+	border:1px solid #ddd;
+	width:max-content;
+	min-width:120px;
 }
 
 nav .category .sub .li {
 	font-size:10px;
-	width:100px;
-	
 }
 
 #logo img {
 	width:250px;
+	height:100px;
 }
 
 footer {
@@ -123,6 +129,11 @@ footer {
 	display:flex;
 	justify-content:center;
 	align-items:center;
+}
+
+a {
+	text-decoration:none;
+	color:black;
 }
 </style>
 <script>
@@ -200,7 +211,7 @@ footer {
 				 </span>
 			</li>
 			
-			<!-- first -->
+			<!-- second -->
 			<li>
 				<span class="category" onmouseover="viewCategory(1)" onmouseout="hideCategory(1)"> ROOMS
 				  	<ul class="sub">
@@ -210,19 +221,9 @@ footer {
 				  </span>
 			</li>
 			
-			<!-- first -->
+			<!-- third -->
 			<li>
-				<span class="category" onmouseover="viewCategory(2)" onmouseout="hideCategory(2)"> RESERVATION
-					<ul class="sub">
-						<li> 예약 종합 안내 </li>
-						<li> 온라인 예약 </li>
-					</ul>				
-				</span>
-			</li>
-			
-			<!-- first -->
-			<li>
-				<span class="category" onmouseover="viewCategory(3)" onmouseout="hideCategory(3)"> SPECIALTY
+				<span class="category" onmouseover="viewCategory(2)" onmouseout="hideCategory(2)"> SPECIALTY
 					<ul class="sub">
 						<li> 글램핑 </li>
 						<li> 카라반 </li>
@@ -233,18 +234,9 @@ footer {
 				</span>
 			</li>
 			
-			<!-- first -->
+			<!-- fourth -->
 			<li>
-				<span class="category" onmouseover="viewCategory(4)" onmouseout="hideCategory(4)"> TOUR
-					<ul class="sub">
-						<li> 주변 여행지 정보를 알려드립니다. </li>
-					</ul>				
-				</span>
-			</li>
-			
-			<!-- first -->
-			<li>
-			<span class="category" onmouseover="viewCategory(5)" onmouseout="hideCategory(5)"> COMMUNITY TOUR
+			<span class="category" onmouseover="viewCategory(3)" onmouseout="hideCategory(3)"> COMMUNITY TOUR
 					<ul class="sub">
 						<li> 공지사항 </li>
 						<li> 이벤트 </li>

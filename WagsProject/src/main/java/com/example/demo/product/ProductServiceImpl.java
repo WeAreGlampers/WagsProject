@@ -21,11 +21,20 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 
 	public String productContent(HttpSession session, HttpServletRequest request, Model model) {
-		String pcode=request.getParameter("pcode");
-		ProductDto pdto = mapper.getRoom(pcode); // pcode에 대한 정보들
+		String userid=session.getAttribute("userid").toString();
+		String pcode = request.getParameter("pcode");
+		ProductDto pdto = mapper.getRoom(pcode); // pcode에 해당하는 상품의 정보들
 		
-		model.addAttribute("pdto",pdto);
+		int ok=0;
+		if(session.getAttribute("userid") != null) {
+			
+			ok=mapper.isDibs(userid,pcode);
+		}
+		model.addAttribute("ok",ok);
 		
+		
+		model.addAttribute("pdto", pdto);
+
 		return "/product/productContent";
 	}
 
@@ -34,15 +43,15 @@ public class ProductServiceImpl implements ProductService {
 		if (session.getAttribute("userid") == null) {
 			return "/login/login";
 		} else {
-			
+
 			// 값을 가져와서 CartDto 에 넣기
 			String userid = session.getAttribute("userid").toString();
 			cdto.setUserid(userid);
 
 			if (mapper.isCart(cdto))
-				
+
 				mapper.upCart(cdto);
-			
+
 			else
 				mapper.addCart(cdto);
 
@@ -51,6 +60,42 @@ public class ProductServiceImpl implements ProductService {
 
 	}
 
+	@Override
+	public String dibsOk(HttpSession session,HttpServletRequest request) {
+		if(session.getAttribute("userid") == null) {
+			return "0";
+		} else {
+			String userid= session.getAttribute("userid").toString();
+			String pcode= request.getParameter("pcode");
+			
+			mapper.dibsOk(userid,pcode);
+			
+			return "1";
+		}
+	}
+	
+	@Override
+	public String dibsDel(HttpSession session, HttpServletRequest request) {
+		if(session.getAttribute("userid") == null) {
+			return "0";
+		} else {
+			String userid=session.getAttribute("userid").toString();
+			String pcode=request.getParameter("pcode");
+			
+			mapper.dibsDel(userid,pcode);
+			
+			return "1";
+			
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	public String productList(HttpServletRequest request, Model model) {
 		ArrayList<ProductDto> plist;
 		if (request.getParameter("date") != null) {
@@ -81,5 +126,9 @@ public class ProductServiceImpl implements ProductService {
 		model.addAttribute("plist", plist);
 		return "/product/productList";
 	}
+
+
+
+	
 
 }
