@@ -14,4 +14,5 @@ public interface ProductService {
 	public String addCart(CartDto cdto, HttpServletRequest request, HttpSession session);
 	public String productList(HttpServletRequest request,Model model);
 	public String reservation(ReservationDto rdto,HttpSession session,Model model);
+	public String reservationOk(ReservationDto rdto,HttpSession session,Model model);
 }

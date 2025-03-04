@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import com.example.demo.dto.CartDto;
+import com.example.demo.dto.MemberDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -104,22 +105,48 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public String reservation(ReservationDto rdto, HttpSession session, Model model) {
+		if(session.getAttribute("userid")==null) {
+			return "redirect:/login/login";
+		}
+		else {
+			String userid=session.getAttribute("userid").toString();
+			MemberDto mdto=mapper.getMember(userid);
+			model.addAttribute("mdto",mdto);
+			rdto.setTitle("카라반1");
 		    rdto.setGrill(1);
 		    rdto.setFireWood(1);
-		    rdto.setTotalPrice(200000);
+		    rdto.setTotalPrice(240000);
 		    rdto.setInday("2025-02-27");
 		    rdto.setOutday("2025-03-01");
 		    rdto.setPcode("p0101");
-		    ProductDto pdto=mapper.getProduct(rdto.getPcode());
+		    rdto.setFireWoodPrice(20000);
+		    rdto.setGrillPrice(20000);
+		    rdto.setRoomPrice(200000);
 		    LocalDate inday=LocalDate.parse(rdto.getInday());
 		    LocalDate outday=LocalDate.parse(rdto.getOutday());
 		    model.addAttribute("day",ChronoUnit.DAYS.between(inday,outday));
 			model.addAttribute("rdto",rdto);
-			model.addAttribute("pdto",pdto);
-			model.addAttribute("grill",pdto.getGrill()*rdto.getGrill());
-			model.addAttribute("fireWood",pdto.getFireWood()*rdto.getFireWood());
 			return "/product/reservation";
-		
+		}
+	}
+
+	@Override
+	public String reservationOk(ReservationDto rdto, HttpSession session, Model model) {
+		if(session.getAttribute("userid")==null) {
+			return "redirect:/login/login";
+		}
+		else {
+			String userid=session.getAttribute("userid").toString();
+			rdto.setUserid(userid);
+			String today=LocalDate.now().toString().replace("-","");
+			String jumuncode="j"+today;
+			int num=mapper.getNumber(jumuncode);
+			jumuncode+=String.format("%03d", num);
+			rdto.setJumuncode(jumuncode);
+			mapper.reservationOk(rdto);
+			model.addAttribute("rdto",rdto);
+			return "/product/reservationOk";
+		}
 	}
 
 }

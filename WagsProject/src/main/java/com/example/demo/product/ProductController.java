@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import com.example.demo.dto.CartDto;
 import com.example.demo.dto.ReservationDto;
 
@@ -38,5 +40,8 @@ public class ProductController {
 	public String reservation(ReservationDto rdto,HttpSession session,Model model) {
 		return service.reservation(rdto, session, model);
 	}
-
+	@PostMapping("/product/reservationOk")
+	public String reservationOk(ReservationDto rdto,HttpSession session,Model model) {
+		return service.reservationOk(rdto, session, model);
+	}
 }
