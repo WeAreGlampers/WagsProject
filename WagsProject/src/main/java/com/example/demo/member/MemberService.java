@@ -31,4 +31,8 @@ public interface MemberService {
 
 	public String updatePhoneOk(HttpServletRequest request, HttpSession session);
 
+	public String updateEmailOk(HttpServletRequest request, HttpSession session);
+
+	public String reservationStatus(Model model, HttpSession session);
+
 }

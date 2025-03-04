@@ -56,9 +56,10 @@ section #pwd2Msg {
 }
 </style>
 <script>
-	var infoChk = 0;
+	var infoChk = 1;
 	var appr = 0;
 	function pwdChk1(pwd) {
+		var pwd2 = document.chgForm.pwd2.value;
 		var len = pwd.trim().length;
 		if ( len < 4 ) {
 			document.getElementById("pwd1Msg").style.visibility="visible";
@@ -79,6 +80,23 @@ section #pwd2Msg {
 					document.getElementById("pwd1Msg").innerText="";
 					appr = 1;
 				}
+				
+				if (appr==1) {
+					if(pwd == pwd2) {
+						document.getElementById("pwd2Msg").style.visibility="visible";
+						document.getElementById("pwd2Msg").innerText="비밀번호 일치";
+						document.getElementById("pwd2Msg").style.color="blue";
+						document.getElementById("pwd2Msg").style.fontSize="12px";
+						infoChk = 0;
+					} else {
+						document.getElementById("pwd2Msg").style.visibility="visible";
+						document.getElementById("pwd2Msg").innerText="비밀번호 불일치";
+						document.getElementById("pwd2Msg").style.color="red";
+						document.getElementById("pwd2Msg").style.fontSize="12px";
+						infoChk = 1;
+					}
+				}
+
 			}
 			chk.open("get","exisPwd?pwd="+pwd);
 			chk.send();
@@ -86,9 +104,9 @@ section #pwd2Msg {
 	}
 	
 	function pwdChk2(pwd2) {
-		var pwd1 = document.chgForm.pwd.value;
+		var pwd = document.chgForm.pwd.value;
 		if (appr==1) {
-			if(pwd1 == pwd2) {
+			if(pwd == pwd2) {
 				document.getElementById("pwd2Msg").style.visibility="visible";
 				document.getElementById("pwd2Msg").innerText="비밀번호 일치";
 				document.getElementById("pwd2Msg").style.color="blue";
@@ -104,7 +122,7 @@ section #pwd2Msg {
 		}
 	}
 	
-	function check() {
+	function check(form) {
 		if (infoChk == "1") {
 			alert("변경할 비밀번호를 확인해주세요.")
 			return false;	
@@ -121,7 +139,7 @@ section #pwd2Msg {
 			<h3 align="center">비밀번호 수정</h3>
 		</caption>
 		<div id="container">
-		<form name="chgForm" method="post" action="pwdUpdateOk" onsubmit="return check()">
+		<form name="chgForm" method="post" action="pwdUpdateOk" onsubmit="return check(this.form)">
 			<div class="oneLine">
 				<div class="leftDiv">이름</div>
 				<div class="rightDiv">${mdto.name}</div>

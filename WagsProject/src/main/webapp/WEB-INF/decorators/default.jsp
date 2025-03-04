@@ -61,7 +61,6 @@ body {
 
 #newSection {
 	width: 1100px;
-	height: 30px;
 	margin: auto;
 	text-align:right;
 	background:white;
@@ -124,6 +123,13 @@ footer {
 	justify-content:center;
 	align-items:center;
 }
+#privateMenu {
+	background:green;
+	height:30px;
+}
+#privateSub {
+
+}
 </style>
 <script>
 	
@@ -164,14 +170,15 @@ footer {
 		<!-- 비로그인 상태 -->
 		<c:if test="${userid == null}">
 			<a href="../login/login"> 로그인 </a>
-			<a href="../member/member"> 회원가입 </a>
+			<a href="../member/memberInput"> 회원가입 </a>
 		</c:if> 
 		
 		<!-- 로그인 상태 -->
 		<c:if test="${userid != null}">
 			<span id="privateMenu" onmouseover="viewPrivate()" onmouseout="hidePrivate()"> ${name} 님 
 				<ul id="privateSub">
-					<li> <a href="../member/memberInfo"> 마이페이지 </a></li>				
+					<li> <a href="../member/memberInfo"> 마이페이지 </a></li>
+					<li> <a href="../member/reservationStatus"> 예약현황 </a></li>				
 				</ul>
 			</span>		
 		

@@ -127,25 +127,63 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String updatePhone(Model model, HttpSession session) {
-		String userid=session.getAttribute("userid").toString();
-		MemberDto mdto = mapper.getMemInfo(userid);
-		model.addAttribute("mdto",mdto);
+		if(session.getAttribute("userid")==null) {
+			return "member/sessionOut";
+		} else {
+			String userid=session.getAttribute("userid").toString();
+			MemberDto mdto = mapper.getMemInfo(userid);
+			model.addAttribute("mdto",mdto);
+		}
 		
 		return "member/updatePhone";
 	}
 
 	@Override
 	public String updateEmail(Model model, HttpSession session) {
-		return "member/updateEmail";
+		if(session.getAttribute("userid")==null) {
+			return "member/sessionOut";
+		} else {
+			return "member/updateEmail";
+		}
+		
 	}
 
 	@Override
 	public String updatePhoneOk(HttpServletRequest request, HttpSession session) {
-		String userid=session.getAttribute("userid").toString();
-		String phone = request.getParameter("phone");
-		mapper.phoneUpdateOk(userid,phone);
-		return "1";
+		if (session.getAttribute("userid")==null) {
+			return "0";
+		} else {
+			String userid=session.getAttribute("userid").toString();
+			String phone = request.getParameter("phone");
+			//System.out.println(userid + " " + phone);
+			mapper.updatePhoneOk(userid,phone);
+			return "1";
+		}
 		
+	}
+
+	@Override
+	public String updateEmailOk(HttpServletRequest request, HttpSession session) {
+		if (session.getAttribute("userid")==null) {
+			return "0";
+		} else {
+			String userid = session.getAttribute("userid").toString();
+			String email = request.getParameter("email");
+			//System.out.println(userid + " " + email);
+			mapper.updateEmailOk(userid,email);
+			return "1";
+		}
+	}
+
+	@Override
+	public String reservationStatus(Model model, HttpSession session) {
+		if (session.getAttribute("userid")==null) {
+			return "login/login";
+		} else {
+			return "member/reservationStatus";
+		}
 	}	
+	
+	
 
 }

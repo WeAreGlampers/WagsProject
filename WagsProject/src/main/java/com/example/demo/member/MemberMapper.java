@@ -17,7 +17,9 @@ public interface MemberMapper {
 
 	public void pwdUpdateOk(MemberDto mdto);
 
-	public void phoneUpdateOk(String phone, String userid);
+	public void updatePhoneOk(String userid, String phone);
+
+	public void updateEmailOk(String userid, String email);
 	
 
 }

@@ -70,9 +70,20 @@ public class MemberController {
 		return service.updateEmail(model,session);
 	}
 	
-	@GetMapping("/member/phoneUpdateOk")
-	public @ResponseBody String phoneUpdateOk(HttpServletRequest request,
+	@GetMapping("/member/updatePhoneOk")
+	public @ResponseBody String updatePhoneOk(HttpServletRequest request,
 			HttpSession session) {
 		return service.updatePhoneOk(request,session);
+	}
+	
+	@GetMapping("/member/updateEmailOk")
+	public @ResponseBody String updateEmailOk(HttpServletRequest request,
+			HttpSession session) {
+		return service.updateEmailOk(request, session);
+	}
+	
+	@GetMapping("/member/reservationStatus")
+	public String reservationStatus(Model model, HttpSession session) {
+		return service.reservationStatus(model,session);
 	}
 }

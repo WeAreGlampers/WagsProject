@@ -29,9 +29,15 @@
    		pwd = #{pwd}
    		where userid = #{userid}
    	</update>
-   	<update id="phoneUpdateOk">
+   	<update id="updatePhoneOk">
    		update member set
    		phone = #{phone}
+   		where userid = #{userid}
+   	</update>
+   	
+   		<update id="updateEmailOk">
+   		update member set
+   		email = #{email}
    		where userid = #{userid}
    	</update>
    </mapper> 

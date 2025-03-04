@@ -94,7 +94,7 @@ section #cform {
 			<div class="oneLine">
 				<div class="leftDiv">전화번호</div>
 				<div class="rightDiv">
-					${mdto.phone}
+					<span id="phone">${mdto.phone}</span>
 					<input type="button" value="수정" onclick="updatePhone()">
 				</div>
 			</div>
@@ -102,14 +102,14 @@ section #cform {
 			<div class="oneLine">
 				<div class="leftDiv">이메일</div>
 				<div class="rightDiv">
-					${mdto.email}
+					<sapn id="email">${mdto.email}</sapn>
 					<input type="button" value="수정" onclick="updateEmail()">
 				</div>
 			</div>
 
 			<div class="oneLine">
 				<div class="leftDiv">회원가입일</div>
-				<div class="rightDiv">${mdto.writeday}</div>
+				<div class="rightDiv" id>${mdto.writeday}</div>
 			</div>
 
 			<div class="oneLine">
