@@ -1,5 +1,8 @@
 package com.example.demo.product;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,6 +36,7 @@ public class ProductServiceImpl implements ProductService {
 		model.addAttribute("ok",ok);
 		
 		
+		
 		model.addAttribute("pdto", pdto);
 
 		return "/product/productContent";
@@ -41,13 +45,34 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public String addCart(CartDto cdto, HttpServletRequest request, HttpSession session) {
 		if (session.getAttribute("userid") == null) {
-			return "/login/login";
+			return "redirect:/login/login";
 		} else {
 
 			// 값을 가져와서 CartDto 에 넣기
 			String userid = session.getAttribute("userid").toString();
 			cdto.setUserid(userid);
-
+			
+			String date = request.getParameter("date");
+			String[] dates = date.split("-");
+			String inday = dates[0] + "-" + dates[1] + "-" + dates[2];
+			cdto.setInday(inday);
+			String outday = dates[3].trim() + "-" + dates[4] + "-" + dates[5];
+			cdto.setOutday(outday);
+			
+			// 옵션 가격
+			int optionPrice = ( cdto.getFireWood() * cdto.getFireWoodPrice() ) + ( cdto.getGrill() * cdto.getGrillPrice() );
+			
+			// 숙박 기간 계산
+			LocalDate inday1=LocalDate.parse(cdto.getInday());
+			LocalDate outday1=LocalDate.parse(cdto.getOutday());
+			long stay=ChronoUnit.DAYS.between(inday1, outday1);
+			
+			// 방 가격
+			long roomPrice = cdto.getRoomPrice() * stay;
+			
+			// 총가격
+			long totalPrice = roomPrice + optionPrice;
+			
 			if (mapper.isCart(cdto))
 
 				mapper.upCart(cdto);
@@ -92,10 +117,6 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	
-	
-	
-	
-	
 	public String productList(HttpServletRequest request, Model model) {
 		ArrayList<ProductDto> plist;
 		if (request.getParameter("date") != null) {
@@ -126,6 +147,10 @@ public class ProductServiceImpl implements ProductService {
 		model.addAttribute("plist", plist);
 		return "/product/productList";
 	}
+
+	
+
+	
 
 
 

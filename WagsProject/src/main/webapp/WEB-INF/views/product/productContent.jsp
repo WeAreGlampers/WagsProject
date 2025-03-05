@@ -71,6 +71,21 @@ input[type="button"]:hover {
     background: #0056b3;
 }
 
+input[type="submit"] {
+	background: #FFE08C;
+    color: #CC723D;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+input[type="submit"]:hover {
+    background: #0056b3;
+}
+
 .quantity {
     width: 40px;
     text-align: center;
@@ -116,9 +131,18 @@ section .number {
 	
 	// 장바구니에 상품 추가
 	function addCart() { 
+		// 수량
 		var fireWood=document.getElementsByClassName("quantity")[0].value;
 		var grill=document.getElementsByClassName("quantity")[1].value;
-	
+		// 가격
+		var fireWoodPrice= document.getElementById("fireWoodPrice").innerText;
+		var grillPrice= document.getElementById("grillPrice").innerText;
+		// 제목, 숙박기간, 방가격
+		var title=document.getElementById("title").innerText;
+		var date=document.getElementById("datepicker").value;
+		var roomPrice=document.getElementById("roomPrice").innerText;
+		
+		
 		var chk=new XMLHttpRequest();
 		chk.onload=function() {
 			if(chk.responseText.trim() != "1") {
@@ -134,7 +158,7 @@ section .number {
 				},3000);
 			}
 		}
-		chk.open("GET","addCart?pcode=${pdto.pcode}&fireWood="+fireWood+"&grill="+grill);
+		chk.open("GET","addCart?pcode=${pdto.pcode}&fireWood="+fireWood+"&grill="+grill+"&fireWoodPrice="+fireWoodPrice+"&grillPrice="+grillPrice+"&title="+title+"&date="+date+"&roomPrice="+roomPrice); 
 		chk.send();
 	}
 	
@@ -178,11 +202,27 @@ section .number {
 		chk.send();
 	}
 	
+	function reservationChk() {
+		var date=document.getElementById("datepicker").value;
+		
+		if(date == "일정선택 ▽") {
+			alert("날짜를 선택해주세요!");
+			return false;
+		} else {
+			return true;
+		}
+		
+	}
+	
 </script>
 </head>
 <body>
 <section>
 	<div></div> <!-- 그림 -->
+	<form method="post" action="reservation" onsubmit="return reservationChk()">
+	<input type="text" name="pcode" value="${pdto.pcode}">
+	<input type="text" name="title" value="${pdto.title}">
+	<input type="text" name="roomPrice" value="${pdto.price}">
 		<div id="cartLayer">
 			현재 상품을 장바구니에 담았습니다. <p>
 			<input type="button" value="장바구니로 이동" onclick="location='../member/cartView'">
@@ -190,7 +230,7 @@ section .number {
 		
 		<div id="first">
 			<div> 
-				<h3> ${pdto.title}
+				<h3> <span id="title"> ${pdto.title} </span> 
 					<c:if test="${ok == 0}">
 						<img src="../static/jjim1.png" id="heart" onclick="dibsOk()" valign="middle">
 					</c:if>
@@ -198,7 +238,7 @@ section .number {
 						<img src="../static/jjim2.png" id="heart" onclick="dibsDel()" valign="middle">
 					</c:if>
 				</h3>
-				<div> ${pdto.price} 원 </div>
+				<div id="roomPrice"> ${pdto.price} 원 </div>
 				<div> 기준 : ${pdto.standard}인 (최대 ${pdto.max}인) --> </div>
 			</div>
 			<tr>
@@ -221,10 +261,10 @@ section .number {
 		</ul>
 	</div> <!-- menu close -->
 	
-	<form method="post" action="">
+
 	<div id="second">
 		<div>
-				<input type="button" value="일정선택 ▽" id="datepicker">
+				<input type="button" name="inday" value="일정선택 ▽" id="datepicker">
 		</div>
 		
 		<div> <img src="../static/room.png"> </div> 
@@ -236,17 +276,17 @@ section .number {
 			<span> 장작 </span> 
 				<div class="number">
 					<img src="../static/minus.png" valign="middle" onclick="minus(0)">
-		          	<input type="text" name="quantity" value="0" class="quantity" readonly>
+		          	<input type="text" name="fireWood" value="0" class="quantity" readonly>
 		         	<img src="../static/plus.png" valign="middle" onclick="plus(0)">
-		         	가격(인당 20,000원) : <span class="optionPrice"> 0 </span> 원  
+		         	가격(인당 20,000원) : <span class="optionPrice" name="fireWoodPrice" id="fireWoodPrice"> 0 </span> 원  
 				</div>
 			
 			<span> 바베큐 그릴 서비스 </span> 
 				<div class="number">
 					<img src="../static/minus.png" valign="middle" onclick="minus(1)">
-		          	<input type="text" name="quantity" value="0" class="quantity" readonly>
+		          	<input type="text" name="grill" value="0" class="quantity" readonly>
 		         	<img src="../static/plus.png" valign="middle" onclick="plus(1)">
-					가격(인당 20,000원) : <span class="optionPrice"> 0 </span> 원 					     		
+					가격(인당 20,000원) : <span class="optionPrice" name="grillPrice" id="grillPrice"> 0 </span> 원 					     		
 				</div>
 			</div>
 		</div>
@@ -255,7 +295,7 @@ section .number {
 		<div>
 			<input type="button" value="장바구니 담기" onclick="addCart()">  
 			<!-- 기간 + 기간에 따른 요금 + pcode + fireWood + grill -->
-				<input type="button" value="예약" onclick="location='reservation?pcode=${pdto.pcode}'"> 
+				<input type="submit" value="예약"> 
 		</div>
 		
 	</div>	<!-- second close -->

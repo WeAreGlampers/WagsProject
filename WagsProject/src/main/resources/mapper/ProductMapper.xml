@@ -5,10 +5,8 @@
 <mapper namespace="com.example.demo.product.ProductMapper">
 	
 	<insert id="addCart" parameterType="com.example.demo.dto.CartDto">
-		<!-- insert into(userid,pcode,writeday,fireWood,grill)
-		values(#{userid},#{pcode},now(),#{fireWood},#{grill}) -->
-		insert into cart(pcode,writeday,fireWood,grill,userid)
-		values(#{pcode},now(),#{fireWood},#{grill},#{userid})
+		insert into cart(pcode,writeday,fireWood,grill,userid,fireWoodPrice,grillPrice,inday,outday,title)
+		values(#{pcode},now(),#{fireWood},#{grill},#{userid},#{fireWoodPrice},#{grillPrice},#{inday},#{outday},#{title})
 	</insert>
 	
 	<select id="isCart" resultType="Boolean">

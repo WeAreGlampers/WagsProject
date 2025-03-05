@@ -19,142 +19,141 @@
 body {
 	font-family: 'GongGothicMedium';
 	margin: 0px;
-	padding:0px;
-	background-color:white;
-	text-align:center;
+	padding: 0px;
+	background-color: white;
+	text-align: center;
 }
 
 #outer {
-	width:100%;
-	height:40px;
-	background:red;
+	width: 100%;
+	height: 40px;
+	background: red;
 }
 
 #outer #X {
-	cursor:pointer;
+	cursor: pointer;
 }
 
 #outer #first {
 	width: 1100px;
 	height: 40px;
 	margin: auto;
-	background:white;
+	background: white;
 }
 
 #outer #first #greet {
-	display:inline-block;
-	width:1000px;
-	height:40px;
-	line-height:40px;
-	text-align:center;
-	color:black;
-	
+	display: inline-block;
+	width: 1000px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	color: black;
 }
 
 #outer #first #close {
-	display:inline-block;
-	width:80px;
-	height:40px;
-	line-height:40px;
-	text-align:right;
-	color:black;
+	display: inline-block;
+	width: 80px;
+	height: 40px;
+	line-height: 40px;
+	text-align: right;
+	color: black;
 }
 
 #newSection {
 	width: 1100px;
 	height: 30px;
 	margin: auto;
-	text-align:right;
-	background:white;
+	text-align: right;
+	background: white;
 }
+
 
 header {
 	width: 1100px;
 	height: 100px;
 	margin: auto;
-	background:white;
-	color:black;
+	background: white;
+	color: black;
 }
 
 nav {
 	width: 1100px;
 	height: 80px;
 	margin: auto;
-	position:relative;
-	background:white;
+	position: relative;
+	background: white;
 }
 
 nav ul {
-	list-style:none; /* li 태그 맨 앞 점 지우기 */
+	list-style: none; /* li 태그 맨 앞 점 지우기 */
 	margin: 0px;
 	padding: 0px;
-	display:flex; /* 가로 정렬 */
-	justify-content:space-around; /* 메뉴 항목 균등 정렬 */
-	align-items:center; /* 수직 가운데 정렬 */ 
-	height:100%;
+	display: flex; /* 가로 정렬 */
+	justify-content: space-around; /* 메뉴 항목 균등 정렬 */
+	align-items: center; /* 수직 가운데 정렬 */
+	height: 100%;
 }
 
 nav ul li {
-	position:relative;
-	color:black;
-	text-decoration:none;  /* 링크 밑줄 지우기 */
-	font-size:14px;
-	font-weight:bold;
-	cursor:pointer;
-	padding:10px 15px;
+	position: relative;
+	color: black;
+	text-decoration: none; /* 링크 밑줄 지우기 */
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+	padding: 10px 15px;
 }
 
 nav .category .sub {
-	visibility:hidden;
-	position:absolute;
-	border:1px solid #ddd;
-	width:max-content;
-	min-width:120px;
+	visibility: hidden;
+	position: absolute;
+	width: max-content;
+	min-width: 120px;
 }
 
 nav .category .sub .li {
-	font-size:10px;
+	font-size: 10px;
 }
 
 #logo img {
-	width:250px;
-	height:100px;
+	width: 250px;
+	height: 100px;
 }
 
 footer {
 	width: 100%;
 	height: 150px;
 	background: black;
-	color:white;
-	display:flex;
-	justify-content:center;
-	align-items:center;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 a {
-	text-decoration:none;
-	color:black;
+	text-decoration: none;
+	color: black;
 }
+
+
 </style>
 <script>
-	
 	// 회원전용 메뉴 보였다 숨기기
 	function viewPrivate() {
-		document.getElementById("privateSub").style.visibility="visible";
+		document.getElementById("privateSub").style.visibility = "visible";
 	}
 	function hidePrivate() {
-		document.getElementById("privateSub").style.visibility="hidden";		
+		document.getElementById("privateSub").style.visibility = "hidden";
 	}
-	
+
 	// 카테고리 보였다 숨기기
 	function viewCategory(n) {
-		document.getElementsByClassName("sub")[n].style.visibility="visible";
+		document.getElementsByClassName("sub")[n].style.visibility = "visible";
 	}
-	
+
 	function hideCategory(n) {
-		document.getElementsByClassName("sub")[n].style.visibility="hidden";
+		document.getElementsByClassName("sub")[n].style.visibility = "hidden";
 	}
-	
 </script>
 
 

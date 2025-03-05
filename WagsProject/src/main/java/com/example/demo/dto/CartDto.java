@@ -1,9 +1,12 @@
 package com.example.demo.dto;
 
+import java.sql.Date;
+
 import lombok.Data;
 
 @Data
 public class CartDto {
-	private int id,fireWood,grill;
-	private String userid, pcode,writeday;
+	private int id,fireWood,grill,fireWoodPrice,grillPrice,roomPrice;
+	private String userid, pcode,writeday,inday,outday,title;
+		
 }

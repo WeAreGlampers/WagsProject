@@ -13,6 +13,8 @@ public interface ProductMapper {
 	public void dibsOk(String userid,String pcode);
 	public void dibsDel(String userid,String pcode);
 	public int isDibs(String userid,String pcode);
+	public String getCart();
+	
 	
 	public ArrayList<ProductDto> productList();
 	public boolean isCheck(String outday,String pcode);

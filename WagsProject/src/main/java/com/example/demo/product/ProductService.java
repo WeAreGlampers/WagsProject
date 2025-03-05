@@ -14,7 +14,6 @@ public interface ProductService {
 	public String addCart(CartDto cdto, HttpServletRequest request, HttpSession session);
 	public String dibsOk(HttpSession session,HttpServletRequest request);
 	public @ResponseBody String dibsDel(HttpSession session,HttpServletRequest request); 
-	
 	public String productList(HttpServletRequest request,Model model);
-
+	
 }
