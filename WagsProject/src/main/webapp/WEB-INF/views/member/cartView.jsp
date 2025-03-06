@@ -7,21 +7,44 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-latest.js"></script>
 <script>
+function allCheck(my) {
+	var subChk = document.getElementsByClassName("subChk");
+	if (my.checked) {
+		for (i = 0; i < subChk.length; i++) {
+			subChk[i].checked = true;
+		}
+	} else {
+		for (i = 0; i < subChk.length; i++) {
+			subChk[i].checked = false;
+		}
+	}
+}
+function subCheck() {
+	var subChk = document.getElementsByClassName("subChk");
+	var chkNum = 0;
+	for ( i = 0; i < subChk.length; i++) {
+		if (subChk[i].checked) {
+			chkNum++;
+		}
+	}
+	
+	if(subChk.length == chkNum) {
+		document.getElementById("allChk").checked=true;
+	} else {
+		document.getElementById("allChk").checked=false;
+	}
+}
 
-	var chk = $('#allChk').is(':checked');
-	if(chk) {
-		$('input[id=subChk]').prop('checked', true);
-	};
+	
 </script>
 </head>
 <body>  <!-- /member/cartView.jsp -->
-<input type="checkbox" id="allChk">
-<input type="button" onclick="reservation()">
+<input type="checkbox" id="allChk" onclick="allCheck(this)">
+<input type="button" onclick="reservation()" value="선택예약">
 <c:forEach items="${cartMap}" var="map">
 	<div>
-		<input type="checkbox" name="subChk" onclick="subChk()">
+		<input type="checkbox" name="subChk" class="subChk" onclick="subCheck()">
 		<div>${map.title}</div>
 		<div>${map.pimg}</div>
 		<div>${map.inday} ~ ${map.outday}</div>
