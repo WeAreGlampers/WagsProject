@@ -35,4 +35,6 @@ public interface MemberService {
 
 	public String reservationStatus(Model model, HttpSession session);
 
+	public String cartView(HttpSession session, Model model);
+
 }

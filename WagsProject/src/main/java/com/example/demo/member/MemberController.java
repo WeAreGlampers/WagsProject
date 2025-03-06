@@ -86,4 +86,8 @@ public class MemberController {
 	public String reservationStatus(Model model, HttpSession session) {
 		return service.reservationStatus(model,session);
 	}
+	@GetMapping("/member/cartView")
+	public String cartView(HttpSession session, Model model) {
+		return service.cartView(session,model);
+	}
 }

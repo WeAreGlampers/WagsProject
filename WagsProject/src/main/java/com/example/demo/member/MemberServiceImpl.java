@@ -2,6 +2,8 @@ package com.example.demo.member;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -181,6 +183,18 @@ public class MemberServiceImpl implements MemberService {
 			return "login/login";
 		} else {
 			return "member/reservationStatus";
+		}
+	}
+
+	@Override
+	public String cartView(HttpSession session, Model model) {
+		if (session.getAttribute("userid")==null) {
+			return "/login/login";
+		} else {
+			String userid = session.getAttribute("userid").toString();
+			ArrayList<HashMap> cartMap = mapper.cartView(userid);
+			model.addAttribute("cartMap",cartMap);
+			return "/member/cartView";
 		}
 	}	
 	

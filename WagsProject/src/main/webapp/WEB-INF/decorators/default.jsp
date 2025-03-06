@@ -178,7 +178,8 @@ footer {
 			<span id="privateMenu" onmouseover="viewPrivate()" onmouseout="hidePrivate()"> ${name} 님 
 				<ul id="privateSub">
 					<li> <a href="../member/memberInfo"> 마이페이지 </a></li>
-					<li> <a href="../member/reservationStatus"> 예약현황 </a></li>				
+					<li> <a href="../member/cartView"> 장바구니 </a></li>
+					<li> <a href="../member/reservationStatus"> 예약현황 </a></li>						
 				</ul>
 			</span>		
 		

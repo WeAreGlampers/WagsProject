@@ -1,5 +1,8 @@
 package com.example.demo.member;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.dto.MemberDto;
@@ -20,6 +23,8 @@ public interface MemberMapper {
 	public void updatePhoneOk(String userid, String phone);
 
 	public void updateEmailOk(String userid, String email);
+
+	public ArrayList<HashMap> cartView(String userid);
 	
 
 }
