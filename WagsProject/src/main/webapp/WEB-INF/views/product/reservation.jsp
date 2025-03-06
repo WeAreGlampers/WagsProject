@@ -139,7 +139,7 @@ function calSave(my){
 		alert("숫자를 입력하세요");
 		my.value="0";
 		document.getElementById("save").innerText=comma(mySave);
-		document.getElementById("totalPriceAll").innerText=comma(${rdto.totalPrice})+"원";
+		document.getElementById("totalPriceAll").innerText=comma(${totalPriceAll})+"원";
 	}
 	else{
 		if(my.value>mySave){
@@ -148,7 +148,7 @@ function calSave(my){
 		else{
 			var result=mySave-parseInt(my.value);
 			document.getElementById("save").innerText=comma(result);
-			document.getElementById("totalPriceAll").innerText=comma(${rdto.totalPrice}-my.value)+"원";
+			document.getElementById("totalPriceAll").innerText=comma(${totalPriceAll}-my.value)+"원";
 		}
 		
 	}
@@ -196,44 +196,45 @@ window.onpageshow=function(){
 <body>
 <section>
  <form method="post" action="reservationOk">
- <input type="hidden" name="pcode" value="${rdto.pcode}">
- <input type="hidden" name="inday" value="${rdto.inday}">
- <input type="hidden" name="outday" value="${rdto.outday}">
- <input type="hidden" name="fireWood" value="${rdto.fireWood}">
- <input type="hidden" name="grill" value="${rdto.grill}"> 
- <input type="hidden" name="fireWoodPrice" value="${rdto.fireWoodPrice}">
- <input type="hidden" name="grillPrice" value="${rdto.grillPrice}"> 
- <input type="hidden" name="totalPrice" value="${rdto.totalPrice}">
- <input type="hidden" name="roomPrice" value="${rdto.roomPrice}">
+ <b>아래내용이 맞는지 확인해주세요</b>
+ <c:forEach items="${clist}" var="cdto" varStatus="sts">
+ <input type="hidden" name="pcode" value="${cdto.pcode}">
+ <input type="hidden" name="inday" value="${cdto.inday}">
+ <input type="hidden" name="outday" value="${cdto.outday}">
+ <input type="hidden" name="fireWood" value="${cdto.fireWood}">
+ <input type="hidden" name="grill" value="${cdto.grill}"> 
+ <input type="hidden" name="fireWoodPrice" value="${cdto.fireWoodPrice}">
+ <input type="hidden" name="grillPrice" value="${cdto.grillPrice}"> 
+ <input type="hidden" name="totalPrice" value="${cdto.totalPrice}">
+ <input type="hidden" name="roomPrice" value="${cdto.roomPrice}">
   <div class="check">
-    <b>아래내용이 맞는지 확인해주세요</b>
 	<div id="content">
-		<input type="text" id="title" name="title" value="${rdto.title}" readonly>
+		<input type="text" id="title" name="title" value="${cdto.title}" readonly>
 		<div id="date">
-			일정 ${rdto.inday} ~ ${rdto.outday} ( ${day}박 ${day+1}일 )
+			일정 ${cdto.inday} ~ ${cdto.outday} ( ${days[sts.index]}박 ${days[sts.index]+1}일 )
 		</div> 
 	</div>
 	<div id="price">  
 	  <div id="price2">
-		<div id="left">${rdto.title}</div>
-		<div id="right"><fmt:formatNumber value="${rdto.roomPrice}" type="number" pattern="#,###"/>원</div>
+		<div id="left">${cdto.title}</div>
+		<div id="right"><fmt:formatNumber value="${cdto.roomPrice}" type="number" pattern="#,###"/>원</div>
 	  </div>
-		<c:if test="${rdto.fireWood>0 || rdto.grill>0}">
+		<c:if test="${cdto.fireWood>0 || cdto.grill>0}">
 			<hr>
 			<div id="price2">옵션</div>
-			<c:if test="${rdto.fireWood>0}">
+			<c:if test="${cdto.fireWood>0}">
 			  <div id="price2">
-				<div id="left">장작 ${rdto.fireWood}</div>
+				<div id="left">장작 ${cdto.fireWood}</div>
 				<div id="right">
-					<fmt:formatNumber value="${rdto.fireWoodPrice}" type="number" pattern="#,###"/>원
+					<fmt:formatNumber value="${cdto.fireWoodPrice}" type="number" pattern="#,###"/>원
 				</div>
 			  </div>
 			</c:if>
-			<c:if test="${rdto.grill>0}">
+			<c:if test="${cdto.grill>0}">
 			  <div id="price2">	
-				<div id="left">바베큐 ${rdto.grill}</div>
+				<div id="left">바베큐 ${cdto.grill}</div>
 				<div id="right">
-					<fmt:formatNumber value="${rdto.grillPrice}" type="number" pattern="#,###"/>원
+					<fmt:formatNumber value="${cdto.grillPrice}" type="number" pattern="#,###"/>원
 				</div>
 			  </div>
 			</c:if>
@@ -242,11 +243,12 @@ window.onpageshow=function(){
 		<div id="price3">
 		  <div id="left">결제금액</div>
 		  <div id="totalPrice">
-			<fmt:formatNumber value="${rdto.totalPrice}" type="number" pattern="#,###"/>원
+			<fmt:formatNumber value="${cdto.totalPrice}" type="number" pattern="#,###"/>원
 		  </div>
 		</div>
 	</div>
   </div>
+  </c:forEach>
   <div class="check">
       <div id="title2">예약자 정보</div>
       <div id="member">
@@ -273,7 +275,7 @@ window.onpageshow=function(){
     <div id="pay1">
       <div id="left2">총결제금액</div>
       <div id="totalPriceAll">
-        <fmt:formatNumber value="${rdto.totalPrice}" type="number" pattern="#,###"/>원
+        <fmt:formatNumber value="${totalPriceAll}" type="number" pattern="#,###"/>원
       </div>
     </div>
     <hr>

@@ -37,11 +37,11 @@ public class ProductController {
 		return service.productList(request,model);
 	}
 	@RequestMapping("/product/reservation")
-	public String reservation(ReservationDto rdto,HttpSession session,Model model) {
-		return service.reservation(rdto, session, model);
+	public String reservation(HttpSession session,Model model,HttpServletRequest request) {
+		return service.reservation(session, model,request);
 	}
 	@PostMapping("/product/reservationOk")
-	public String reservationOk(ReservationDto rdto,HttpSession session,Model model) {
-		return service.reservationOk(rdto, session, model);
+	public String reservationOk(HttpSession session,Model model,HttpServletRequest request) {
+		return service.reservationOk(session, model,request);
 	}
 }

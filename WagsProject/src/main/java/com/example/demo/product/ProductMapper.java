@@ -18,4 +18,6 @@ public interface ProductMapper {
 	public MemberDto getMember(String userid);
 	public int getNumber(String jumuncode);
 	public void reservationOk(ReservationDto rdto);
+	public void setSave(String userid,int useSave,int addSave);
+	public int getSave(String pcode);
  }
