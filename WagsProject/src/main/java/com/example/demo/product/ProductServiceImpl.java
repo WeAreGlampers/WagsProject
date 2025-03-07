@@ -209,23 +209,24 @@ public class ProductServiceImpl implements ProductService {
 			
 				int roomPrice=Integer.parseInt(request.getParameter("roomPrice"));
 				String date=request.getParameter("inday");
-				String[] dates=date.split("-");
+				String[] dates=date.replace(" ","").split("-");
 				String inday=dates[0]+"-"+dates[1]+"-"+dates[2];
 				String outday=dates[3].trim()+"-"+dates[4]+"-"+dates[5];
 				LocalDate inday1=LocalDate.parse(inday);
 			    LocalDate outday1=LocalDate.parse(outday);
 			    long day=ChronoUnit.DAYS.between(inday1,outday1);
 			    days[0]=day;
-				roomPrice=roomPrice*(int)day;
-			    totalPriceAll=roomPrice+Integer.parseInt(fireWoodPrices[0])+Integer.parseInt(grillPrices[0]); 
+				roomPrice=roomPrice*(int)day; 
 			    CartDto cdto=new CartDto();
 				cdto.setPcode(pcodes[0]);
 				cdto.setTitle(titles[0]);
 				cdto.setGrill(Integer.parseInt(grills[0]));
 				cdto.setFireWood(Integer.parseInt(fireWoods[0]));
+				System.out.println(grillPrices[0]);
 				cdto.setGrillPrice(Integer.parseInt(grillPrices[0]));
 				cdto.setFireWoodPrice(Integer.parseInt(fireWoodPrices[0]));
 				cdto.setRoomPrice(roomPrice);
+				totalPriceAll=roomPrice+cdto.getFireWoodPrice()+cdto.getGrillPrice();
 				cdto.setTotalPrice(totalPriceAll);
 				cdto.setInday(inday);
 				cdto.setOutday(outday);
