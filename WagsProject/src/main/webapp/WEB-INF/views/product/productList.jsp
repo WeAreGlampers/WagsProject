@@ -13,12 +13,12 @@ section{
   margin:auto;
   position:relative;
 }
-#first{
+#firs{
   width:1100px;
   height:30px;
   text-align:center;
 }
-#outer{
+#fouter{
   border:1px solid black;
   border-radius:3px;
   width:500px;
@@ -175,8 +175,8 @@ window.onload=function(){
 <section>
   <div id="cal">
   </div>
-  <div id="first">
-    <div id="outer">
+  <div id="firs">
+    <div id="fouter">
       <div id="left">
         <input type="text" id="datepicker" readonly value="일정선택                                    ∨"> 
         <input type="hidden" id="inday">
