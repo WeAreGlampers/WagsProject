@@ -50,6 +50,7 @@ function reserve() {
 	
 	alert(document.getElementsByClassName("title")[0].innerText);
 	
+	
 }
 	
 </script>
@@ -61,8 +62,8 @@ function reserve() {
 	<div>
 		<input type="checkbox" name="subChk" class="subChk" onclick="subCheck()">
 		<div class="title">${map.title}</div>
-		<div>${map.pimg}</div>
-		<div>${map.inday} ~ ${map.outday}</div>
+		<div class="pimg">${map.pimg}</div>
+		<div><span>${map.inday}</span> ~ <span>${map.outday}</span></div>
 		<div>장작${map.fireWood} | ${map.fireWoodPrice}원</div>
 		<div>바베큐${map.grill} | ${map.grillPrice}원</div>
 		<div>기준 ${map.standard}명 / 최대 ${map.max}명 </div>

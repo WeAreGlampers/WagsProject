@@ -63,21 +63,21 @@ public class ProductServiceImpl implements ProductService {
 			System.out.println(date);
 			
 			// 옵션 가격
-			int optionPrice = ( cdto.getFireWood() * cdto.getFireWoodPrice() ) + ( cdto.getGrill() * cdto.getGrillPrice() );
-			
+			int optionPrice = (cdto.getFireWoodPrice()) + (cdto.getGrillPrice());
 			// 숙박 기간 계산
 			LocalDate inday1=LocalDate.parse(cdto.getInday());
 			LocalDate outday1=LocalDate.parse(cdto.getOutday());
 			long stay=ChronoUnit.DAYS.between(inday1, outday1);
-			System.out.println(cdto.getInday());
-			System.out.println(cdto.getOutday());
+			//System.out.println(cdto.getInday());
+			//System.out.println(cdto.getOutday());
 			// 방 가격
-			long roomPrice = cdto.getRoomPrice() * stay;
-			cdto.setRoomPrice(optionPrice);
+			int roomPrice =  cdto.getRoomPrice() * (int)stay;
+			
+			cdto.setRoomPrice(roomPrice);
 			System.out.println(cdto.getRoomPrice());
 			// 총가격
-			long totalPrice = roomPrice + optionPrice;
-			cdto.setTotalPrice(optionPrice);
+			int totalPrice = roomPrice + optionPrice;
+			cdto.setTotalPrice(totalPrice);
 			System.out.println(cdto.getTotalPrice());
 			
 			if (mapper.isCart(cdto))

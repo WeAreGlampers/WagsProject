@@ -204,11 +204,16 @@ section .number {
 	}
 	
 	function reservationChk() {
+		var fireWoodPrice1 = document.getElementById("fireWoodPrice").value;
+		var grillPrice1 = document.getElementById("fireWoodPrice").value;
+		document.rform.fireWoodPrice.value = fireWoodPrice1;
+		document.rform.grillPrice.value = grillPrice1;
 		
 		if(document.getElementById("datepicker").value == "일정선택 ▽") {
 			alert("날짜를 선택해주세요!");
 			return false;
 		} else {
+			alert(document.rform.inday.value);
 			return true;
 		}
 		
@@ -219,11 +224,13 @@ section .number {
 <body>
 <section>
 	<div></div> <!-- 그림 -->
-	<form method="post" action="reservation" onsubmit="return reservationChk()">
+	<form name="rform" method="post" action="reservation" onsubmit="return reservationChk()">
 	<input type="hidden" name="chk" value="1">
 	<input type="hidden" name="pcode" value="${pdto.pcode}">
 	<input type="hidden" name="title" value="${pdto.title}">
 	<input type="hidden" name="roomPrice" value="${pdto.price}">
+	<input type="hidden" name="fireWoodPrice">
+	<input type="hidden" name="grillPrice">
 		<div id="cartLayer">
 			현재 상품을 장바구니에 담았습니다. <p>
 			<input type="button" value="장바구니로 이동" onclick="location='../member/cartView'">

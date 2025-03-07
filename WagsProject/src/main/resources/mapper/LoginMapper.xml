@@ -24,7 +24,5 @@
    		where userid=#{userid}
    	</update>
 
-   	
-
    </mapper>
 

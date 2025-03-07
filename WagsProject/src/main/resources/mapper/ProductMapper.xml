@@ -5,8 +5,8 @@
 <mapper namespace="com.example.demo.product.ProductMapper">
 	
 	<insert id="addCart" parameterType="com.example.demo.dto.CartDto">
-		insert into cart(pcode,writeday,fireWood,grill,userid,fireWoodPrice,grillPrice,inday,outday,title,totalPrice)
-		values(#{pcode},now(),#{fireWood},#{grill},#{userid},#{fireWoodPrice},#{grillPrice},#{inday},#{outday},#{title},#{totalPrice})
+		insert into cart(pcode,writeday,fireWood,grill,userid,fireWoodPrice,grillPrice,inday,outday,title,totalPrice,roomPrice)
+		values(#{pcode},now(),#{fireWood},#{grill},#{userid},#{fireWoodPrice},#{grillPrice},#{inday},#{outday},#{title},#{totalPrice},#{roomPrice})
 	</insert>
 	
 	<select id="isCart" resultType="Boolean">
@@ -43,21 +43,6 @@
 	<select id="getCart" resultType="com.example.demo.dto.CartDto">
 		select * from cart
 	</select>
-	
-  <select id="productList" resultType="com.example.demo.dto.ProductDto">
-    select * from product
-    order by id desc
-  </select>
-  
-  <select id="isCheck" resultType="Boolean">
-    <![CDATA[ select count(*) from reservation where inday < #{outday} and outday >= #{outday} and pcode=#{pcode} ]]>
-  </select>
-  
-  <select id="productList2" resultType="com.example.demo.dto.ProductDto">
-    select * from product
-    where <![CDATA[ max>=${num} ]]>
-    order by id desc
-  </select>
 
 	<select id="productList" resultType="com.example.demo.dto.ProductDto">
 		select * from product
