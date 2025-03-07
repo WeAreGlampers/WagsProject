@@ -33,7 +33,8 @@ public class LoginServiceImpl implements LoginService {
 		if (name==null) {
 			return "redirect:/login/login?err=1";
 		} else {
-			session.setAttribute("name", mdto.getName());
+			
+			session.setAttribute("name", name);
 			session.setAttribute("userid", mdto.getUserid());
 			
 			return "redirect:/main/main";
@@ -75,6 +76,13 @@ public class LoginServiceImpl implements LoginService {
 		}
 		
 		
+	}
+
+	@Override
+	public String logout(HttpSession session) {
+			session.invalidate();
+			return "redirect:/main/main";
+
 	}
 	
 	

@@ -61,7 +61,6 @@ body {
 
 #newSection {
 	width: 1100px;
-	height: 30px;
 	margin: auto;
 	text-align: right;
 	background: white;
@@ -134,8 +133,6 @@ a {
 	text-decoration: none;
 	color: black;
 }
-
-
 </style>
 <script>
 	// 회원전용 메뉴 보였다 숨기기
@@ -181,7 +178,9 @@ a {
 		<c:if test="${userid != null}">
 			<span id="privateMenu" onmouseover="viewPrivate()" onmouseout="hidePrivate()"> ${userid} 님 
 				<ul id="privateSub">
-					<li> 마이페이지 </li>				
+					<li> <a href="../member/memberInfo"> 마이페이지 </a></li>
+					<li> <a href="../member/cartView"> 장바구니 </a></li>
+					<li> <a href="../member/reservationStatus"> 예약현황 </a></li>						
 				</ul>
 			</span>		
 		

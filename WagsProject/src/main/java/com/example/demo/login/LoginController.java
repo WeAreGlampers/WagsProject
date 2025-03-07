@@ -39,5 +39,9 @@ public class LoginController {
 	public @ResponseBody String getPwd(HttpServletRequest request) {
 		return service.getPwd(request);
 	}
+	@GetMapping("/login/logout")
+	public String logout(HttpSession session) {
+		return service.logout(session);
+	}
 	
 }

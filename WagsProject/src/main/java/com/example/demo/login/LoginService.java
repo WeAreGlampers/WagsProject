@@ -17,4 +17,6 @@ public interface LoginService {
 
 	public String getPwd(HttpServletRequest request);
 
+	public String logout(HttpSession session);
+
 }

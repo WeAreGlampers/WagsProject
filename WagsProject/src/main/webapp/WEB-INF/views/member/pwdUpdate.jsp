@@ -56,7 +56,10 @@ section #pwd2Msg {
 }
 </style>
 <script>
+	var infoChk = 1;
+	var appr = 0;
 	function pwdChk1(pwd) {
+		var pwd2 = document.chgForm.pwd2.value;
 		var len = pwd.trim().length;
 		if ( len < 4 ) {
 			document.getElementById("pwd1Msg").style.visibility="visible";
@@ -75,7 +78,25 @@ section #pwd2Msg {
 				} else {
 					document.getElementById("pwd1Msg").style.visibility="hidden";
 					document.getElementById("pwd1Msg").innerText="";
+					appr = 1;
 				}
+				
+				if (appr==1) {
+					if(pwd == pwd2) {
+						document.getElementById("pwd2Msg").style.visibility="visible";
+						document.getElementById("pwd2Msg").innerText="비밀번호 일치";
+						document.getElementById("pwd2Msg").style.color="blue";
+						document.getElementById("pwd2Msg").style.fontSize="12px";
+						infoChk = 0;
+					} else {
+						document.getElementById("pwd2Msg").style.visibility="visible";
+						document.getElementById("pwd2Msg").innerText="비밀번호 불일치";
+						document.getElementById("pwd2Msg").style.color="red";
+						document.getElementById("pwd2Msg").style.fontSize="12px";
+						infoChk = 1;
+					}
+				}
+
 			}
 			chk.open("get","exisPwd?pwd="+pwd);
 			chk.send();
@@ -83,28 +104,42 @@ section #pwd2Msg {
 	}
 	
 	function pwdChk2(pwd2) {
-		var pwd1 = document.chgForm.pwd.value;
-		if(pwd1 == pwd2) {
-			document.getElementById("pwd2Msg").style.display="block";
-			document.getElementById("pwd2Msg").innerText="비밀번호 일치";
-			document.getElementById("pwd2Msg").style.color="blue";
-			document.getElementById("pwd2Msg").style.fontSize="12px";	
-		} else {
-			document.getElementById("pwd2Msg").style.display="block";
-			document.getElementById("pwd2Msg").innerText="비밀번호 불일치";
-			document.getElementById("pwd2Msg").style.color="red";
-			document.getElementById("pwd2Msg").style.fontSize="12px";
+		var pwd = document.chgForm.pwd.value;
+		if (appr==1) {
+			if(pwd == pwd2) {
+				document.getElementById("pwd2Msg").style.visibility="visible";
+				document.getElementById("pwd2Msg").innerText="비밀번호 일치";
+				document.getElementById("pwd2Msg").style.color="blue";
+				document.getElementById("pwd2Msg").style.fontSize="12px";
+				infoChk = 0;
+			} else {
+				document.getElementById("pwd2Msg").style.visibility="visible";
+				document.getElementById("pwd2Msg").innerText="비밀번호 불일치";
+				document.getElementById("pwd2Msg").style.color="red";
+				document.getElementById("pwd2Msg").style.fontSize="12px";
+				infoChk = 1;
+			}
 		}
+	}
+	
+	function check(form) {
+		if (infoChk == "1") {
+			alert("변경할 비밀번호를 확인해주세요.")
+			return false;	
+		} else {
+			return true;
+		}
+		
 	}
 </script>
 </head>
 <body>  <!-- member/chgMemInfo.jsp -->
 <section>
 	<caption>
-			<h3 align="center">회원 정보 수정</h3>
+			<h3 align="center">비밀번호 수정</h3>
 		</caption>
 		<div id="container">
-		<form name="chgForm" method="post" action="cghMemInfoOk">
+		<form name="chgForm" method="post" action="pwdUpdateOk" onsubmit="return check(this.form)">
 			<div class="oneLine">
 				<div class="leftDiv">이름</div>
 				<div class="rightDiv">${mdto.name}</div>
@@ -114,34 +149,28 @@ section #pwd2Msg {
 				<div class="leftDiv">아이디</div>
 				<div class="rightDiv">${mdto.userid}</div>
 			</div>
-
-			<div class="oneLine">
-				<div class="leftDiv">전화번호</div>
-				<div class="rightDiv"> <input type="text" value="${mdto.phone}" name="phone"> </div>
-			</div>
-
-			<div class="oneLine">
-				<div class="leftDiv">이메일</div>
-				<div class="rightDiv"> <input type="text" value="${mdto.email}" name="email"> </div>
-			</div>
 			
 			<div class="oneLine">
 				<div class="leftDiv">새로운 비밀번호</div>
 				<div class="rightDiv">
 					 <input type="password" name="pwd" onblur="pwdChk1(this.value)">				 				
 				</div>
-					<span id="pwd1Msg"></span> <p>
+				<span id="pwd1Msg"></span>
+			</div>
+			
+			<div class="oneLine">
 				<div class="leftDiv">비밀번호 확인</div>
 				<div class="rightDiv">
-					 <input type="password" name="pwd2" onkeyup="pwdChk2(this.value)">
-					 				
+					 <input type="password" name="pwd2" onkeyup="pwdChk2(this.value)">		 				
 				</div>
 				<span id="pwd2Msg"></span>
-				<div class="oneLine">
-					<div  align="center"> <input type="submit" value="수정하기"> </div>
-				</div>
+			</div>
+			<div class="oneLine">
+				<div  align="center"> <input type="submit" value="수정하기"> </div>
+			</div>
+			 
 				</form>
-			</div> 
+			</div>
 			
 			
 		

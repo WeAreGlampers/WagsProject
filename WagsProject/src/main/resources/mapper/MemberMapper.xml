@@ -23,4 +23,27 @@
    		select * from member
    		where userid=#{userid}
    	</select>
+   	
+   	<update id="pwdUpdateOk">
+   		update member set
+   		pwd = #{pwd}
+   		where userid = #{userid}
+   	</update>
+   	<update id="updatePhoneOk">
+   		update member set
+   		phone = #{phone}
+   		where userid = #{userid}
+   	</update>
+   	
+   	<update id="updateEmailOk">
+   		update member set
+   		email = #{email}
+   		where userid = #{userid}
+   	</update>
+   	<select id="cartView" resultType="HashMap">
+   		select c.*, p.pimg ,p.standard, p.max
+   		from cart as c inner join product as p
+   		on c.pcode = p.pcode
+   		where userid=#{userid}
+   	</select>
    </mapper> 
