@@ -5,10 +5,8 @@
 <mapper namespace="com.example.demo.product.ProductMapper">
 	
 	<insert id="addCart" parameterType="com.example.demo.dto.CartDto">
-		<!-- insert into(userid,pcode,writeday,fireWood,grill)
-		values(#{userid},#{pcode},now(),#{fireWood},#{grill}) -->
-		insert into(writeday,fireWood,grill)
-		values(now(),#{fireWood},#{grill})
+		insert into cart(pcode,writeday,fireWood,grill,userid,fireWoodPrice,grillPrice,inday,outday,title,totalPrice)
+		values(#{pcode},now(),#{fireWood},#{grill},#{userid},#{fireWoodPrice},#{grillPrice},#{inday},#{outday},#{title},#{totalPrice})
 	</insert>
 	
 	<select id="isCart" resultType="Boolean">
@@ -22,6 +20,45 @@
 		where userid=#{userid}
 	</update>
 	
+	<select id="getRoom" resultType="com.example.demo.dto.ProductDto">
+		select * from product
+		where pcode=#{pcode}
+	</select>
+		
+	<insert id="dibsOk">
+		insert into dibs(userid,pcode,writeday)
+		values(#{userid},#{pcode},now())
+	</insert>
+	
+	<delete id="dibsDel">
+		delete from dibs
+		where userid=#{userid} and pcode=#{pcode}
+	</delete>
+	
+	<select id="isDibs" resultType="Integer">
+		select count(*) from dibs
+		where userid=#{userid} and pcode=#{pcode}
+	</select>
+	
+	<select id="getCart" resultType="com.example.demo.dto.CartDto">
+		select * from cart
+	</select>
+	
+  <select id="productList" resultType="com.example.demo.dto.ProductDto">
+    select * from product
+    order by id desc
+  </select>
+  
+  <select id="isCheck" resultType="Boolean">
+    <![CDATA[ select count(*) from reservation where inday < #{outday} and outday >= #{outday} and pcode=#{pcode} ]]>
+  </select>
+  
+  <select id="productList2" resultType="com.example.demo.dto.ProductDto">
+    select * from product
+    where <![CDATA[ max>=${num} ]]>
+    order by id desc
+  </select>
+
 	<select id="productList" resultType="com.example.demo.dto.ProductDto">
 		select * from product
 		order by id desc
