@@ -182,6 +182,9 @@ public class MemberServiceImpl implements MemberService {
 		if (session.getAttribute("userid")==null) {
 			return "login/login";
 		} else {
+			String userid = session.getAttribute("userid").toString();
+			ArrayList<HashMap> mapList = mapper.reservationStatus(userid);
+			model.addAttribute("mapList",mapList);
 			return "member/reservationStatus";
 		}
 	}

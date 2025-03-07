@@ -253,7 +253,7 @@ window.onpageshow=function(){
       <div id="title2">예약자 정보</div>
       <div id="member">
         <div id="left">${mdto.name}<br>${mdto.phone}</div>
-        <div id="right"><input type="button" value="변경" onclick="location='member/memberInfo'"></div>
+        <div id="right"><input type="button" value="변경" onclick="location='../member/memberInfo'"></div>
       </div>
       <hr>
       <div>

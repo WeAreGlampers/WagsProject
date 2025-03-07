@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,8 @@
 </head>
 <body>  <!-- member/reservationStatus.jsp -->
 
-예약현황 페이지 입니당.
+<c:forEach items="${mapList}" var="map">
+${map.title} <p>
+</c:forEach>
 </body>
 </html>

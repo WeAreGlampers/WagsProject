@@ -27,5 +27,6 @@ public interface ProductMapper {
 	public void reservationOk(ReservationDto rdto);
 	public void setSave(String userid,int useSave,int addSave);
 	public int getSave(String pcode);
+	public void reserveCartDel(ReservationDto rdto);
  }
 

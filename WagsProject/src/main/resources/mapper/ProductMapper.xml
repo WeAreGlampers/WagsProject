@@ -89,5 +89,7 @@
 		select save from product
 		where pcode=#{pcode}
 	</select>
-
+	<delete id="reserveCartDel">
+		delete from cart where userid=#{userid} and pcode=#{pcode} and inday=#{inday} and outday=#{outday}
+	</delete>
 </mapper>

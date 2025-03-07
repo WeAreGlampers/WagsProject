@@ -176,7 +176,7 @@ public class ProductServiceImpl implements ProductService {
 			
 			long[] days=new long[pcodes.length];
 			int totalPriceAll=0;
-			
+			// chk가 없으면 장바구니에서
 			if(request.getParameter("chk")==null){
 					
 				String[] roomPrices=request.getParameter("roomPrice").split(",");
@@ -202,6 +202,7 @@ public class ProductServiceImpl implements ProductService {
 				    long day=ChronoUnit.DAYS.between(inday1,outday1);
 				    days[i]=day;
 					clist.add(cdto);
+					
 				}
 				
 			}
@@ -209,7 +210,7 @@ public class ProductServiceImpl implements ProductService {
 			
 				int roomPrice=Integer.parseInt(request.getParameter("roomPrice"));
 				String date=request.getParameter("inday");
-				String[] dates=date.split("-");
+				String[] dates=date.replace(" ", "").split("-");
 				String inday=dates[0]+"-"+dates[1]+"-"+dates[2];
 				String outday=dates[3].trim()+"-"+dates[4]+"-"+dates[5];
 				LocalDate inday1=LocalDate.parse(inday);
@@ -297,6 +298,7 @@ public class ProductServiceImpl implements ProductService {
 				rdto.setBank2(Integer.parseInt(bank2));
 				addSave+=mapper.getSave(rdto.getPcode());
 				mapper.reservationOk(rdto);
+				mapper.reserveCartDel(rdto);
 			}
 			mapper.setSave(userid,Integer.parseInt(useSave),addSave);
 			return "/product/reservationOk";

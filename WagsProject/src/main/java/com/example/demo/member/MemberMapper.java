@@ -25,6 +25,8 @@ public interface MemberMapper {
 	public void updateEmailOk(String userid, String email);
 
 	public ArrayList<HashMap> cartView(String userid);
+
+	public ArrayList<HashMap> reservationStatus(String userid);
 	
 
 }

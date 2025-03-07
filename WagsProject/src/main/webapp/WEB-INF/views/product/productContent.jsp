@@ -55,7 +55,16 @@ a {
 	text-decoration:none;
 	color:black;
 }
-
+#datepicker {
+	background: #FFE08C;
+    color: #CC723D;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
 input[type="button"] {
 	background: #FFE08C;
     color: #CC723D;
@@ -204,8 +213,8 @@ section .number {
 	}
 	
 	function reservationChk() {
-		var fireWoodPrice1 = document.getElementById("fireWoodPrice").value;
-		var grillPrice1 = document.getElementById("fireWoodPrice").value;
+		var fireWoodPrice1 = document.getElementById("fireWoodPrice").innerText;
+		var grillPrice1 = document.getElementById("fireWoodPrice").innerText;
 		document.rform.fireWoodPrice.value = fireWoodPrice1;
 		document.rform.grillPrice.value = grillPrice1;
 		
@@ -272,7 +281,7 @@ section .number {
 
 	<div id="second">
 		<div>
-				<input type="button" name="inday" value="일정선택 ▽" id="datepicker">
+				<input type="text" name="inday" value="일정선택 ▽" id="datepicker" readonly>
 		</div>
 		
 		<div> <img src="../static/room.png"> </div> 
