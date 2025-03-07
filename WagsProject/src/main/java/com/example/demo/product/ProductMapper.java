@@ -3,7 +3,9 @@ package com.example.demo.product;
 import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 import com.example.demo.dto.CartDto;
+import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.ProductDto;
+import com.example.demo.dto.ReservationDto;
 
 @Mapper
 public interface ProductMapper {
@@ -13,5 +15,9 @@ public interface ProductMapper {
 	public ArrayList<ProductDto> productList();
 	public boolean isCheck(String outday,String pcode);
 	public ArrayList<ProductDto> productList2(int num);
-
-}
+	public MemberDto getMember(String userid);
+	public int getNumber(String jumuncode);
+	public void reservationOk(ReservationDto rdto);
+	public void setSave(String userid,int useSave,int addSave);
+	public int getSave(String pcode);
+ }
