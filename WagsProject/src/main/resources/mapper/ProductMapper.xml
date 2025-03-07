@@ -44,19 +44,65 @@
 		select * from cart
 	</select>
 	
-<select id="productList" resultType="com.example.demo.dto.ProductDto">
-select * from product
-order by id desc
-</select>
+  <select id="productList" resultType="com.example.demo.dto.ProductDto">
+    select * from product
+    order by id desc
+  </select>
   
-<select id="isCheck" resultType="Boolean">
-<![CDATA[ select count(*) from reservation where inday < #{outday} and outday >= #{outday} and pcode=#{pcode} ]]>
-</select>
+  <select id="isCheck" resultType="Boolean">
+    <![CDATA[ select count(*) from reservation where inday < #{outday} and outday >= #{outday} and pcode=#{pcode} ]]>
+  </select>
   
-<select id="productList2" resultType="com.example.demo.dto.ProductDto">
-select * from product
-where <![CDATA[ max>=${num} ]]>
-order by id desc
-</select>
+  <select id="productList2" resultType="com.example.demo.dto.ProductDto">
+    select * from product
+    where <![CDATA[ max>=${num} ]]>
+    order by id desc
+  </select>
+
+	<select id="productList" resultType="com.example.demo.dto.ProductDto">
+		select * from product
+		order by id desc
+	</select>
+	
+	<select id="isCheck" resultType="Boolean">
+		<![CDATA[ select count(*) from reservation where inday < #{outday} and outday >= #{outday} and pcode=#{pcode} ]]>
+	</select>
+	
+	<select id="productList2" resultType="com.example.demo.dto.ProductDto">
+		select * from product
+		where <![CDATA[ max>=${num} ]]>
+		order by id desc
+	</select>
+	
+	<select id="getProduct" resultType="com.example.demo.dto.ProductDto">
+		select * from product
+		where pcode=#{pcode}
+	</select>
+	
+	<select id="getMember" resultType="com.example.demo.dto.MemberDto">
+		select * from member
+		where userid=#{userid}
+	</select>
+	
+	<select id="getNumber" resultType="Integer">
+		select ifnull(max(right(jumuncode,3)),0)+1
+		from reservation
+		where jumuncode like concat(#{jumuncode},'%')
+	</select>
+	
+	<insert id="reservationOk">
+		insert into reservation(useSave,review,pay,card1,halbu,bank1,card2,tel,bank2,totalPrice,fireWood,grill,userid,pcode,writeday,jumuncode,inday,outday,title,req,fireWoodPrice,grillPrice,roomPrice)
+		values(#{useSave},0,#{pay},#{card1},#{halbu},#{bank1},#{card2},#{tel},#{bank2},#{totalPrice},#{fireWood},#{grill},#{userid},#{pcode},now(),#{jumuncode},#{inday},#{outday},#{title},#{req},#{fireWoodPrice},#{grillPrice},#{roomPrice})
+	</insert>
+	
+	<update id="setSave">
+		update member set save=save-${useSave}+${addSave}
+		where userid=#{userid}
+	</update>
+	
+	<select id="getSave" resultType="Integer">
+		select save from product
+		where pcode=#{pcode}
+	</select>
 
 </mapper>
