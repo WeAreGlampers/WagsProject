@@ -6,7 +6,7 @@
    <mapper namespace="com.example.demo.login.LoginMapper">
    	<select id="loginOk" resultType="String">
    		select name from member
-   		where userid = #{userid} and password = #{pwd}
+   		where userid = #{userid} and pwd = #{pwd}
    	</select>
    	
    	<select id="getUserid" resultType="String">
