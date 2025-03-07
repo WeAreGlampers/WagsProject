@@ -36,18 +36,35 @@ function subCheck() {
 	}
 }
 
+function reserve() {
+	var pcodes = "";
+	var titles = "";
+	var fireWoods = "";
+	var grills = "";
+	var fireWoodPrices = "";
+	var grillPrices = "";
+	var indays = "";
+	var outdays = "";
+	var roomPrices = "";
+	var totalPrices = "";
+	
+	alert(document.getElementsByClassName("title")[0].innerText);
+	
+}
 	
 </script>
 </head>
 <body>  <!-- /member/cartView.jsp -->
 <input type="checkbox" id="allChk" onclick="allCheck(this)">
-<input type="button" onclick="reservation()" value="선택예약">
+<input type="button" onclick="reserve()" value="선택예약">
 <c:forEach items="${cartMap}" var="map">
 	<div>
 		<input type="checkbox" name="subChk" class="subChk" onclick="subCheck()">
-		<div>${map.title}</div>
+		<div class="title">${map.title}</div>
 		<div>${map.pimg}</div>
 		<div>${map.inday} ~ ${map.outday}</div>
+		<div>장작${map.fireWood} | ${map.fireWoodPrice}원</div>
+		<div>바베큐${map.grill} | ${map.grillPrice}원</div>
 		<div>기준 ${map.standard}명 / 최대 ${map.max}명 </div>
 		<div>${map.totalPrice}원</div>
 	</div>
