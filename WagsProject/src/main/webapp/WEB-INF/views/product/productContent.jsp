@@ -135,18 +135,19 @@ section .number {
 		var fireWood=document.getElementsByClassName("quantity")[0].value;
 		var grill=document.getElementsByClassName("quantity")[1].value;
 		// 가격
-		var fireWoodPrice= document.getElementById("fireWoodPrice").innerText;
-		var grillPrice= document.getElementById("grillPrice").innerText;
+		var fireWoodPrice= parseInt(document.getElementById("fireWoodPrice").innerText);
+		var grillPrice= parseInt(document.getElementById("grillPrice").innerText);
 		// 제목, 숙박기간, 방가격
 		var title=document.getElementById("title").innerText;
 		var date=document.getElementById("datepicker").value;
-		var roomPrice=document.getElementById("roomPrice").innerText;
+		var roomPrice=parseInt(document.getElementById("roomPrice").innerText);
 		
+		alert("addCart?pcode=p0101&fireWood="+fireWood+"&grill="+grill+"&fireWoodPrice="+fireWoodPrice+"&grillPrice="+grillPrice+"&title="+title+"&date="+date+"&roomPrice="+roomPrice);
 		
 		var chk=new XMLHttpRequest();
 		chk.onload=function() {
 			if(chk.responseText.trim() != "1") {
-				alert("오류")
+				alert("오류");
 			} else {
 				// 장바구니 메시지 띄우기
 				document.getElementById("cartLayer").style.visibility="visible";
@@ -203,9 +204,8 @@ section .number {
 	}
 	
 	function reservationChk() {
-		var date=document.getElementById("datepicker").value;
 		
-		if(date == "일정선택 ▽") {
+		if(document.getElementById("datepicker").value == "일정선택 ▽") {
 			alert("날짜를 선택해주세요!");
 			return false;
 		} else {
@@ -220,9 +220,10 @@ section .number {
 <section>
 	<div></div> <!-- 그림 -->
 	<form method="post" action="reservation" onsubmit="return reservationChk()">
-	<input type="text" name="pcode" value="${pdto.pcode}">
-	<input type="text" name="title" value="${pdto.title}">
-	<input type="text" name="roomPrice" value="${pdto.price}">
+	<input type="hidden" name="chk" value="1">
+	<input type="hidden" name="pcode" value="${pdto.pcode}">
+	<input type="hidden" name="title" value="${pdto.title}">
+	<input type="hidden" name="roomPrice" value="${pdto.price}">
 		<div id="cartLayer">
 			현재 상품을 장바구니에 담았습니다. <p>
 			<input type="button" value="장바구니로 이동" onclick="location='../member/cartView'">
@@ -238,7 +239,7 @@ section .number {
 						<img src="../static/jjim2.png" id="heart" onclick="dibsDel()" valign="middle">
 					</c:if>
 				</h3>
-				<div id="roomPrice"> ${pdto.price} 원 </div>
+				<div id="roomPrice"> ${pdto.price} </div> 원
 				<div> 기준 : ${pdto.standard}인 (최대 ${pdto.max}인) --> </div>
 			</div>
 			<tr>
@@ -420,5 +421,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
+
+
 </body>
 </html>

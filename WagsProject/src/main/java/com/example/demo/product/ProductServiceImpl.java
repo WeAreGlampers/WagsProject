@@ -35,8 +35,6 @@ public class ProductServiceImpl implements ProductService {
 		}
 		model.addAttribute("ok",ok);
 		
-		
-		
 		model.addAttribute("pdto", pdto);
 
 		return "/product/productContent";
@@ -52,12 +50,14 @@ public class ProductServiceImpl implements ProductService {
 			String userid = session.getAttribute("userid").toString();
 			cdto.setUserid(userid);
 			
-			String date = request.getParameter("date");
+			String date = request.getParameter("date").trim().replace(" ", "");
 			String[] dates = date.split("-");
 			String inday = dates[0] + "-" + dates[1] + "-" + dates[2];
 			cdto.setInday(inday);
 			String outday = dates[3].trim() + "-" + dates[4] + "-" + dates[5];
 			cdto.setOutday(outday);
+			
+			System.out.println(date);
 			
 			// 옵션 가격
 			int optionPrice = ( cdto.getFireWood() * cdto.getFireWoodPrice() ) + ( cdto.getGrill() * cdto.getGrillPrice() );
@@ -66,12 +66,16 @@ public class ProductServiceImpl implements ProductService {
 			LocalDate inday1=LocalDate.parse(cdto.getInday());
 			LocalDate outday1=LocalDate.parse(cdto.getOutday());
 			long stay=ChronoUnit.DAYS.between(inday1, outday1);
-			
+			System.out.println(cdto.getInday());
+			System.out.println(cdto.getOutday());
 			// 방 가격
 			long roomPrice = cdto.getRoomPrice() * stay;
-			
+			cdto.setRoomPrice(optionPrice);
+			System.out.println(cdto.getRoomPrice());
 			// 총가격
 			long totalPrice = roomPrice + optionPrice;
+			cdto.setTotalPrice(optionPrice);
+			System.out.println(cdto.getTotalPrice());
 			
 			if (mapper.isCart(cdto))
 
@@ -147,6 +151,8 @@ public class ProductServiceImpl implements ProductService {
 		model.addAttribute("plist", plist);
 		return "/product/productList";
 	}
+
+	
 
 	
 

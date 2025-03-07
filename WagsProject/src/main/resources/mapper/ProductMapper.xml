@@ -5,8 +5,8 @@
 <mapper namespace="com.example.demo.product.ProductMapper">
 	
 	<insert id="addCart" parameterType="com.example.demo.dto.CartDto">
-		insert into cart(pcode,writeday,fireWood,grill,userid,fireWoodPrice,grillPrice,inday,outday,title)
-		values(#{pcode},now(),#{fireWood},#{grill},#{userid},#{fireWoodPrice},#{grillPrice},#{inday},#{outday},#{title})
+		insert into cart(pcode,writeday,fireWood,grill,userid,fireWoodPrice,grillPrice,inday,outday,title,totalPrice)
+		values(#{pcode},now(),#{fireWood},#{grill},#{userid},#{fireWoodPrice},#{grillPrice},#{inday},#{outday},#{title},#{totalPrice})
 	</insert>
 	
 	<select id="isCart" resultType="Boolean">
@@ -38,6 +38,10 @@
 	<select id="isDibs" resultType="Integer">
 		select count(*) from dibs
 		where userid=#{userid} and pcode=#{pcode}
+	</select>
+	
+	<select id="getCart" resultType="com.example.demo.dto.CartDto">
+		select * from cart
 	</select>
 	
 <select id="productList" resultType="com.example.demo.dto.ProductDto">
