@@ -105,6 +105,19 @@ section .number {
 	border:1px solid red;
 }
 
+section #datepicker {
+	width:150px;
+	background: #FFE08C;
+    color: #CC723D;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+    text-align: center;
+}
+
 </style>
 <script>
 
@@ -204,8 +217,8 @@ section .number {
 	}
 	
 	function reservationChk() {
-		var fireWoodPrice1 = document.getElementById("fireWoodPrice").value;
-		var grillPrice1 = document.getElementById("fireWoodPrice").value;
+		var fireWoodPrice1 = document.getElementById("fireWoodPrice").innerText;
+		var grillPrice1 = document.getElementById("fireWoodPrice").innerText;
 		document.rform.fireWoodPrice.value = fireWoodPrice1;
 		document.rform.grillPrice.value = grillPrice1;
 		
@@ -246,7 +259,7 @@ section .number {
 						<img src="../static/jjim2.png" id="heart" onclick="dibsDel()" valign="middle">
 					</c:if>
 				</h3>
-				<div id="roomPrice"> ${pdto.price} </div> 원
+				<span id="roomPrice"> ${pdto.price} </span> 원
 				<div> 기준 : ${pdto.standard}인 (최대 ${pdto.max}인) --> </div>
 			</div>
 			<tr>
@@ -272,7 +285,7 @@ section .number {
 
 	<div id="second">
 		<div>
-				<input type="button" name="inday" value="일정선택 ▽" id="datepicker">
+				<input type="text" name="inday" value="일정선택 ▽" id="datepicker">
 		</div>
 		
 		<div> <img src="../static/room.png"> </div> 
@@ -309,84 +322,6 @@ section .number {
 	</div>	<!-- second close -->
 	</form> <!-- form close -->
 </section>
-
-<!-- <script>	
-	function reservationCal(y,m,n) {
-		
-		// 해당 월의 1일 구하기
-		if(y == -1) {
-			var today=new Date();
-			y=today.getFullYear();
-			m=today.getMonth();
-		}
-		
-		if(m == -1) {
-			y--;
-			m=11;
-		}
-		
-		if(m == 12) {
-			y++;
-			m=0;
-		}
-		
-		var xday=new Date(y,m,1); 
-		
-		// 1일의 요일
-		var yoil=xday.getDay(); // 0~6(일~토)
-		
-		// 각 월의 기본 일수 설정
-		var nums=[31,28,31,30,31,30,31,31,30,31,30,31];
-		 
-		// 해당 월의 일수
-		var chong=nums[m];
-		
-	  	// 윤년 체크
-	    if(m==1) // 2월달인 경우
-	   	{
-			if( (y%4==0 && y%100!=0) || y%400==0 )
-				chong++;
-	   	}
-		
-	  	// 해당 월의 주 계산
-	    var ju=Math.ceil((chong+yoil)/7);
-	  	
-	    var calData="<table  align='center' border='0' id='cal'>";
-	    calData=calData+"<caption>";
-	    calData=calData+" <a href='javascript:reservationCal("+y+","+(m-1)+","+n+")'> 이전 </a> ";
-	    calData=calData+y+"년 "+(m+1)+"월 ";
-	    calData=calData+" <a href='javascript:reservationCal("+y+","+(m+1)+","+n+")'> 다음 </a>";
-	    calData=calData+" </caption>";
-	    calData=calData+"<tr>";
-	    calData=calData+" <td> 일 </td>";
-	    calData=calData+" <td> 월 </td>";
-	    calData=calData+" <td> 화 </td>";
-	    calData=calData+" <td> 수 </td>";
-	    calData=calData+" <td> 목 </td>";
-	    calData=calData+" <td> 금 </td>";
-	    calData=calData+" <td> 토 </td>";
-	    calData=calData+"</tr>";
-	    
-	    var day=1;
-	    for(i=0;i<ju;i++) { // 주 반복
-		    calData=calData+" <tr> ";
-		   
-		    for(j=0;j<7;j++) { // 요일 반복
-			    if( (i==0 && j<yoil) || day>chong ) { // (1주차에 1일의 요일이전) ||  day가 총일수보다 크면
-				    calData=calData+" <td> &nbsp; </td>"; // 공백 추가
-			    } else {                            // nalJaSend(2025,1,20,0)
-				    calData=calData+" <td onclick='nalJaSend("+y+","+m+","+day+","+n+")'> "+day+" </td> ";
-				    day++;                     // nalJaSend(0)
-			    }			   
-		    }	   
-		   
-		    calData=calData+" </tr> ";
-	    }	   
-	    calData=calData+" </table> ";
-	    
-	    document.getElementById("calendar").innerHTML=calData;
-	}
-</script> -->
 
 <!-- easePick 달력 라이브러리 사용 -->
 

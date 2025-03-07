@@ -209,7 +209,7 @@ public class ProductServiceImpl implements ProductService {
 			
 				int roomPrice=Integer.parseInt(request.getParameter("roomPrice"));
 				String date=request.getParameter("inday");
-				String[] dates=date.split("-");
+				String[] dates=date.replace(" ","").split("-");
 				String inday=dates[0]+"-"+dates[1]+"-"+dates[2];
 				String outday=dates[3].trim()+"-"+dates[4]+"-"+dates[5];
 				LocalDate inday1=LocalDate.parse(inday);
