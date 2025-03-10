@@ -7,22 +7,22 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-
 body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
-    margin: 0;
-    padding: 0;
+	font-family: 'Noto Sans KR', sans-serif;
+	background-color: #f8f9fa;
+	color: #333;
+	margin: 0;
+	padding: 0;
 }
 
 section {
-    width: 1150px;
-    margin: 40px auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	width: 1150px;
+	margin: 40px auto;
+	background: #fff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	position: relative;
 }
 
 section #menu {
@@ -52,72 +52,79 @@ section #menu ul li {
 }
 
 a {
-	text-decoration:none;
-	color:black;
+	text-decoration: none;
+	color: black;
 }
 
 input[type="button"] {
 	background: #FFE08C;
-    color: #CC723D;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
+	color: #CC723D;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background 0.3s;
 }
 
 input[type="button"]:hover {
-    background: #0056b3;
+	background: #0056b3;
 }
 
 input[type="submit"] {
 	background: #FFE08C;
-    color: #CC723D;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
+	color: #CC723D;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background 0.3s;
 }
 
 input[type="submit"]:hover {
-    background: #0056b3;
+	background: #0056b3;
 }
 
 .quantity {
-    width: 40px;
-    text-align: center;
-    border: none;
-    font-size: 16px;
-    background: transparent; /* 배경 투명 */
+	width: 40px;
+	text-align: center;
+	border: none;
+	font-size: 16px;
+	background: transparent; /* 배경 투명 */
 }
 
 section #cartLayer {
-	position:absolute;
-	visibility:hidden;
+	position: absolute;
+	visibility: hidden;
+	background: #CC723D;
+	color: #fff;
+	padding: 10px;
+	border-radius: 5px;
+	top: 83%; /* 버튼 위에 나타나게 위치 조정 */
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1000; /* 버튼보다 위로 보이도록 설정 */
 }
 
 section .number {
-	width:400px;
-	margin:auto; /* 중앙 정렬 */
-	border:1px solid red;
+	width: 400px;
+	margin: auto; /* 중앙 정렬 */
+	border: 1px solid red;
 }
 
 section #datepicker {
-	width:150px;
+	width: 150px;
 	background: #FFE08C;
-    color: #CC723D;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
-    text-align: center;
+	color: #CC723D;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background 0.3s;
+	text-align: center;
 }
-
 </style>
 <script>
 
@@ -160,11 +167,11 @@ section #datepicker {
 		var chk=new XMLHttpRequest();
 		chk.onload=function() {
 			if(chk.responseText.trim() != "1") {
-				alert("오류");
+				alert("날짜를 선택해주세요!");
 			} else {
 				// 장바구니 메시지 띄우기
 				document.getElementById("cartLayer").style.visibility="visible";
-				
+				alert("cartLayer 보이기 실행됨");
 				// 3초 뒤 숨기기
 				ss=setTimeout(function(){
 					document.getElementById("cartLayer").style.visibility="hidden";
@@ -175,6 +182,9 @@ section #datepicker {
 		chk.open("GET","addCart?pcode=${pdto.pcode}&fireWood="+fireWood+"&grill="+grill+"&fireWoodPrice="+fireWoodPrice+"&grillPrice="+grillPrice+"&title="+title+"&date="+date+"&roomPrice="+roomPrice); 
 		chk.send();
 	}
+	
+	
+
 	
 	// 찜 안 됐을 때 클릭(찜 상태로 변경)
 	function dibsOk() {
@@ -244,10 +254,7 @@ section #datepicker {
 	<input type="hidden" name="roomPrice" value="${pdto.price}">
 	<input type="hidden" name="fireWoodPrice">
 	<input type="hidden" name="grillPrice">
-		<div id="cartLayer">
-			현재 상품을 장바구니에 담았습니다. <p>
-			<input type="button" value="장바구니로 이동" onclick="location='../member/cartView'">
-		</div>
+		
 		
 		<div id="first">
 			<div> 
@@ -262,10 +269,7 @@ section #datepicker {
 				<span id="roomPrice"> ${pdto.price} </span> 원
 				<div> 기준 : ${pdto.standard}인 (최대 ${pdto.max}인) --> </div>
 			</div>
-			<tr>
-				<td> 거리뷰 </td>
-				<td> 공유 </td>
-			</tr>
+			<!-- <div id="map" style="width:100%;height:400px;"> 거리뷰 </div> -->
 		
 		<div>
 			<input type="button" value="객실예약" onclick="location='productList'">
@@ -314,6 +318,10 @@ section #datepicker {
 		
 		
 		<div>
+			<div id="cartLayer">
+			현재 상품을 장바구니에 담았습니다. <p>
+			<input type="button" value="장바구니로 이동" onclick="location='../member/cartView'">
+			</div>
 			<input type="button" value="장바구니 담기" onclick="addCart()">  
 			<!-- 기간 + 기간에 따른 요금 + pcode + fireWood + grill -->
 				<input type="submit" value="예약"> 
@@ -363,7 +371,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
+<!-- 
+	거리뷰 api
+ <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID"></script>
 
-
+<script>
+	var mapOptions = {
+	    center: new naver.maps.LatLng(37.3595704, 127.105399),
+	    zoom: 10
+	};
+	
+	var map = new naver.maps.Map('map', mapOptions);
+</script>
+ -->
 </body>
 </html>
