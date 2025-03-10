@@ -27,6 +27,8 @@ public interface MemberMapper {
 	public ArrayList<HashMap> cartView(String userid);
 
 	public ArrayList<HashMap> reservationStatus(String userid);
+
+	public void cartDel(String id);
 	
 
 }

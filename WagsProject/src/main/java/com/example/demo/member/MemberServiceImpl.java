@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.example.demo.dto.MemberDto;
+import com.example.demo.utils.MyUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -184,6 +185,20 @@ public class MemberServiceImpl implements MemberService {
 		} else {
 			String userid = session.getAttribute("userid").toString();
 			ArrayList<HashMap> mapList = mapper.reservationStatus(userid);
+			for(int i = 0; i < mapList.size(); i++) {
+				HashMap map = mapList.get(i);
+				int state =Integer.parseInt(map.get("state").toString());
+				if (state != 6 || state != 7) {
+					LocalDate today = LocalDate.now();
+					LocalDate checkIn = (LocalDate)map.get("inday");
+					LocalDate checkOut = (LocalDate)map.get("outday");
+				}
+				
+				String result = MyUtils.stateStr(state);
+				map.put("state", result);
+			}
+
+			
 			model.addAttribute("mapList",mapList);
 			return "member/reservationStatus";
 		}
@@ -199,7 +214,23 @@ public class MemberServiceImpl implements MemberService {
 			model.addAttribute("cartMap",cartMap);
 			return "/member/cartView";
 		}
+	}
+
+	@Override
+	public String cartDel(HttpSession session,HttpServletRequest request) {
+		if (session.getAttribute("userid")==null) {
+			return "redirect:/login/login";
+		} else {
+			String ids = request.getParameter("ids");
+			String[] temp = ids.split(",");
+			for(int i = 0; i < temp.length; i++) {
+				mapper.cartDel(temp[i]);
+			}
+			
+			return "redirect:/member/cartView";
+		}
 	}	
+	
 	
 	
 

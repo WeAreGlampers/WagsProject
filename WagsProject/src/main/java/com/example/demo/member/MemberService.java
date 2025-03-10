@@ -37,4 +37,6 @@ public interface MemberService {
 
 	public String cartView(HttpSession session, Model model);
 
+	public String cartDel(HttpSession session, HttpServletRequest request);
+
 }

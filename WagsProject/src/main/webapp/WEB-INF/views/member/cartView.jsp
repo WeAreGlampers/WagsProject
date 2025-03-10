@@ -7,6 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	#reserveBtn {
+		width:100px;
+		height:30px;
+	}
+</style>
 <script>
 function allCheck(my) {
 	var subChk = document.getElementsByClassName("subChk");
@@ -67,6 +73,19 @@ function reserve() {
 	location="../product/reservation?pcode="+pcodes+"&title="+titles+"&fireWood="+fireWoods+"&grill="+grills+"&fireWoodPrice="+fireWoodPrices+"&grillPrice="+grillPrices+"&inday="+indays+"&outday="+outdays+"&roomPrice="+roomPrices+"&totalPrice="+totalPrices;
 	
 }
+
+function cartDel() {
+	var subChk = document.getElementsByClassName("subChk");
+	var cartId = document.getElementsByClassName("cartId");
+	var ids = "";
+	for (i=0;i<subChk.length;i++){
+		if (subChk[i].checked) {
+			ids = ids + cartId[i].value + ",";
+		}
+	}
+	location="cartDel?ids="+ids;
+}
+
 window.onload = function() {
 	if (document.getElementsByClassName("subChk").length==0) {
 		document.getElementById("allChkDiv").style.display="none";
@@ -76,10 +95,12 @@ window.onload = function() {
 </head>
 <body>  <!-- /member/cartView.jsp -->
 <div id="allChkDiv"><input type="checkbox" id="allChk" onclick="allCheck(this)">
-<input type="button" onclick="reserve()" value="선택예약">
+<input id="reserveBtn" type="button" onclick="reserve()" value="선택예약">
+<input type="button" onclick="cartDel()" value="선택삭제">
 </div>
 <c:forEach items="${cartMap}" var="map">
 	<div>
+		<input type="hidden" name="id" class="cartId" value="${map.id}">
 		<input type="hidden" name="pcode" value="${map.pcode}" class="pcode">
 		<input type="hidden" name="roomPrice" value="${map.roomPrice}" class="roomPrice">
 		<input type="checkbox" name="subChk" class="subChk" onclick="subCheck()">
@@ -91,6 +112,7 @@ window.onload = function() {
 		<div>기준 ${map.standard}명 / 최대 ${map.max}명 </div>
 		<div><span class="totalPrice">${map.totalPrice}</span>원</div>
 	</div>
+	<input type="button" value="삭제" onclick="location='cartDel?ids=${map.id}'">
 </c:forEach>
 
 

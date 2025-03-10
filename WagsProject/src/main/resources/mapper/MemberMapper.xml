@@ -51,4 +51,9 @@
    		select * from reservation
    		where userid=#{userid}
    	</select>
+   	
+   	<delete id="cartDel">
+   		delete from cart
+   		where id=#{id}
+   	</delete>
    </mapper> 

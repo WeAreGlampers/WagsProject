@@ -90,4 +90,9 @@ public class MemberController {
 	public String cartView(HttpSession session, Model model) {
 		return service.cartView(session,model);
 	}
+	
+	@GetMapping("/member/cartDel")
+	public String cartDel(HttpSession session, HttpServletRequest request) {
+		return service.cartDel(session,request);
+	}
 }
