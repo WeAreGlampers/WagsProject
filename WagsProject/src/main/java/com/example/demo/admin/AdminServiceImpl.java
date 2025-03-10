@@ -1,12 +1,97 @@
 package com.example.demo.admin;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.example.demo.dto.ProductDto;
 
 @Service
 @Qualifier("as")
 public class AdminServiceImpl implements AdminService{
 	@Autowired
 	private AdminMapper mapper;
+
+	@Override
+	public String productList(Model model) {
+		ArrayList<ProductDto> plist=mapper.productList();
+		model.addAttribute("plist",plist);
+		return "/admin/productList";
+	}
+
+	@Override
+	public String productWrite() {
+		return "/admin/productWrite";
+	}
+
+	@Override
+	public String productWriteOk(ProductDto pdto,MultipartHttpServletRequest multi)throws Exception {
+		String pimg="";
+		String dimg="";
+		Iterator<String> iter=multi.getFileNames();
+		while(iter.hasNext()) {
+			String imsi=iter.next();
+			MultipartFile file=multi.getFile(imsi);
+			if(!file.isEmpty()) {
+				String oname=file.getOriginalFilename();
+				if(!imsi.equals("exdimg")) {
+					pimg=oname;
+				}
+				else {
+					dimg=oname;
+				}
+				String str=ResourceUtils.getFile("classpath:static/product").toString();
+				
+				File sfile=new File(str+"/"+oname);
+				while(sfile.exists()) {
+					String[] fnames=oname.split("[.]");
+					oname=fnames[0]+System.currentTimeMillis()+"."+fnames[1];
+					sfile=new File(str+"/"+oname);
+				}
+				
+				Path path=Paths.get(str+"/"+oname);
+				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+			}	
+		}
+		pdto.setDimg(dimg);
+		pdto.setPimg(pimg);
+		String pcode=String.format("%02d",mapper.getPcode(pdto.getPcode()));
+		pdto.setPcode(pdto.getPcode()+pcode);
+		mapper.productWriteOk(pdto);
+		return "redirect:/admin/productList";
+	}
+
+	@Override
+	public String productDelete(String id) {
+		mapper.productDelete(id);
+		return "redirect:/admin/productList";
+	}
+
+	@Override
+	public String productUpdate(String id,Model model) {
+		ProductDto pdto=mapper.getProduct(id);
+		model.addAttribute("pdto",pdto);
+		return "/admin/productUpdate";
+	}
+
+	@Override
+	public String productUpdateOk(ProductDto pdto,MultipartHttpServletRequest multi) {
+		
+		return "redirect:/admin/productList";
+	}
+	
+	
 }

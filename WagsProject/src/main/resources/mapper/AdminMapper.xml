@@ -2,7 +2,37 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-   
-   <mapper namespace="com.example.demo.admin.AdminMapper">
-   
-   </mapper>
+<mapper namespace="com.example.demo.admin.AdminMapper">
+	
+	<select id="productList" resultType="com.example.demo.dto.ProductDto">
+		select * from product 
+		order by id desc
+	</select>   
+	
+	<select id="getPcode" resultType="Integer">
+		select ifnull(max(right(pcode,2)),0)+1
+		from product
+		where pcode like concat(#{pcode},'%')	
+	</select>
+	
+	<insert id="productWriteOk">
+		insert into product(pcode,title,price,standard,max,save,pimg,dimg)
+		values(#{pcode},#{title},#{price},#{standard},#{max},#{save},#{pimg},#{dimg})
+	</insert>
+	
+	<delete id="productDelete">
+		delete from product
+		where id=#{id}
+	</delete>
+	
+	<select id="getProduct" resultType="com.example.demo.dto.ProductDto">
+		select * from product
+		where id=#{id}
+	</select>
+	
+	<update id="productUpdateOk">
+		update product 
+		set title=#{title},price=#{price},standard=#{standard},max=#{max},save=#{save},pimg=#{pimg},dimg=#{dimg}
+		where id=#{id}
+	</update>
+</mapper>
