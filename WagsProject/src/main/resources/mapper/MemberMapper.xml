@@ -56,4 +56,16 @@
    		delete from cart
    		where id=#{id}
    	</delete>
+   	
+   	<update id="chgStateCompleted">
+   		update reservation
+   		set state = '5'
+   		where id=#{id}
+   	</update>
+   	
+   	<update id="chgStateDday">
+   		update reservation
+   		set state = ${dDay}
+   		where id=#{id}
+   	</update>
    </mapper> 

@@ -2,6 +2,8 @@ package com.example.demo.member;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -185,15 +187,30 @@ public class MemberServiceImpl implements MemberService {
 		} else {
 			String userid = session.getAttribute("userid").toString();
 			ArrayList<HashMap> mapList = mapper.reservationStatus(userid);
+			
 			for(int i = 0; i < mapList.size(); i++) {
 				HashMap map = mapList.get(i);
 				int state =Integer.parseInt(map.get("state").toString());
-				if (state != 6 || state != 7) {
-					LocalDate today = LocalDate.now();
-					LocalDate checkIn = (LocalDate)map.get("inday");
-					LocalDate checkOut = (LocalDate)map.get("outday");
-				}
+				String id = map.get("id").toString();
 				
+				if (state != 6 && state != 7) {
+					LocalDate today = LocalDate.now();
+					String inday = map.get("inday").toString();
+					String outday = map.get("outday").toString();
+					//System.out.println(inday);
+					LocalDate checkin = LocalDate.parse(inday);
+					LocalDate checkout = LocalDate.parse(outday);
+					long dDay=ChronoUnit.DAYS.between(today,checkin);
+					System.out.println(dDay);
+					
+					if(dDay < 0L) {
+						mapper.chgStateCompleted(id);
+						state =Integer.parseInt(map.get("state").toString());
+					} else if ( dDay > 0L && dDay < 4L) {
+						mapper.chgStateDday((int)dDay,id);
+						state =Integer.parseInt(map.get("state").toString());
+					}
+				}
 				String result = MyUtils.stateStr(state);
 				map.put("state", result);
 			}

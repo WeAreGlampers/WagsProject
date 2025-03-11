@@ -29,6 +29,10 @@ public interface MemberMapper {
 	public ArrayList<HashMap> reservationStatus(String userid);
 
 	public void cartDel(String id);
+
+	public void chgStateCompleted(String id);
+
+	public void chgStateDday(int dDay, String id);
 	
 
 }
