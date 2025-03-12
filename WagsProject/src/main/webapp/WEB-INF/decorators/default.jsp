@@ -180,7 +180,8 @@ a {
 				<ul id="privateSub">
 					<li> <a href="../member/memberInfo"> 마이페이지 </a></li>
 					<li> <a href="../member/cartView"> 장바구니 </a></li>
-					<li> <a href="../member/reservationStatus"> 예약현황 </a></li>						
+					<li> <a href="../member/reservationStatus"> 예약현황 </a></li>	
+					<li> <a href="../member/reviewList"> 리뷰관리 </a></li>						
 				</ul>
 			</span>		
 		

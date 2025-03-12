@@ -6,6 +6,8 @@ import java.util.HashMap;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.dto.MemberDto;
+import com.example.demo.dto.ProductDto;
+import com.example.demo.dto.ReviewDto;
 
 @Mapper
 public interface MemberMapper {
@@ -33,6 +35,19 @@ public interface MemberMapper {
 	public void chgStateCompleted(String id);
 
 	public void chgStateDday(int dDay, String id);
-	
 
+	public HashMap reservationStatusOne(String id);
+
+	public ArrayList<HashMap> getReview(String userid);
+
+	public void reviewWriteOk(ReviewDto rdto);
+
+	public void chgReviewCount(int id);
+
+	public double getStarAvg(String pcode);
+
+	public int getReviewCount(String pcode);
+
+	public void updateProductStatus(double avgStar, int reviewCount, String pcode);
+	
 }

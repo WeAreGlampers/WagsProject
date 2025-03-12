@@ -60,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
 			String outday = dates[3].trim() + "-" + dates[4] + "-" + dates[5];
 			cdto.setOutday(outday);
 			
-			System.out.println(date);
+			//System.out.println(date);
 			
 			// 옵션 가격
 			int optionPrice = (cdto.getFireWoodPrice()) + (cdto.getGrillPrice());
@@ -74,11 +74,11 @@ public class ProductServiceImpl implements ProductService {
 			int roomPrice =  cdto.getRoomPrice() * (int)stay;
 			
 			cdto.setRoomPrice(roomPrice);
-			System.out.println(cdto.getRoomPrice());
+			//System.out.println(cdto.getRoomPrice());
 			// 총가격
 			int totalPrice = roomPrice + optionPrice;
 			cdto.setTotalPrice(totalPrice);
-			System.out.println(cdto.getTotalPrice());
+			//System.out.println(cdto.getTotalPrice());
 			
 			if (mapper.isCart(cdto))
 

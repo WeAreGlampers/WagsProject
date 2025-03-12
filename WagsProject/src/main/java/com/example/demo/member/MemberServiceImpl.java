@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.example.demo.dto.MemberDto;
+import com.example.demo.dto.ProductDto;
+import com.example.demo.dto.ReviewDto;
 import com.example.demo.utils.MyUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -201,18 +203,22 @@ public class MemberServiceImpl implements MemberService {
 					LocalDate checkin = LocalDate.parse(inday);
 					LocalDate checkout = LocalDate.parse(outday);
 					long dDay=ChronoUnit.DAYS.between(today,checkin);
-					System.out.println(dDay);
-					
-					if(dDay < 0L) {
+					int dDayint = (int)dDay;
+					if(dDayint < 0) {
 						mapper.chgStateCompleted(id);
-						state =Integer.parseInt(map.get("state").toString());
-					} else if ( dDay > 0L && dDay < 4L) {
-						mapper.chgStateDday((int)dDay,id);
-						state =Integer.parseInt(map.get("state").toString());
+						dDayint = 5;
+						state = dDayint;
+					} else if ( dDayint >= 0 && dDay < 4) {
+						if (dDayint == 0) {
+							dDayint = 4;
+						}
+						mapper.chgStateDday(dDayint,id);
+						state = dDayint;
 					}
 				}
 				String result = MyUtils.stateStr(state);
-				map.put("state", result);
+				map.put("stateStr", result);
+				map.put("state",state);
 			}
 
 			
@@ -246,7 +252,57 @@ public class MemberServiceImpl implements MemberService {
 			
 			return "redirect:/member/cartView";
 		}
-	}	
+	}
+
+	@Override
+	public String reviewWrite(HttpSession session, Model model,HttpServletRequest request) {
+		if (session.getAttribute("userid")==null) {
+			return "/login/loging";
+		} else {
+			String userid = session.getAttribute("userid").toString();
+			String id = request.getParameter("id");
+			HashMap map = mapper.reservationStatusOne(id);
+
+			model.addAttribute("map",map);
+			return "/member/reviewWrite";
+		}
+	}
+
+	@Override
+	public String reviewWriteOk(ReviewDto rdto) {
+		int id = rdto.getRid();
+		mapper.reviewWriteOk(rdto);
+		mapper.chgReviewCount(id);
+		
+		double avgStar = mapper.getStarAvg(rdto.getPcode());
+		int reviewCount = mapper.getReviewCount(rdto.getPcode());
+		mapper.updateProductStatus(avgStar,reviewCount,rdto.getPcode());
+		
+		return "redirect:/member/reviewList";
+	}
+
+	@Override
+	public String reviewList(HttpSession session, Model model, HttpServletRequest request) {
+		if(session.getAttribute("userid")==null) {
+			return "/login/login";
+		} else {
+			String userid = session.getAttribute("userid").toString();
+			ArrayList<HashMap> reviewList = mapper.getReview(userid);
+			for (int i = 0; i <reviewList.size(); i++) {
+				HashMap map = reviewList.get(i);
+				map.put("content", map.get("content").toString().replace("\r\n", "<br>"));
+			}
+			model.addAttribute("reviewList", reviewList);
+			return "/member/reviewList";
+		}
+	}
+
+	@Override
+	public String reviewDelete(HttpSession session, HttpServletRequest request) {
+		
+		return null;
+	}
+	
 	
 	
 	

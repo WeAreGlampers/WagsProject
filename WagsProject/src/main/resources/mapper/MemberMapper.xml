@@ -50,6 +50,7 @@
    	<select id="reservationStatus" resultType="HashMap">
    		select * from reservation
    		where userid=#{userid}
+   		order by inday desc
    	</select>
    	
    	<delete id="cartDel">
@@ -67,5 +68,44 @@
    		update reservation
    		set state = ${dDay}
    		where id=#{id}
+   	</update>
+   	
+   	<select id="reservationStatusOne" resultType="HashMap">
+   		select * from reservation
+   		where id=#{id}
+   	</select>
+   	
+   	<select id="getReview" resultType="HashMap">
+   		select r.*, p.title as ptitle
+   		from review as r inner join product as p
+   		on r.pcode = p.pcode
+   		where userid=#{userid}
+   		order by id desc
+   	</select>
+   	
+   	<insert id="reviewWriteOk">
+   		insert into review
+   		(userid,pcode,star,title,content,writeday,rid)
+   		values (#{userid},#{pcode},#{star},#{title},#{content},now(),#{rid})
+   	</insert>
+	
+	<update id="chgReviewCount">
+		update reservation set review = 1
+		where id=#{id}
+	</update>
+   	
+   	<select id="getStarAvg" resultType="Double">
+   		select ifnull(sum(star)/count(*),0) from review
+   		where pcode=#{pcode}
+   	</select>
+   	
+   	<select id="getReviewCount" resultType="Integer">
+   		select count(*) from review
+   		where pcode=#{pcode}
+   	</select>
+   	
+   	<update id="updateProductStatus">
+   		update product set review = #{reviewCount}, star=#{avgStar}
+   		where pcode=#{pcode}
    	</update>
    </mapper> 

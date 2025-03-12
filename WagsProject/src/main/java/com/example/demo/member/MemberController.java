@@ -7,8 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.method.annotation.HttpHeadersReturnValueHandler;
 
 import com.example.demo.dto.MemberDto;
+import com.example.demo.dto.ReviewDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -94,5 +96,25 @@ public class MemberController {
 	@GetMapping("/member/cartDel")
 	public String cartDel(HttpSession session, HttpServletRequest request) {
 		return service.cartDel(session,request);
+	}
+	
+	@GetMapping("/member/reviewWrite")
+	public String reviewWrite(HttpSession session,Model model,HttpServletRequest request) {
+		return service.reviewWrite(session,model,request);
+	}
+	
+	@PostMapping("/member/reviewWriteOk")
+	public String reviewWriteOk(ReviewDto rdto) {
+		return service.reviewWriteOk(rdto);
+	}
+	
+	@GetMapping("/member/reviewList")
+	public String reviewlist(HttpSession session,Model model, HttpServletRequest request) {
+		return service.reviewList(session,model,request);
+	}
+	
+	@GetMapping("/member/reviewDelete")
+	public String reviewDelete(HttpSession session, HttpServletRequest request) {
+		return service.reviewDelete(session,request);
 	}
 }
