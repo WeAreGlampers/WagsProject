@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dto.ProductDto;
+import com.example.demo.dto.QnaDto;
+import com.example.demo.dto.ReservationDto;
 
 @Service
 @Qualifier("as")
@@ -47,12 +49,6 @@ public class AdminServiceImpl implements AdminService{
 			MultipartFile file=multi.getFile(imsi);
 			if(!file.isEmpty()) {
 				String oname=file.getOriginalFilename();
-				if(!imsi.equals("exdimg")) {
-					pimg=oname;
-				}
-				else {
-					dimg=oname;
-				}
 				String str=ResourceUtils.getFile("classpath:static/product").toString();
 				
 				File sfile=new File(str+"/"+oname);
@@ -61,7 +57,12 @@ public class AdminServiceImpl implements AdminService{
 					oname=fnames[0]+System.currentTimeMillis()+"."+fnames[1];
 					sfile=new File(str+"/"+oname);
 				}
-				
+				if(!imsi.equals("exdimg")) {
+					pimg=oname;
+				}
+				else {
+					dimg=oname;
+				}
 				Path path=Paths.get(str+"/"+oname);
 				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 			}	
@@ -75,22 +76,107 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public String productDelete(String id) {
+	public String productDelete(String id)throws Exception {
+		ProductDto pdto=mapper.getProduct(id);
+		String path=ResourceUtils.getFile("classpath:static/product").toString();
+		File pimg=new File(path+"/"+pdto.getPimg());
+		if(pimg.exists()) {
+			pimg.delete();
+		}
+		File dimg=new File(path+"/"+pdto.getDimg());
+		if(dimg.exists()) {
+			dimg.delete();
+		}
 		mapper.productDelete(id);
 		return "redirect:/admin/productList";
 	}
 
 	@Override
-	public String productUpdate(String id,Model model) {
+	public String productUpdate(String id,Model model){
 		ProductDto pdto=mapper.getProduct(id);
 		model.addAttribute("pdto",pdto);
+		
 		return "/admin/productUpdate";
 	}
 
 	@Override
-	public String productUpdateOk(ProductDto pdto,MultipartHttpServletRequest multi) {
+	public String productUpdateOk(ProductDto pdto,MultipartHttpServletRequest multi)throws Exception {
+		ProductDto pdto2=mapper.getProduct(pdto.getId()+"");
+		String str=ResourceUtils.getFile("classpath:static/product").toString();
+		Iterator<String> iter=multi.getFileNames();
+		if(!pdto2.getPimg().equals(pdto.getPimg())) {
+			File pfile=new File(str+"/"+pdto2.getPimg());
+			if(pfile.exists()) {
+				pfile.delete();
+			}
+			String imsi=iter.next();
+			MultipartFile file=multi.getFile(imsi);
+			if(!file.isEmpty()) {
+				String oname=file.getOriginalFilename();
+				File sfile=new File(str+"/"+oname);
+				if(sfile.exists()) {
+					String[] fnames=oname.split("[.]");
+					oname=fnames[0]+System.currentTimeMillis()+"."+fnames[1];
+					sfile=new File(str+"/"+oname);
+				}
+				Path path=Paths.get(str+"/"+oname);
+				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+				pdto.setPimg(oname);
+			}
+		}
+        if(!pdto2.getDimg().equals(pdto.getDimg())) {
+        	File dfile=new File(str+"/"+pdto2.getDimg());
+    		if(dfile.exists()) {
+    			dfile.delete();
+    		}
+    		String imsi=iter.next();
+    		if(!imsi.equals("exdimg")) {
+    			imsi=iter.next();
+    		}
+			MultipartFile file=multi.getFile(imsi);
+			if(!file.isEmpty()) {
+				String oname=file.getOriginalFilename();
+				File sfile=new File(str+"/"+oname);
+				if(sfile.exists()) {
+					String[] fnames=oname.split("[.]");
+					oname=fnames[0]+System.currentTimeMillis()+"."+fnames[1];
+					sfile=new File(str+"/"+oname);
+				}
+				Path path=Paths.get(str+"/"+oname);
+				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+				pdto.setDimg(oname);
+			}
+		}
 		
+		mapper.productUpdateOk(pdto);
 		return "redirect:/admin/productList";
+	}
+
+	@Override
+	public String reservationList(Model model) {
+		ArrayList<ReservationDto> rlist=mapper.reservationList();
+		model.addAttribute("rlist",rlist);
+		return "admin/reservationList";
+	}
+
+	@Override
+	public String qnaList(Model model) {
+		ArrayList<QnaDto> qlist=mapper.qnaList();
+		model.addAttribute("qlist",qlist);
+		return "admin/qnaList";
+	}
+
+	@Override
+	public String chgState(String id) {
+		mapper.chgState(id);
+		return "redirect:/admin/reservationList";
+	}
+
+	@Override
+	public String qnaAnswer(QnaDto qdto) {
+		mapper.qnaAnswer(qdto);
+		mapper.chgRef(qdto.getRef());
+		return "redirect:/admin/qnaList";
 	}
 	
 	

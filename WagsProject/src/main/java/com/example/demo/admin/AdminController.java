@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dto.ProductDto;
+import com.example.demo.dto.QnaDto;
 
 @Controller
 public class AdminController {
@@ -32,12 +33,12 @@ public class AdminController {
 	}
 	
 	@GetMapping("/admin/productDelete")
-	public String productDelete(String id) {
+	public String productDelete(String id)throws Exception{
 		return service.productDelete(id);
 	}
 	
 	@GetMapping("/admin/productUpdate")
-	public String productUpdate(String id,Model model) {
+	public String productUpdate(String id,Model model){
 		return service.productUpdate(id,model);
 	}
 	
@@ -46,4 +47,23 @@ public class AdminController {
 		return service.productUpdateOk(pdto,multi);
 	}
 	
+	@GetMapping("/admin/qnaList")
+	public String qnaList(Model model) {
+		return service.qnaList(model);
+	}
+	
+	@PostMapping("/admin/qnaAnswer")
+	public String qnaAnswer(QnaDto qdto) {
+		return service.qnaAnswer(qdto);
+	}
+	
+	@GetMapping("/admin/reservationList")
+	public String reservationList(Model model) {
+		return service.reservationList(model);
+	}
+	
+	@GetMapping("/admin/chgState")
+	public String chgState(String id) {
+		return service.chgState(id);
+	}
 }

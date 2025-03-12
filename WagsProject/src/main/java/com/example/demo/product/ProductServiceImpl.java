@@ -173,6 +173,7 @@ public class ProductServiceImpl implements ProductService {
 			String[] fireWoods=request.getParameter("fireWood").split(",");
 			String[] grillPrices=request.getParameter("grillPrice").split(",");
 			String[] fireWoodPrices=request.getParameter("fireWoodPrice").split(",");
+			String[] peoples=request.getParameter("people").split(",");
 			
 			long[] days=new long[pcodes.length];
 			int totalPriceAll=0;
@@ -194,6 +195,7 @@ public class ProductServiceImpl implements ProductService {
 					cdto.setFireWoodPrice(Integer.parseInt(fireWoodPrices[i]));
 					cdto.setRoomPrice(Integer.parseInt(roomPrices[i]));
 					cdto.setTotalPrice(Integer.parseInt(totalPrices[i]));
+					cdto.setPeople(Integer.parseInt(peoples[i]));
 					totalPriceAll+=cdto.getTotalPrice();
 					cdto.setInday(indays[i]);
 					cdto.setOutday(outdays[i]);
@@ -226,7 +228,8 @@ public class ProductServiceImpl implements ProductService {
 				cdto.setGrillPrice(Integer.parseInt(grillPrices[0]));
 				cdto.setFireWoodPrice(Integer.parseInt(fireWoodPrices[0]));
 				cdto.setRoomPrice(roomPrice);
-				totalPriceAll=roomPrice+cdto.getFireWoodPrice()+cdto.getGrillPrice();
+				cdto.setPeople(Integer.parseInt(peoples[0]));
+				totalPriceAll=roomPrice+cdto.getFireWoodPrice()+cdto.getGrillPrice()+cdto.getPeople()*15000;
 				cdto.setTotalPrice(totalPriceAll);
 				cdto.setInday(inday);
 				cdto.setOutday(outday);
@@ -258,6 +261,7 @@ public class ProductServiceImpl implements ProductService {
 			String[] totalPrices=request.getParameterValues("totalPrice");
 			String[] indays=request.getParameterValues("inday");
 			String[] outdays=request.getParameterValues("outday");
+			String[] peoples=request.getParameterValues("people");
 			String req=request.getParameter("req");
 			String useSave=request.getParameter("useSave");
 			String pay=request.getParameter("pay");
@@ -285,6 +289,7 @@ public class ProductServiceImpl implements ProductService {
 				rdto.setTotalPrice(Integer.parseInt(totalPrices[i]));
 				rdto.setInday(indays[i]);
 				rdto.setOutday(outdays[i]);
+				rdto.setPeople(Integer.parseInt(peoples[i]));
 				rdto.setUserid(userid);
 				rdto.setJumuncode(jumuncode);
 				rdto.setReq(req);

@@ -35,4 +35,31 @@
 		set title=#{title},price=#{price},standard=#{standard},max=#{max},save=#{save},pimg=#{pimg},dimg=#{dimg}
 		where id=#{id}
 	</update>
+	
+	<select id="reservationList" resultType="com.example.demo.dto.ReservationDto">
+		select * from reservation
+		order by id desc
+	</select>
+	
+	<select id="qnaList" resultType="com.example.demo.dto.QnaDto">
+		select * from qna
+		order by id desc
+	</select>
+	
+	<update id="chgState">
+		update reservation 
+		set state=state+1
+		where id=#{id}
+	</update>
+	
+	<insert id="qnaAnswer">
+		insert into qna(userid,content,writeday,rtitle,ref,qna,pcode)
+		values('admin',#{content},now(),#{rtitle},#{ref},2,#{pcode})
+	</insert>
+	
+	<update id="chgRef">
+		update qna 
+		set ref=#{ref}
+		where id=#{ref} 
+	</update>
 </mapper>

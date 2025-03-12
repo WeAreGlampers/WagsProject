@@ -37,12 +37,6 @@
 }
 </style>
 <script>
-var pimg='${pdto.pimg}';
-var dimg='${pdto.dimg}';
-window.onpageshow=function(){
-	document.getElementsByClassName("upload-name")[0].value=pimg;
-	document.getElementsByClassName("upload-name")[1].value=dimg;
-}
 function upload(index){
 	if(index==0){
 		document.getElementsByClassName("upload-name")[index].value=document.getElementById("file1").value;
@@ -83,7 +77,7 @@ function upload(index){
       <td>상품이미지</td>
       <td>
         <div class="filebox">
-    		<input class="upload-name" value="첨부파일" placeholder="첨부파일">
+    		<input class="upload-name" name="pimg" value="${pdto.pimg}" placeholder="첨부파일">
    			<label for="file1">파일변경</label> 
     		<input type="file" id="file1" name="expimg" onchange="upload(0)">
 		</div>
@@ -93,7 +87,7 @@ function upload(index){
       <td>상품상세이미지</td>
       <td>
         <div class="filebox">
-    		<input class="upload-name" value="첨부파일" placeholder="첨부파일">
+    		<input class="upload-name" name="dimg" value="${pdto.dimg}" placeholder="첨부파일">
    			<label for="file2">파일변경</label> 
     		<input type="file" id="file2" name="exdimg" onchange="upload(1)">
 		</div>
