@@ -1,6 +1,7 @@
 package com.example.demo.product;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -62,5 +63,9 @@ public class ProductController {
 	public String reservationOk(HttpSession session,Model model,HttpServletRequest request) {
 		return service.reservationOk(session, model,request);
 	}
-
+	
+	@GetMapping("/product/UnavailableDates")
+	public @ResponseBody ArrayList<ReservationDto> UnavailableDates(HttpServletRequest request) {
+		return service.UnavailableDates(request);
+	}
 }

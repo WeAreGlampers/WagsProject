@@ -1,5 +1,7 @@
 package com.example.demo.product;
 
+import java.util.ArrayList;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,5 +20,5 @@ public interface ProductService {
 	public String productList(HttpServletRequest request,Model model);
 	public String reservation(HttpSession session,Model model,HttpServletRequest request);
 	public String reservationOk(HttpSession session,Model model,HttpServletRequest request);
-
+	public @ResponseBody ArrayList<ReservationDto> UnavailableDates(HttpServletRequest request);
 }

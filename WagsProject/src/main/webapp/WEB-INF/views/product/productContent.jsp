@@ -327,8 +327,41 @@ section #datepicker {
 				<input type="submit" value="예약"> 
 		</div>
 		
+		<!-- <input type="button" value="버튼" onclick="UnavailableDates('${pdto.pcode}')"> --> 
 	</div>	<!-- second close -->
 	</form> <!-- form close -->
+	
+	<%-- <form method="post" action="qnaWriteOk">
+		<input type="hidden" name="pcode" value="${pdto.pcode}">
+		<input type="button" value="작성">
+	</form> --%>
+	
+	<div id="third">
+		<h3> 상품평 </h3>
+		<div> 
+			<c:forEach begin="1" end="${pdto.Ystar}">
+				<img src="../static/star1.png">
+			</c:forEach>
+			<c:forEach begin="1" end="${pdto.hstar}">
+				<img src="../static/star3.png">
+			</c:forEach>
+			<c:forEach begin="1" end="${pdto.Gstar}">
+				<img src="../static/star2.png">
+			</c:forEach>
+			${pdto.review}개 상품평
+		</div>
+		
+		<c:forEach items="${rlist}" var="rdto">
+			
+		
+		
+		</c:forEach>
+		
+	
+	
+	
+	</div>
+	
 </section>
 
 <!-- easePick 달력 라이브러리 사용 -->
@@ -341,48 +374,51 @@ section #datepicker {
 <script src="https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.js"></script>
 
 <!-- EasePick 적용 (초기화 및 설정) -->
-<script>
-	const allowedDates = [
-		'2025-03-01',
-        '2025-03-03',
-        '2025-03-07',
-        '2025-03-11',
-        '2025-03-17',
-        '2025-03-21',
-	]
-	
-document.addEventListener("DOMContentLoaded", function () {
-    const picker = new easepick.create({
+	<script>
+      const DateTime = easepick.DateTime;
+      const bookedDates = [ 
+    	  	${test}
+    	  ].map(d => {
+          if (d instanceof Array) {
+            const start = new DateTime(d[0], 'YYYY-MM-DD');
+            const end = new DateTime(d[1], 'YYYY-MM-DD');
+
+            return [start, end];
+          }
+
+          return new DateTime(d, 'YYYY-MM-DD');
+      });
+      const picker = new easepick.create({
         element: document.getElementById('datepicker'),
         css: [
-            "https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css"
+          'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css',
+          'https://easepick.com/css/demo_hotelcal.css',
         ],
-        plugins: ["RangePlugin","LockPlugin"], // 범위 선택 기능 활성화
+        plugins: ['RangePlugin', 'LockPlugin'],
         RangePlugin: {
-            tooltip: true // 선택한 날짜 툴팁 표시
+          tooltipNumber(num) {
+            return num - 1;
+          },
+          locale: {
+            one: 'night',
+            other: 'nights',
+          },
         },
         LockPlugin: {
-	        format: "YYYY-MM-DD", // 날짜 포맷 설정
-	        minDate: new Date(), // 오늘 이전 날짜 선택 불가
-	        filter(date, picked) {
-	            return allowedDates.includes(date.format('YYYY-MM-DD'));
-	        } 
-        }
-    });
-});
-</script>
-<!-- 
-	거리뷰 api
- <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID"></script>
+          minDate: new Date(),
+          minDays: 2,
+          inseparable: true,
+          filter(date, picked) {
+            if (picked.length === 1) {
+              const incl = date.isBefore(picked[0]) ? '[)' : '(]';
+              return !picked[0].isSame(date, 'day') && date.inArray(bookedDates, incl);
+            }
 
-<script>
-	var mapOptions = {
-	    center: new naver.maps.LatLng(37.3595704, 127.105399),
-	    zoom: 10
-	};
-	
-	var map = new naver.maps.Map('map', mapOptions);
-</script>
- -->
+            return date.inArray(bookedDates, '[)');
+          },
+        }
+      });
+    </script>
+
 </body>
 </html>

@@ -89,5 +89,10 @@
 		select save from product
 		where pcode=#{pcode}
 	</select>
+	
+	<select id="getReservation" resultType="com.example.demo.dto.ReservationDto">
+		select * from reservation
+		where pcode=#{pcode}
+	</select>
 
 </mapper>
