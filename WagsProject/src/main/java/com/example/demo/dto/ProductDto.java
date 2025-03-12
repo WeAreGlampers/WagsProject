@@ -6,4 +6,5 @@ import lombok.Data;
 public class ProductDto {
 	private int id,price,standard,max,save,review;
 	private String title,pcode,pimg,dimg;
+	private double star;
 } 
