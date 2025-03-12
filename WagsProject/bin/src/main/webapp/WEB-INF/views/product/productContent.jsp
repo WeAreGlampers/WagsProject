@@ -350,34 +350,17 @@ section #datepicker {
 			</c:forEach>
 			${pdto.review}개 상품평
 		</div>
-		<!-- 개인 -->
+		
 		<c:forEach items="${rlist}" var="rdto">
-			<div>
-				<!-- 노란별 출력 -->
-				<c:forEach begin="1" end="${rdto.star}">
-					<img src="../static/star1.png" width="20">
-				</c:forEach>
-				<c:forEach begin="1" end="${5-rdto.star}">
-					<img src="../static/star2.png" width="20">
-				</c:forEach>
-				(${rdto.writeday})
-			</div>
-			<div> ${rdto.chUserid} </div>
-			<div> ${rdto.title} </div>
-			<div> ${rdto.content} </div>
-				<div id="upDel" align="right">
-					<c:if test="${userid != rdto.userid}">
-						신고하기
-					</c:if>
-					<c:if test="${userid == rdto.userid}">
-						<a href="../member/reviewUpdate?id=${rdto.id}&pcode=${rdto.pcode}"> 수정 </a> |
-						<a href="../member/reviewDelete?id=${rdto.id}&pcode=${rdto.pcode}&gid=${rdto.gid}"> 삭제 </a>
-					</c:if>	
-				</div>
-					
+			
+		
 		
 		</c:forEach>
-	</div> <!-- review 끝 -->
+		
+	
+	
+	
+	</div>
 	
 </section>
 
