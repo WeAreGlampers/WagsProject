@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.example.demo.dto.CartDto;
 import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.ProductDto;
+import com.example.demo.dto.QnaDto;
 import com.example.demo.dto.ReservationDto;
 
 @Mapper
@@ -28,5 +29,6 @@ public interface ProductMapper {
 	public void setSave(String userid,int useSave,int addSave);
 	public int getSave(String pcode);
 	public void reserveCartDel(ReservationDto rdto);
+	public void qnaWriteOk(QnaDto qdto);
  }
 

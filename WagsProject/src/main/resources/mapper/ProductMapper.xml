@@ -92,4 +92,10 @@
 	<delete id="reserveCartDel">
 		delete from cart where userid=#{userid} and pcode=#{pcode} and inday=#{inday} and outday=#{outday}
 	</delete>
+	
+	<insert id="qnaWriteOk">
+		insert into qna
+		(userid,content,writeday,qtitle,ref,qna,pcode,secret,type)
+		values (#{userid},#{content},now(),#{qtitle},'0','1',#{pcode},#{secret},#{type})
+	</insert>
 </mapper>

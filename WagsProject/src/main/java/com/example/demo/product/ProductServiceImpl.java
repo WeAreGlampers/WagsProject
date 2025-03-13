@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import com.example.demo.dto.ProductDto;
+import com.example.demo.dto.QnaDto;
 import com.example.demo.dto.ReservationDto;
 
 @Service
@@ -302,6 +303,18 @@ public class ProductServiceImpl implements ProductService {
 			}
 			mapper.setSave(userid,Integer.parseInt(useSave),addSave);
 			return "/product/reservationOk";
+		}
+	}
+
+	@Override
+	public String qnaWriteOk(QnaDto qdto, HttpSession session) {
+		if (session.getAttribute("userid")==null) {
+			return "redirect:/login/login";
+		} else {
+			String userid = session.getAttribute("userid").toString();
+			qdto.setUserid(userid);
+			mapper.qnaWriteOk(qdto);
+			return "redirect:/product/productContent?pcode="+qdto.getPcode();
 		}
 	}
 

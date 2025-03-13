@@ -111,7 +111,8 @@ section .delete-btn input:hover {
         </div>
       </div>
       <div class="delete-btn">
-        <input type="button" value="리뷰삭제" onclick="location='/member/reviewDelete?id=${map.id}'">
+      	<input type="button" value="수정" onclick="location='/member/reviewUpdate?id=${map.id}&rid=${map.rid}'">
+        <input type="button" value="삭제" onclick="location='/member/reviewDelete?id=${map.id}&pcode=${map.pcode}&rid=${map.rid}'">
       </div>
     </div>
   </c:forEach>

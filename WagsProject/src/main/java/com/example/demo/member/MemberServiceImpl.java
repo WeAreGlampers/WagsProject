@@ -80,7 +80,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String pwdUpdateChk(HttpSession session, String pwd) {
 		if (session.getAttribute("userid")==null) {
-			return "login/login";
+			return "redirect:/login/login";
 		} else {
 			String userid=(String)session.getAttribute("userid");
 			MemberDto mdto = mapper.getMemInfo(userid);
@@ -96,7 +96,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String pwdUpdate(Model model, HttpSession session,String pwd) {
 		if (session.getAttribute("userid")==null) {
-			return "login/login";
+			return "redirect:/login/login";
 		} else {
 			String userid=(String)session.getAttribute("userid");
 			MemberDto mdto = mapper.getMemInfo(userid);	
@@ -122,7 +122,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String pwdUpdateOk(MemberDto mdto,HttpSession session) {
 		if (session.getAttribute("userid")==null) {
-			return "login/login";
+			return "redirect:/login/login";
 		} else {
 			String userid = session.getAttribute("userid").toString();
 			mdto.setUserid(userid);
@@ -185,7 +185,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String reservationStatus(Model model, HttpSession session) {
 		if (session.getAttribute("userid")==null) {
-			return "login/login";
+			return "redirect:/login/login";
 		} else {
 			String userid = session.getAttribute("userid").toString();
 			ArrayList<HashMap> mapList = mapper.reservationStatus(userid);
@@ -230,7 +230,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String cartView(HttpSession session, Model model) {
 		if (session.getAttribute("userid")==null) {
-			return "/login/login";
+			return "redirect:/login/login";
 		} else {
 			String userid = session.getAttribute("userid").toString();
 			ArrayList<HashMap> cartMap = mapper.cartView(userid);
@@ -260,7 +260,7 @@ public class MemberServiceImpl implements MemberService {
 			return "/login/loging";
 		} else {
 			String userid = session.getAttribute("userid").toString();
-			String id = request.getParameter("id");
+			int id = Integer.parseInt(request.getParameter("id"));
 			HashMap map = mapper.reservationStatusOne(id);
 
 			model.addAttribute("map",map);
@@ -284,7 +284,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String reviewList(HttpSession session, Model model, HttpServletRequest request) {
 		if(session.getAttribute("userid")==null) {
-			return "/login/login";
+			return "redirect:/login/login";
 		} else {
 			String userid = session.getAttribute("userid").toString();
 			ArrayList<HashMap> reviewList = mapper.getReview(userid);
@@ -299,9 +299,45 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String reviewDelete(HttpSession session, HttpServletRequest request) {
+		String pcode = request.getParameter("pcode");
+		mapper.reviewDelete(request.getParameter("id"));
+		mapper.chgReviewCount2(request.getParameter("rid"));
+		double avgStar = mapper.getStarAvg(pcode);
+		int reviewCount = mapper.getReviewCount(pcode);
+		mapper.updateProductStatus(avgStar,reviewCount,pcode);
 		
-		return null;
+		return "redirect:/member/reviewList";
 	}
+
+	@Override
+	public String reviewUpdate(HttpSession session, ReviewDto rdto, Model model) {
+		if (session.getAttribute("userid")==null) {
+			return "redirect:/login/login";
+		} else {
+			System.out.println("============"+rdto.getId() + " " + rdto.getRid()+"=============");
+			HashMap map = mapper.reservationStatusOne(rdto.getRid());
+			rdto = mapper.getReviewForUpdate(rdto.getId());
+			model.addAttribute("rdto",rdto);
+			model.addAttribute("map",map);
+			return "/member/reviewUpdate";
+		}
+	}
+
+	@Override
+	public String reviewUpdateOk(HttpSession session, ReviewDto rdto) {
+		if (session.getAttribute("userid")==null) {
+			return "redirect:/login/login";
+		} else {
+			String pcode = rdto.getPcode();
+			mapper.reviewUpdateOk(rdto);
+			double avgStar = mapper.getStarAvg(pcode);
+			int reviewCount = mapper.getReviewCount(pcode);
+			mapper.updateProductStatus(avgStar,reviewCount,pcode);
+			return "redirect:/member/reviewList";
+		}
+	}
+	
+	
 	
 	
 	

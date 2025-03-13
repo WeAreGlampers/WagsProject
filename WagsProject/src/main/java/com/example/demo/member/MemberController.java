@@ -117,4 +117,16 @@ public class MemberController {
 	public String reviewDelete(HttpSession session, HttpServletRequest request) {
 		return service.reviewDelete(session,request);
 	}
+	
+	@GetMapping("/member/reviewUpdate")
+	public String reviewUpdate(HttpSession session, ReviewDto rdto, Model model) {
+		return service.reviewUpdate(session,rdto,model);
+	}
+	
+	@PostMapping("/member/reviewUpdateOk")
+	public String reviewUpdateOk(HttpSession session,ReviewDto rdto) {
+		return service.reviewUpdateOk(session,rdto);
+	}
+	
+
 }

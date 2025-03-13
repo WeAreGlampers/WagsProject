@@ -48,4 +48,8 @@ public interface MemberService {
 
 	public String reviewDelete(HttpSession session, HttpServletRequest request);
 
+	public String reviewUpdate(HttpSession session, ReviewDto rdto, Model model);
+
+	public String reviewUpdateOk(HttpSession session, ReviewDto rdto);
+
 }
