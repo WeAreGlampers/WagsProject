@@ -21,4 +21,5 @@ public interface ProductService {
 	public String reservation(HttpSession session,Model model,HttpServletRequest request);
 	public String reservationOk(HttpSession session,Model model,HttpServletRequest request);
 	public @ResponseBody ArrayList<ReservationDto> UnavailableDates(HttpServletRequest request);
+	public String qnaDel(HttpServletRequest request);
 }

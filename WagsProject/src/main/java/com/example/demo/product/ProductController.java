@@ -50,6 +50,11 @@ public class ProductController {
 		return service.dibsDel(session,request);
 	}
 	
+	@GetMapping("/product/qnaDel")
+	public String qnaDel(HttpServletRequest request) {
+		return service.qnaDel(request);
+	}
+	
 	@RequestMapping("/product/productList")
 	public String productList(HttpServletRequest request,Model model) {
 		return service.productList(request,model);
@@ -68,4 +73,5 @@ public class ProductController {
 	public @ResponseBody ArrayList<ReservationDto> UnavailableDates(HttpServletRequest request) {
 		return service.UnavailableDates(request);
 	}
+	
 }

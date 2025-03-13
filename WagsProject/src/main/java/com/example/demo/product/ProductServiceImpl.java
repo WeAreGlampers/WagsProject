@@ -20,7 +20,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import com.example.demo.dto.ProductDto;
+import com.example.demo.dto.QnaDto;
 import com.example.demo.dto.ReservationDto;
+import com.example.demo.dto.ReviewDto;
 
 @Service
 @Qualifier("ps")
@@ -45,10 +47,26 @@ public class ProductServiceImpl implements ProductService {
 		// 별점 구해서 보내기
 		MyUtil.getStar(pdto);
 		
-		ArrayList<ReservationDto> rlist = mapper.getReservation(request.getParameter("pcode")); 
+		// 상품평 내용
+		ArrayList<ReviewDto> reviewList=mapper.getReview(pcode);
+		for(int i=0; i<reviewList.size(); i++) {
+			reviewList.get(i).setContent(reviewList.get(i).getContent().replace("/r/n", "<br>"));
+		}
+		
+		model.addAttribute("reviewList",reviewList);
+
+		// 상품문의를 가져와서 뷰에 전달
+		ArrayList<QnaDto> qlist=mapper.getQna(pcode);
+		for(int i=0; i<qlist.size(); i++) {
+			qlist.get(i).setContent(qlist.get(i).getContent().replace("/r/n", "<br>"));
+		}
+		
+		model.addAttribute("qlist",qlist);
+		
+		ArrayList<ReservationDto> reservationList = mapper.getReservation(request.getParameter("pcode")); 
 		String test="";
-		for(int i=0; i<rlist.size(); i++) {
-			test = test + "['" + rlist.get(i).getInday() + "','" + rlist.get(i).getOutday() + "'],";
+		for(int i=0; i<reservationList.size(); i++) {
+			test = test + "['" + reservationList.get(i).getInday() + "','" + reservationList.get(i).getOutday() + "'],";
 		}
 		
 		System.out.println(test);
@@ -142,6 +160,8 @@ public class ProductServiceImpl implements ProductService {
 
 	}
 
+	
+	
 	public String productList(HttpServletRequest request, Model model) {
 		ArrayList<ProductDto> plist;
 		if (request.getParameter("date") != null) {
@@ -342,6 +362,21 @@ public class ProductServiceImpl implements ProductService {
 		}
 		*/
 		return rlist; // 문자열로 보내기
+	}
+
+	@Override
+	public String qnaDel(HttpServletRequest request) {
+		String id=request.getParameter("id");
+		String pcode=request.getParameter("pcode");
+		int ref= Integer.parseInt(request.getParameter("ref"));
+		
+		if(ref == 0) {
+			mapper.qnaDel1(id);
+		} else {
+			mapper.qnaDel2(ref);
+		}
+		
+		return "/product/productContent?pcode=" + pcode;
 	}
 
 }

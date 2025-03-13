@@ -36,7 +36,7 @@ public class MyUtil {
 		pdto.setYstar(ystar);
 		pdto.setHstar(hstar);
 		pdto.setGstar(gstar);
-
+		
 	}
 
 }

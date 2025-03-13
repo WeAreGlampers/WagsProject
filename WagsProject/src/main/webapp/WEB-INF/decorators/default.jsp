@@ -161,6 +161,9 @@ nav .category .sub #long {
 	width:110px;
 }
 
+nav .category .sub #long2 {
+	width:110px;
+}
 #logo img {
 	width: 250px;
 	height: 100px;
@@ -260,8 +263,7 @@ a {
 			<li>
 				<span class="category" onmouseover="viewCategory(1)" onmouseout="hideCategory(1)"> ROOMS
 				  	<ul class="sub">
-				  		<li> <a href="../product/productList"> 카라반 </a> </li>
-				  		<li> <a href="../product/productList"> 글램핑 </a> </li>
+				  		<li id="long2"> <a href="../product/productList"> 글램핑&카라반 </a> </li>
 				  	</ul>
 				  </span>
 			</li>
@@ -299,7 +301,7 @@ a {
 
 	<footer>
 	    <div>
-	        <p>상호: WeAreGlampers · 대표자: 윤영제·이지헌·강동완 · 통신판매신고번호: 제 2022-경기고양-0362 호</p>
+	        <p>상호: WeAreGlampers · 대표자: 윤영제·이지현·강동완 · 통신판매신고번호: 제 2022-경기고양-0362 호</p>
 	        <p>COMPANY REGISTRATION NUMBER: 058-59-00369 · ADDRESS: 55, Goyang-si, Ilsan-dong-gu ,Madhu-dong, , Gyeonggi-do, Korea</p>
 	        <p>CARAVAN&GLAMPING: 010-2237-1667 · EMAIL: wags@naver.com</p>
 	    </div>

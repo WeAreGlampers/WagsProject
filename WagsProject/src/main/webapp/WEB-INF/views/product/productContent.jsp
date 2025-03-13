@@ -125,6 +125,82 @@ section #datepicker {
 	transition: background 0.3s;
 	text-align: center;
 }
+
+section #third .inReview {
+	width: 1080px;
+	height: 150px;
+	overflow: auto;
+	border: 1px solid black;
+	margin-top: 20px;
+	padding: 10px;
+}
+
+section #third .inReview #userid {
+	font-size: 17px;
+	font-weight: 900;
+	margin-top: 10px;
+}
+
+section #third .inReview #title {
+	font-weight: 900;
+	margin-top: 10px;
+}
+
+section #third .inReview #content {
+	margin-top: 10px;
+}
+
+section #fourth {
+    width: 1100px;
+    margin: 40px auto 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+section #fourth #left {
+    float: left;
+    width: 50%;
+}
+
+section #fourth #right {
+    float: right;
+    width: 50%;
+    text-align: right;
+    margin-top: 20px;
+}
+
+section #fourth table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    clear: both;
+}
+
+section #fourth table tr {
+    border-bottom: 1px solid #eee;
+}
+
+section #fourth table td {
+    padding: 12px 10px;
+}
+
+section #fourth #q {
+    background: #FFE08C;
+    color: #CC723D;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+section #fourth #a {
+    background: #f0f0f0;
+    color: #666;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+
 </style>
 <script>
 
@@ -331,28 +407,24 @@ section #datepicker {
 	</div>	<!-- second close -->
 	</form> <!-- form close -->
 	
-	<%-- <form method="post" action="qnaWriteOk">
-		<input type="hidden" name="pcode" value="${pdto.pcode}">
-		<input type="button" value="작성">
-	</form> --%>
-	
 	<div id="third">
 		<h3> 상품평 </h3>
 		<div> 
-			<c:forEach begin="1" end="${pdto.Ystar}">
-				<img src="../static/star1.png">
+			<c:forEach begin="1" end="${pdto.ystar}">
+				<img src="../static/star1.png" width="30" valign="middle">
 			</c:forEach>
 			<c:forEach begin="1" end="${pdto.hstar}">
-				<img src="../static/star3.png">
+				<img src="../static/star3.png" width="30" valign="middle">
 			</c:forEach>
-			<c:forEach begin="1" end="${pdto.Gstar}">
-				<img src="../static/star2.png">
+			<c:forEach begin="1" end="${pdto.gstar}">
+				<img src="../static/star2.png" width="30" valign="middle">
 			</c:forEach>
 			${pdto.review}개 상품평
 		</div>
 		<!-- 개인 -->
-		<c:forEach items="${rlist}" var="rdto">
-			<div>
+		<c:forEach items="${reviewList}" var="rdto">
+		<div class="inReview">
+			<div >
 				<!-- 노란별 출력 -->
 				<c:forEach begin="1" end="${rdto.star}">
 					<img src="../static/star1.png" width="20">
@@ -362,24 +434,56 @@ section #datepicker {
 				</c:forEach>
 				(${rdto.writeday})
 			</div>
-			<div> ${rdto.chUserid} </div>
-			<div> ${rdto.title} </div>
-			<div> ${rdto.content} </div>
+			<div id="userid"> ${rdto.chUserid} </div>
+			<div id="title"> ${rdto.title} </div>
+			<div id="content"> ${rdto.content} </div>
 				<div id="upDel" align="right">
 					<c:if test="${userid != rdto.userid}">
 						신고하기
 					</c:if>
 					<c:if test="${userid == rdto.userid}">
 						<a href="../member/reviewUpdate?id=${rdto.id}&pcode=${rdto.pcode}"> 수정 </a> |
-						<a href="../member/reviewDelete?id=${rdto.id}&pcode=${rdto.pcode}&gid=${rdto.gid}"> 삭제 </a>
+						<a href="../member/reviewDelete?id=${rdto.id}&pcode=${rdto.pcode}&rid=${rdto.rid}"> 삭제 </a>
 					</c:if>	
 				</div>
-					
-		
+				
+			</div>
 		</c:forEach>
 	</div> <!-- review 끝 -->
 	
+	<div id="fourth"> <!-- qna -->
+			<div>&nbsp;</div>
+			<div>
+				<div id="left"> <h3> 상품문의 </h3> </div>
+				<div id="right"> <input type="button" value="문의하기" onclick="qnaView()"> </div>
+			</div>
+				<div>
+				<table width="1100" align="center">
+					<c:forEach items="${qlist}" var="qdto">
+						<tr>
+							<td width="100">
+								<c:if test="${qdto.qna==1}">
+									<span id="q">질문</span>
+								</c:if> 
+								<c:if test="${qdto.qna==2}"> 
+			              			-> <span id="a">답변</span>
+								</c:if>
+							</td>
+							<td width="100">${qdto.userid}</td> 
+							<td>${qdto.content}</td>
+							<td width="180" align="center">${qdto.writeday} 
+								<c:if test="${userid==qdto.userid}">
+									<input type="button" value="삭제" onclick="location='qnaDel?id=${qdto.id}&pcode=${qdto.pcode}&ref=${qdto.ref}'">
+								</c:if>
+							</td> 
+						</tr>
+					</c:forEach>
+				</table>
+			</div> 
+		</div> 
 </section>
+
+	
 
 <!-- easePick 달력 라이브러리 사용 -->
 
@@ -436,6 +540,6 @@ section #datepicker {
         }
       });
     </script>
-
+    
 </body>
 </html>

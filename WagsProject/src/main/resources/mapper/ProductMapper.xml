@@ -44,6 +44,33 @@
 		select * from cart
 	</select>
 
+	<select id="getReservation" resultType="com.example.demo.dto.ReservationDto">
+		select * from reservation
+		where pcode=#{pcode}
+	</select>
+	
+	<select id="getReview" resultType="com.example.demo.dto.ReviewDto">
+		select * from review
+		where pcode=#{pcode}
+	</select>
+
+	<delete id="qnaDel1">
+		delete from qna
+		where id=#{id}
+	</delete>
+	
+	<delete id="qnaDel2">
+		delete from qna
+		where id=#{ref}
+	</delete>
+	
+	<select id="getQna" resultType="com.example.demo.dto.QnaDto">
+		select * from qna
+		where pcode=#{pcode}
+	</select>
+
+
+
 	<select id="productList" resultType="com.example.demo.dto.ProductDto">
 		select * from product
 		order by id desc
@@ -90,9 +117,7 @@
 		where pcode=#{pcode}
 	</select>
 	
-	<select id="getReservation" resultType="com.example.demo.dto.ReservationDto">
-		select * from reservation
-		where pcode=#{pcode}
-	</select>
+	
+	
 
 </mapper>
