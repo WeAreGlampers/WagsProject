@@ -12,6 +12,8 @@ import com.example.demo.dto.FreeBoardDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import com.example.demo.dto.NoticeDto;
+
 @Service
 @Qualifier("cs")
 public class CommunityServiceImpl implements CommunityService {
@@ -94,4 +96,19 @@ public class CommunityServiceImpl implements CommunityService {
 		return "community/content";
 	}
 
+	@Override
+	public String noticeList(Model model) {
+		ArrayList<NoticeDto> nlist=mapper.noticeList();
+		model.addAttribute("nlist",nlist);
+		return "/community/noticeList";
+	}
+
+	@Override
+	public String noticeContent(String id, Model model) {
+		NoticeDto ndto=mapper.noticeContent(id);
+		ndto.setContent(ndto.getContent().replace("\r\n", "<br>"));
+		model.addAttribute("ndto",ndto);
+		return "/community/noticeContent";
+	}
 }
+

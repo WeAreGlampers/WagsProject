@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class QnaDto {
 	private int id,ref,qna;
-	private String userid,content,writeday,pcode;
+	private String userid,content,writeday,pcode,qtitle;
 }

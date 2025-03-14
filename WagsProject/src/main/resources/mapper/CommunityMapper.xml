@@ -31,4 +31,17 @@
    		select * from freeBoard
    		where id=#{id}
    	</select>
-   </mapper>
+
+	
+	  <select id="noticeList" resultType="com.example.demo.dto.NoticeDto">
+		select * from notice 
+		order by id desc
+	  </select>
+	
+	  <select id="noticeContent" resultType="com.example.demo.dto.NoticeDto">
+		select * from notice
+		where id=#{id}
+	  </select>
+	
+  </mapper>
+

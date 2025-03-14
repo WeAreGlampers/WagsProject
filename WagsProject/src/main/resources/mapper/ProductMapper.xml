@@ -103,8 +103,8 @@
 	</select>
 	
 	<insert id="reservationOk">
-		insert into reservation(useSave,review,pay,card1,halbu,bank1,card2,tel,bank2,totalPrice,fireWood,grill,userid,pcode,writeday,jumuncode,inday,outday,title,req,fireWoodPrice,grillPrice,roomPrice)
-		values(#{useSave},0,#{pay},#{card1},#{halbu},#{bank1},#{card2},#{tel},#{bank2},#{totalPrice},#{fireWood},#{grill},#{userid},#{pcode},now(),#{jumuncode},#{inday},#{outday},#{title},#{req},#{fireWoodPrice},#{grillPrice},#{roomPrice})
+		insert into reservation(useSave,review,pay,card1,halbu,bank1,card2,tel,bank2,totalPrice,fireWood,grill,userid,pcode,writeday,jumuncode,inday,outday,title,req,fireWoodPrice,grillPrice,roomPrice,people)
+		values(#{useSave},0,#{pay},#{card1},#{halbu},#{bank1},#{card2},#{tel},#{bank2},#{totalPrice},#{fireWood},#{grill},#{userid},#{pcode},now(),#{jumuncode},#{inday},#{outday},#{title},#{req},#{fireWoodPrice},#{grillPrice},#{roomPrice},#{people})
 	</insert>
 	
 	<update id="setSave">

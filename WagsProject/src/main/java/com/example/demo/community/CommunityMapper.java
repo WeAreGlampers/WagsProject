@@ -1,3 +1,4 @@
+
 package com.example.demo.community;
 
 import java.util.ArrayList;
@@ -5,6 +6,8 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.dto.FreeBoardDto;
+
+import com.example.demo.dto.NoticeDto;
 
 @Mapper
 public interface CommunityMapper {
@@ -19,6 +22,9 @@ public interface CommunityMapper {
 
 	public FreeBoardDto content(String id);
 	
-	
-	
+	public ArrayList<NoticeDto> noticeList();
+  
+	public NoticeDto noticeContent(String id);
+
 }
+

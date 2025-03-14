@@ -43,4 +43,14 @@ public class CommunityController {
 		return service.content(model,request);
 	}
 	
+	@GetMapping("/community/noticeList")
+	public String noticeList(Model model) {
+		return service.noticeList(model);
+	}
+	
+	@GetMapping("/community/noticeContent")
+	public String noticeContent(String id,Model model) {
+		return service.noticeContent(id, model);
+	}
 }
+
