@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.demo.dto.NoticeDto;
 import com.example.demo.dto.ProductDto;
 import com.example.demo.dto.QnaDto;
 import com.example.demo.dto.ReservationDto;
@@ -21,4 +22,9 @@ public interface AdminMapper {
 	public void chgState(String id);
 	public void qnaAnswer(QnaDto qdto);
 	public void chgRef(int ref);
+	public ArrayList<NoticeDto> noticeList();
+	public void noticeWriteOk(NoticeDto ndto);
+	public NoticeDto noticeContent(String id);
+	public void noticeDelete(String id);
+	public void noticeUpdateOk(NoticeDto ndto);
 }

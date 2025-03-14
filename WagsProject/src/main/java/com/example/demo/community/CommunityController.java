@@ -12,8 +12,13 @@ public class CommunityController {
 	@Qualifier("cs")
 	private CommunityService service;
 	
-	@GetMapping("/community/notice")
-	public String notice(Model model) {
-		return service.notice(model);
+	@GetMapping("/community/noticeList")
+	public String noticeList(Model model) {
+		return service.noticeList(model);
+	}
+	
+	@GetMapping("/community/noticeContent")
+	public String noticeContent(String id,Model model) {
+		return service.noticeContent(id, model);
 	}
 }

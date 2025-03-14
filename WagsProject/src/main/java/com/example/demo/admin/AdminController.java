@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.example.demo.dto.NoticeDto;
 import com.example.demo.dto.ProductDto;
 import com.example.demo.dto.QnaDto;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class AdminController {
@@ -65,5 +68,40 @@ public class AdminController {
 	@GetMapping("/admin/chgState")
 	public String chgState(String id) {
 		return service.chgState(id);
+	}
+	
+	@GetMapping("/admin/noticeList")
+	public String noticeList(Model model) {
+		return service.noticeList(model);
+	}
+	
+	@GetMapping("/admin/noticeWrite")
+	public String noticeWrite() {
+		return service.noticeWrite();
+	}
+	
+	@PostMapping("/admin/noticeWriteOk")
+	public String noticeWriteOk(NoticeDto ndto) {
+		return service.noticeWriteOk(ndto);
+	}
+	
+	@GetMapping("/admin/noticeContent")
+	public String noticeContent(String id,Model model) {
+		return service.noticeContent(id, model);
+	}
+	
+	@GetMapping("/admin/noticeDelete")
+	public String noticeDelete(String id) {
+		return service.noticeDelete(id);
+	}
+	
+	@GetMapping("/admin/noticeUpdate")
+	public String noticeUpdate(String id,Model model) {
+		return service.noticeUpdate(id,model);
+	}
+	
+	@PostMapping("/admin/noticeUpdateOk")
+	public String noticeUpdateOk(NoticeDto ndto) {
+		return service.noticeUpdateOk(ndto);
 	}
 }

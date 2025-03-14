@@ -17,6 +17,7 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.example.demo.dto.NoticeDto;
 import com.example.demo.dto.ProductDto;
 import com.example.demo.dto.QnaDto;
 import com.example.demo.dto.ReservationDto;
@@ -177,6 +178,51 @@ public class AdminServiceImpl implements AdminService{
 		mapper.qnaAnswer(qdto);
 		mapper.chgRef(qdto.getRef());
 		return "redirect:/admin/qnaList";
+	}
+
+	@Override
+	public String noticeList(Model model) {
+		ArrayList<NoticeDto> nlist=mapper.noticeList();
+		model.addAttribute("nlist",nlist);
+		return "/admin/noticeList";
+	}
+
+	@Override
+	public String noticeWrite() {
+		return "/admin/noticeWrite";
+	}
+
+	@Override
+	public String noticeWriteOk(NoticeDto ndto) {
+		mapper.noticeWriteOk(ndto);
+		return "redirect:/admin/noticeList";
+	}
+
+	@Override
+	public String noticeContent(String id, Model model) {
+		NoticeDto ndto=mapper.noticeContent(id);
+		ndto.setContent(ndto.getContent().replace("\r\n", "<br>"));
+		model.addAttribute("ndto",ndto);
+		return "/admin/noticeContent";
+	}
+
+	@Override
+	public String noticeDelete(String id) {
+		mapper.noticeDelete(id);
+		return "redirect:/admin/noticeList";
+	}
+
+	@Override
+	public String noticeUpdate(String id, Model model) {
+		NoticeDto ndto=mapper.noticeContent(id);
+		model.addAttribute("ndto",ndto);
+		return "/admin/noticeUpdate";
+	}
+
+	@Override
+	public String noticeUpdateOk(NoticeDto ndto) {
+		mapper.noticeUpdateOk(ndto);
+		return "redirect:/admin/noticeContent?id="+ndto.getId();
 	}
 	
 	

@@ -62,4 +62,30 @@
 		set ref=#{ref}
 		where id=#{ref} 
 	</update>
+	
+	<select id="noticeList" resultType="com.example.demo.dto.NoticeDto">
+		select * from notice
+		order by id desc
+	</select>
+	
+	<insert id="noticeWriteOk">
+		insert into notice(title,content,writeday)
+		values(#{title},#{content},now())
+	</insert>
+	
+	<select id="noticeContent" resultType="com.example.demo.dto.NoticeDto">
+		select * from notice
+		where id=#{id}
+	</select>
+	
+	<delete id="noticeDelete">
+		delete from notice
+		where id=#{id}
+	</delete>
+	
+	<update id="noticeUpdateOk">
+		update notice
+		set title=#{title},content=#{content}
+		where id=#{id}
+	</update>
 </mapper>

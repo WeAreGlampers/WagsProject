@@ -4,5 +4,15 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
 <mapper namespace="com.example.demo.community.CommunityMapper">
-
+	
+	<select id="noticeList" resultType="com.example.demo.dto.NoticeDto">
+		select * from notice 
+		order by id desc
+	</select>
+	
+	<select id="noticeContent" resultType="com.example.demo.dto.NoticeDto">
+		select * from notice
+		where id=#{id}
+	</select>
+	
 </mapper>
