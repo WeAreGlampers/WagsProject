@@ -66,6 +66,27 @@ body {
 	background: white;
 }
 
+#newSection #privateMenu {
+	position:relative;
+	cursor:pointer;
+}
+
+#newSection #privateSub {
+	position:absolute;
+	visibility:hidden;
+	left:-18px;
+	top:7px;
+	padding-left:0px;
+	background:#FFE08C;
+}
+
+#newSection #privateSub > li {
+	list-style:none;
+	text-align:center;
+	border: 1px solid #CC723D;
+	color: #CC723D;
+	width:90px;
+}
 
 header {
 	width: 1100px;
@@ -76,44 +97,73 @@ header {
 }
 
 nav {
-	width: 1100px;
-	height: 80px;
-	margin: auto;
-	position: relative;
-	background: white;
+    width: 1100px;
+    height: 80px;
+    margin: auto;
+    position: relative;
+    background: white;
 }
 
-nav ul {
-	list-style: none; /* li 태그 맨 앞 점 지우기 */
-	margin: 0px;
-	padding: 0px;
-	display: flex; /* 가로 정렬 */
-	justify-content: space-around; /* 메뉴 항목 균등 정렬 */
-	align-items: center; /* 수직 가운데 정렬 */
-	height: 100%;
+nav > ul {
+	gap:60px;
 }
 
-nav ul li {
-	position: relative;
-	color: black;
-	text-decoration: none; /* 링크 밑줄 지우기 */
-	font-size: 14px;
-	font-weight: bold;
-	cursor: pointer;
-	padding: 10px 15px;
+nav  ul {
+
+    margin: 0px;
+    padding: 0px;
+    display: flex; 
+    justify-content: center; /* 가로 기준 중앙 정렬 */ 
+    align-items: center;  /* 세로 기준 중앙 정렬 */
+    height: 100%;
+}
+
+nav > ul > li {
+	list-style: none;
+    position: relative;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+nav .category {
+    position: relative;
+    display: flex; 
+    align-items: center; 
 }
 
 nav .category .sub {
-	visibility: hidden;
-	position: absolute;
-	width: max-content;
-	min-width: 120px;
+    visibility: hidden;
+    position: absolute;
+    top: 100%; 
+    left: 50%;
+    transform: translateX(-50%); /* 가로축 방향으로 50% 이동 */
+ /*    width: max-content;
+    min-width: 120px; /* 최소 넓이 */ 
+    background: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    display: flex; 
+    justify-content: center; /* 가로 기준 중앙 정렬 */ 
+    align-items: center;
 }
 
-nav .category .sub .li {
-	font-size: 10px;
+nav .category .sub li {
+	list-style: none;
+	width:80px;
+    font-size: 13px;
+    padding: 5px 10px;
+    text-align: center;
 }
 
+nav .category .sub #long {
+	width:110px;
+}
+
+nav .category .sub #long2 {
+	width:110px;
+}
 #logo img {
 	width: 250px;
 	height: 100px;
@@ -121,9 +171,9 @@ nav .category .sub .li {
 
 footer {
 	width: 100%;
-	height: 150px;
-	background: black;
-	color: white;
+	height: 218px;
+	background: #FFE08C;
+	color: #CC723D;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -204,7 +254,7 @@ a {
 				<span class="category" onmouseover="viewCategory(0)" onmouseout="hideCategory(0)"> GLAMPING & CARAVAN
 				 	<ul class="sub">
 				 		<li> 인사말 </li>
-				 		<li> 찾아오시는 길 </li>	
+				 		<li id="long"> 찾아오시는 길 </li>	
 				 	</ul>
 				 </span>
 			</li>
@@ -213,8 +263,7 @@ a {
 			<li>
 				<span class="category" onmouseover="viewCategory(1)" onmouseout="hideCategory(1)"> ROOMS
 				  	<ul class="sub">
-				  		<li> <a href="../product/productList"> 카라반 </a> </li>
-				  		<li> <a href="../product/productList"> 글램핑 </a> </li>
+				  		<li id="long2"> <a href="../product/productList"> 글램핑&카라반 </a> </li>
 				  	</ul>
 				  </span>
 			</li>
@@ -234,13 +283,11 @@ a {
 			
 			<!-- fourth -->
 			<li>
-			<span class="category" onmouseover="viewCategory(3)" onmouseout="hideCategory(3)"> COMMUNITY TOUR
+			<span class="category" onmouseover="viewCategory(3)" onmouseout="hideCategory(3)"> COMMUNITY
 					<ul class="sub">
-						<li> 공지사항 </li>
-						<li> 이벤트 </li>
-						<li> 게시판 </li>
-						<li> Q&A </li>
-						<li> 여행후기 </li>
+						<li> <a href="../community/noticeList"> 공지사항 </a> </li>
+						<li> <a href="../community/freeBoard"> 게시판 </a> </li>
+						<li> <a href="../community/qnaList"> Q&A </a> </li>
 					</ul>				
 				</span>
 			
@@ -248,13 +295,15 @@ a {
 		</ul>
 	</nav>
 
-
-
 	<sitemesh:write property="body"/>
 
-
-
-	<footer> 글램핑 기타 정보 </footer>
+	<footer>
+	    <div>
+	        <p>상호: WeAreGlampers · 대표자: 윤영제·이지현·강동완 · 통신판매신고번호: 제 2022-경기고양-0362 호</p>
+	        <p>COMPANY REGISTRATION NUMBER: 058-59-00369 · ADDRESS: 55, Goyang-si, Ilsan-dong-gu ,Madhu-dong, , Gyeonggi-do, Korea</p>
+	        <p>CARAVAN&GLAMPING: 010-2237-1667 · EMAIL: wags@naver.com</p>
+	    </div>
+	</footer>
 	
 </body>
 </html>

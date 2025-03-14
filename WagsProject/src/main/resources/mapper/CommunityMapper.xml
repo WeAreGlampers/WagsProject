@@ -3,16 +3,45 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
-<mapper namespace="com.example.demo.community.CommunityMapper">
+   <mapper namespace="com.example.demo.community.CommunityMapper">
+   	
+   	<insert id="writeOk" parameterType="com.example.demo.dto.FreeBoardDto">
+   		insert into freeBoard(title,userid,views,content,pwd,writeday)
+   		values(#{title},#{userid},#{views},#{content},#{pwd},now())
+   	</insert>
+   	
+   	<select id="getList" resultType="com.example.demo.dto.FreeBoardDto">
+   		select * from freeBoard
+   		order by id desc
+   		limit #{index},10
+   	</select>
+   	
+   	<select id="getTotal" resultType="Integer">
+   		select ceil(count(*)/10)
+   		from freeBoard
+   	</select>
+   	
+   	<update id="views">
+   		update freeBoard
+   		set views=views+1
+   		where id=#{id}
+   	</update>
+   	
+   	<select id="content" resultType="com.example.demo.dto.FreeBoardDto">
+   		select * from freeBoard
+   		where id=#{id}
+   	</select>
+
 	
-	<select id="noticeList" resultType="com.example.demo.dto.NoticeDto">
+	  <select id="noticeList" resultType="com.example.demo.dto.NoticeDto">
 		select * from notice 
 		order by id desc
-	</select>
+	  </select>
 	
-	<select id="noticeContent" resultType="com.example.demo.dto.NoticeDto">
+	  <select id="noticeContent" resultType="com.example.demo.dto.NoticeDto">
 		select * from notice
 		where id=#{id}
-	</select>
+	  </select>
 	
-</mapper>
+  </mapper>
+
