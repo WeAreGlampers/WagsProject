@@ -105,7 +105,7 @@
         </td>
         <td>${qdto.userid}</td>
         <td>${qdto.content}</td>
-        <td>${qdto.writeday}</td>
+        <td>${qdto.writeday}</td> 
       </tr>
       </c:if>
     </c:forEach>
