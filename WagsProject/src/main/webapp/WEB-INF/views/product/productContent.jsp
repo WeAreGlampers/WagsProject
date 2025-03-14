@@ -246,20 +246,23 @@ section .number {
 	    document.getElementById("overlay").style.display = "none";
 	    document.body.style.overflow = "auto"; // 스크롤 허용
 	}
-
+	function chgSecretValue() {
+		var secretCheckbox = document.getElementById("secret");
+		var secret = document.getElementById("secretValue");
+	    if(secretCheckbox.checked) {
+	    	secret.value = "1";
+	    } else {
+	    	secret.value = "0";
+	    }
+	}
 	
 	// QnA 제출 처리
 	function submitQnA() {
 	    var qnaType = document.getElementById("qnaType").value;
 	    var qnaTitle = document.getElementById("qnaTitle").value;
 	    var qnaContent = document.getElementById("qnaContent").value;
-	    var secretCheckbox = document.getElementById("secret");
-	    var secret = document.getElementById("secretValue").value;
-	    if(secretCheckbox.checked) {
-	    	secret = "1";
-	    } else {
-	    	secret = "0";
-	    }  
+	    
+	      
 	    
 	    if(qnaType == "") {
 	        alert("문의 유형을 선택해주세요.");
@@ -394,7 +397,7 @@ section .number {
     </div>
     <div style="margin-bottom:15px;">
         <label style="display:block; margin-bottom:5px;">
-            <input type="checkbox" id="secret"> 비밀글로 문의하기
+            <input type="checkbox" id="secret" onchange="chgSecretValue()"> 비밀글로 문의하기
         </label>
     </div>
     <div style="text-align:center;">

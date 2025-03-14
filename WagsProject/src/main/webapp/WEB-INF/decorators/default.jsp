@@ -240,7 +240,7 @@ a {
 						<li> 공지사항 </li>
 						<li> 이벤트 </li>
 						<li> 게시판 </li>
-						<li> Q&A </li>
+						<li> <a href="../community/comQnaList"> Q&A </a> </li>
 						<li> 여행후기 </li>
 					</ul>				
 				</span>

@@ -107,10 +107,10 @@ window.onload = function() {
 		<div class="title">${map.title}</div>
 		<div class="pimg"><img src="../static/product/${map.pimg}"></div>
 		<div><span class="inday">${map.inday}</span> ~ <span class="outday">${map.outday}</span></div>
-		<div>장작<span class="fireWood">${map.fireWood}</span> | <span class="fireWoodPrice">${map.fireWoodPrice}</span>원</div>
-		<div>바베큐<span class="grill">${map.grill}</span> | <span class="grillPrice">${map.grillPrice}</span>원</div>
+		<div>장작<span class="fireWood">${map.fireWood}</span> | <span class="fireWoodPrice"><fmt:formatNumber value="${map.fireWoodPrice}" type="number" pattern="#,###"/></span>원</div>
+		<div>바베큐<span class="grill">${map.grill}</span> | <span class="grillPrice"><fmt:formatNumber value="${map.grillPrice}" type="number" pattern="#,###"/></span>원</div>
 		<div>기준 ${map.standard}명 / 최대 ${map.max}명 </div>
-		<div><span class="totalPrice">${map.totalPrice}</span>원</div>
+		<div><span class="totalPrice"><fmt:formatNumber value="${map.totalPrice}" type="number" pattern="#,###"/></span>원</div>
 	</div>
 	<input type="button" value="삭제" onclick="location='cartDel?ids=${map.id}'">
 </c:forEach>

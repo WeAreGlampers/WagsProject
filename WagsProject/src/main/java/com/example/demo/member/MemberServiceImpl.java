@@ -314,7 +314,6 @@ public class MemberServiceImpl implements MemberService {
 		if (session.getAttribute("userid")==null) {
 			return "redirect:/login/login";
 		} else {
-			System.out.println("============"+rdto.getId() + " " + rdto.getRid()+"=============");
 			HashMap map = mapper.reservationStatusOne(rdto.getRid());
 			rdto = mapper.getReviewForUpdate(rdto.getId());
 			model.addAttribute("rdto",rdto);

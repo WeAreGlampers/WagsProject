@@ -41,7 +41,7 @@
         cursor:pointer;
     }
     section textarea {
-        width:420px;
+        width:411px;
         height:150px;
         border:2px solid #FFE08C;
         border-radius:8px;
@@ -99,8 +99,8 @@ window.onload = function() {
 <input type="hidden" name="rid" value="${map.id}">
 <input type="hidden" name="star">
 <input type="hidden" name="pcode" value="${rdto.pcode}">
-<div> 제목 : <input type="text" name="title" value="${rdto.title}"> </div>
-<div> 내용 : <textarea name="content" rows="10" cols="50">${rdto.content}</textarea></div>
+<div><input type="text" name="title" class="txt" value="${rdto.title}"> </div>
+<div> <textarea name="content" rows="10" cols="50">${rdto.content}</textarea></div>
 <div>
 	<span style="color:#CC723D; font-weight:bold; display:block; margin-bottom:10px">별점을 선택해주세요</span>
 	<img src="../static/star2.png" onclick="chgStar(0)" class="star">

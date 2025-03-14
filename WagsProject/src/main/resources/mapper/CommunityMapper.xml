@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.community.CommunityMapper">
+	<select id="getQna" resultType="HashMap">
+		select * from qna
+		order by ref desc
+	</select>
+	
+	<select id="getPtitle" resultType="String">
+		select title from product
+		where pcode=#{pcode}
+	</select>
+</mapper>
