@@ -39,7 +39,6 @@ public class ProductServiceImpl implements ProductService {
 
 		int ok = 0;
 		if (session.getAttribute("userid") != null) {
-
 			ok = mapper.isDibs(userid, pcode);
 		}
 		model.addAttribute("ok", ok);
@@ -376,7 +375,7 @@ public class ProductServiceImpl implements ProductService {
 			mapper.qnaDel2(ref);
 		}
 		
-		return "/product/productContent?pcode=" + pcode;
+		return "redirect:/product/productContent?pcode=" + pcode;
 	}
 
 }

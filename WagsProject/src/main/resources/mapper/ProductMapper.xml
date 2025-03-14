@@ -61,7 +61,7 @@
 	
 	<delete id="qnaDel2">
 		delete from qna
-		where id=#{ref}
+		where ref=#{ref}
 	</delete>
 	
 	<select id="getQna" resultType="com.example.demo.dto.QnaDto">

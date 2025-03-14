@@ -283,13 +283,11 @@ a {
 			
 			<!-- fourth -->
 			<li>
-			<span class="category" onmouseover="viewCategory(3)" onmouseout="hideCategory(3)"> COMMUNITY TOUR
+			<span class="category" onmouseover="viewCategory(3)" onmouseout="hideCategory(3)"> COMMUNITY
 					<ul class="sub">
-						<li> 공지사항 </li>
-						<li> 이벤트 </li>
-						<li> 게시판 </li>
-						<li> Q&A </li>
-						<li> 여행후기 </li>
+						<li> <a href="../community/noticeList"> 공지사항 </a> </li>
+						<li> <a href="../community/freeBoard"> 게시판 </a> </li>
+						<li> <a href="../community/qnaList"> Q&A </a> </li>
 					</ul>				
 				</span>
 			

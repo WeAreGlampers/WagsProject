@@ -200,7 +200,10 @@ section #fourth #a {
     font-weight: bold;
 }
 
-
+#space1, #space2, #space3 {
+	width: 1100px;
+	height: 60px;
+}
 </style>
 <script>
 
@@ -355,15 +358,16 @@ section #fourth #a {
 	
 	<div id="menu">
 		<ul>
-			<li> 객실 </li>
-			<li> 리뷰 </li>
-			<li> Q&A </li>
+			<li> <a href="#space1"> 객실 </a> </li>
+			<li> <a href="#space2"> 리뷰 </a> </li>
+			<li> <a href="#space3"> Q&A </a> </li>
 			<li> 부가 서비스 </li>
 		</ul>
 	</div> <!-- menu close -->
 	
 
 	<div id="second">
+		<div id="space1">&nbsp;</div>
 		<div>
 				<input type="text" name="inday" value="일정선택 ▽" id="datepicker">
 		</div>
@@ -403,11 +407,11 @@ section #fourth #a {
 				<input type="submit" value="예약"> 
 		</div>
 		
-		<!-- <input type="button" value="버튼" onclick="UnavailableDates('${pdto.pcode}')"> --> 
 	</div>	<!-- second close -->
 	</form> <!-- form close -->
 	
 	<div id="third">
+		<div id="space2">&nbsp;</div>
 		<h3> 상품평 </h3>
 		<div> 
 			<c:forEach begin="1" end="${pdto.ystar}">
@@ -452,7 +456,7 @@ section #fourth #a {
 	</div> <!-- review 끝 -->
 	
 	<div id="fourth"> <!-- qna -->
-			<div>&nbsp;</div>
+			<div id="space3">&nbsp;</div>
 			<div>
 				<div id="left"> <h3> 상품문의 </h3> </div>
 				<div id="right"> <input type="button" value="문의하기" onclick="qnaView()"> </div>
