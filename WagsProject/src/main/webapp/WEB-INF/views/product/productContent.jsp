@@ -204,8 +204,8 @@ section .number {
 	}
 	
 	function reservationChk() {
-		var fireWoodPrice1 = document.getElementById("fireWoodPrice").value;
-		var grillPrice1 = document.getElementById("fireWoodPrice").value;
+		var fireWoodPrice1 = document.getElementById("fireWoodPrice").innerText;
+		var grillPrice1 = document.getElementById("fireWoodPrice").innerText;
 		document.rform.fireWoodPrice.value = fireWoodPrice1;
 		document.rform.grillPrice.value = grillPrice1;
 		
@@ -272,7 +272,7 @@ section .number {
 
 	<div id="second">
 		<div>
-				<input type="button" name="inday" value="일정선택 ▽" id="datepicker">
+				<input type="text" name="inday" value="일정선택 ▽" id="datepicker">
 		</div>
 		
 		<div> <img src="../static/room.png"> </div> 
