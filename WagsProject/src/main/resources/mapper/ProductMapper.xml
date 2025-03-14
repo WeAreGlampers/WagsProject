@@ -16,8 +16,8 @@
 	
 	<update id="upCart" parameterType="com.example.demo.dto.CartDto">
 		update cart
-		set grill=${grill} and fireWood=#{fireWood}
-		where userid=#{userid}
+		set grill=${grill}, fireWood=#{fireWood} , fireWoodPrice=#{fireWoodPrice}, grillPrice=#{grillPrice}
+		where userid=#{userid} and pcode=#{pcode}
 	</update>
 	
 	<select id="getRoom" resultType="com.example.demo.dto.ProductDto">

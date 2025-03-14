@@ -227,8 +227,8 @@ public class ProductServiceImpl implements ProductService {
 					cdto.setGrillPrice(Integer.parseInt(grillPrices[i]));
 					cdto.setFireWoodPrice(Integer.parseInt(fireWoodPrices[i]));
 					cdto.setRoomPrice(Integer.parseInt(roomPrices[i]));
-					cdto.setTotalPrice(Integer.parseInt(totalPrices[i]));
 					cdto.setPeople(Integer.parseInt(peoples[i]));
+					cdto.setTotalPrice(Integer.parseInt(totalPrices[i])+cdto.getPeople()*15000);
 					totalPriceAll+=cdto.getTotalPrice();
 					cdto.setInday(indays[i]);
 					cdto.setOutday(outdays[i]);

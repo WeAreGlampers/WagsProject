@@ -53,7 +53,7 @@ function reserve() {
 	var outdays = "";
 	var roomPrices = "";
 	var totalPrices = "";
-	
+	var peoples = "";
 	
 	for (i=0;i<document.getElementsByClassName("subChk").length;i++) {
 		if (document.getElementsByClassName("subChk")[i].checked) {
@@ -63,14 +63,15 @@ function reserve() {
 			outdays = outdays + document.getElementsByClassName("outday")[i].innerText+",";
 			fireWoods = fireWoods + document.getElementsByClassName("fireWood")[i].innerText+",";
 			grills = grills + document.getElementsByClassName("grill")[i].innerText+",";
-			fireWoodPrices = fireWoodPrices + document.getElementsByClassName("fireWoodPrice")[i].innerText+",";
-			grillPrices = grillPrices + document.getElementsByClassName("grillPrice")[i].innerText+",";
-			totalPrices = totalPrices + document.getElementsByClassName("totalPrice")[i].innerText+",";
+			fireWoodPrices = fireWoodPrices + document.getElementsByClassName("fireWoodPrice")[i].value+",";
+			grillPrices = grillPrices + document.getElementsByClassName("grillPrice")[i].value+",";
+			totalPrices = totalPrices + document.getElementsByClassName("totalPrice")[i].value+",";
 			roomPrices = roomPrices + document.getElementsByClassName("roomPrice")[i].value+","
+			peoples = peoples + document.getElementsByClassName("people")[i].value+","
 		}
 	}
 	
-	location="../product/reservation?pcode="+pcodes+"&title="+titles+"&fireWood="+fireWoods+"&grill="+grills+"&fireWoodPrice="+fireWoodPrices+"&grillPrice="+grillPrices+"&inday="+indays+"&outday="+outdays+"&roomPrice="+roomPrices+"&totalPrice="+totalPrices;
+	location="../product/reservation?people="+peoples+"&pcode="+pcodes+"&title="+titles+"&fireWood="+fireWoods+"&grill="+grills+"&fireWoodPrice="+fireWoodPrices+"&grillPrice="+grillPrices+"&inday="+indays+"&outday="+outdays+"&roomPrice="+roomPrices+"&totalPrice="+totalPrices;
 	
 }
 
@@ -100,17 +101,21 @@ window.onload = function() {
 </div>
 <c:forEach items="${cartMap}" var="map">
 	<div>
-		<input type="hidden" name="id" class="cartId" value="${map.id}">
+		<input type="hidden" class="cartId" value="${map.id}">
+		<input type="hidden" class="fireWoodPrice" value="${map.fireWoodPrice}">
+		<input type="hidden" class="grillPrice" value="${map.grillPrice}">
+		<input type="hidden" class="totalPrice" value="${map.totalPrice}">
 		<input type="hidden" name="pcode" value="${map.pcode}" class="pcode">
+		<input type="hidden" name="people" class="people" value="1">
 		<input type="hidden" name="roomPrice" value="${map.roomPrice}" class="roomPrice">
 		<input type="checkbox" name="subChk" class="subChk" onclick="subCheck()">
 		<div class="title">${map.title}</div>
 		<div class="pimg"><img src="../static/product/${map.pimg}"></div>
 		<div><span class="inday">${map.inday}</span> ~ <span class="outday">${map.outday}</span></div>
-		<div>장작<span class="fireWood">${map.fireWood}</span> | <span class="fireWoodPrice"><fmt:formatNumber value="${map.fireWoodPrice}" type="number" pattern="#,###"/></span>원</div>
-		<div>바베큐<span class="grill">${map.grill}</span> | <span class="grillPrice"><fmt:formatNumber value="${map.grillPrice}" type="number" pattern="#,###"/></span>원</div>
+		<div>장작<span class="fireWood">${map.fireWood}</span> | <span class="fireWoodPrice1"><fmt:formatNumber value="${map.fireWoodPrice}" type="number" pattern="#,###"/></span>원</div>
+		<div>바베큐<span class="grill">${map.grill}</span> | <span class="grillPrice1"><fmt:formatNumber value="${map.grillPrice}" type="number" pattern="#,###"/></span>원</div>
 		<div>기준 ${map.standard}명 / 최대 ${map.max}명 </div>
-		<div><span class="totalPrice"><fmt:formatNumber value="${map.totalPrice}" type="number" pattern="#,###"/></span>원</div>
+		<div><span class="totalPrice1"><fmt:formatNumber value="${map.totalPrice}" type="number" pattern="#,###"/></span>원</div>
 	</div>
 	<input type="button" value="삭제" onclick="location='cartDel?ids=${map.id}'">
 </c:forEach>
