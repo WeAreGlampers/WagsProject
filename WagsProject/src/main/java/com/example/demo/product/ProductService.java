@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.CartDto;
+import com.example.demo.dto.QnaDto;
 import com.example.demo.dto.ReservationDto;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +21,11 @@ public interface ProductService {
 	public String productList(HttpServletRequest request,Model model);
 	public String reservation(HttpSession session,Model model,HttpServletRequest request);
 	public String reservationOk(HttpSession session,Model model,HttpServletRequest request);
+
+	public String qnaWriteOk(QnaDto qdto, HttpSession session);
+
+
 	public @ResponseBody ArrayList<ReservationDto> UnavailableDates(HttpServletRequest request);
 	public String qnaDel(HttpServletRequest request);
+
 }

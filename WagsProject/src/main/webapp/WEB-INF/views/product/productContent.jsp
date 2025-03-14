@@ -55,16 +55,26 @@ a {
 	text-decoration: none;
 	color: black;
 }
-
+#datepicker {
+	background: #FFE08C;
+    color: #CC723D;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
 input[type="button"] {
 	background: #FFE08C;
-	color: #CC723D;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	font-size: 16px;
-	cursor: pointer;
-	transition: background 0.3s;
+    color: #CC723D;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top:15px;
 }
 
 input[type="button"]:hover {
@@ -321,6 +331,56 @@ section #fourth #a {
 		
 	}
 	
+	// QnA 레이어 표시
+	function showQnA() {
+	    document.getElementById("qnaLayer").style.display = "block";
+	    document.getElementById("overlay").style.display = "block";
+	    document.getElementById("qnaTitle").value="";
+	    document.getElementById("qnaContent").value="";
+	    document.getElementById("secret").checked=false;
+	    
+	    document.body.style.overflow = "hidden"; // 스크롤 방지
+	}
+
+	// QnA 레이어 닫기
+	function closeQnA() {
+	    document.getElementById("qnaLayer").style.display = "none";
+	    document.getElementById("overlay").style.display = "none";
+	    document.body.style.overflow = "auto"; // 스크롤 허용
+	}
+	function chgSecretValue() {
+		var secretCheckbox = document.getElementById("secret");
+		var secret = document.getElementById("secretValue");
+	    if(secretCheckbox.checked) {
+	    	secret.value = "1";
+	    } else {
+	    	secret.value = "0";
+	    }
+	}
+	
+	// QnA 제출 처리
+	function submitQnA() {
+	    var qnaType = document.getElementById("qnaType").value;
+	    var qnaTitle = document.getElementById("qnaTitle").value;
+	    var qnaContent = document.getElementById("qnaContent").value;
+	    
+	      
+	    
+	    if(qnaType == "") {
+	        alert("문의 유형을 선택해주세요.");
+	        return false;
+	    } else if (qnaTitle.trim() == "") {
+	        alert("제목을 입력해주세요.");
+	        return false;
+	    } else if(qnaContent.trim() == "") {
+	        alert("문의 내용을 입력해주세요.");
+	        return false;
+	    } else {
+	    	alert("문의가 등록되었습니다.");
+	    	return true;
+	    }
+	    closeQnA();
+	}
 </script>
 </head>
 <body>
@@ -369,7 +429,8 @@ section #fourth #a {
 	<div id="second">
 		<div id="space1">&nbsp;</div>
 		<div>
-				<input type="text" name="inday" value="일정선택 ▽" id="datepicker">
+
+				<input type="text" name="inday" value="일정선택 ▽" id="datepicker" readonly>
 		</div>
 		
 		<div> <img src="../static/room.png"> </div> 
@@ -406,9 +467,52 @@ section #fourth #a {
 			<!-- 기간 + 기간에 따른 요금 + pcode + fireWood + grill -->
 				<input type="submit" value="예약"> 
 		</div>
-		
+		<div>
+			<input type="button" value="문의하기" onclick="showQnA()">
+		</div>
 	</div>	<!-- second close -->
-	</form> <!-- form close -->
+
+	
+	</form>
+	<!-- QnA -->
+<form method="post" action="qnaWriteOk" onsubmit="return submitQnA()">
+<input type="hidden" name="pcode" value="${pdto.pcode}">
+<input type="hidden" name="secret" id="secretValue" value="0">
+<div id="qnaLayer" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:600px; background:#fff; border-radius:10px; box-shadow:0 0 15px rgba(0,0,0,0.3); z-index:1000; padding:20px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <h3 style="margin:0; color:#CC723D;">Q&A 문의하기</h3>
+        <img src="../static/close.png" onclick="closeQnA()" style="width:20px; height:20px; cursor:pointer;">
+    </div>
+    <div style="margin-bottom:15px;">
+        <select name="type" id="qnaType" style="width:100%; padding:10px; border:2px solid #FFE08C; border-radius:5px; outline:none;">
+            <option value="">문의 유형을 선택해주세요</option>
+            <option value="0">예약 관련</option>
+            <option value="1">시설 관련</option>
+            <option value="2">서비스 관련</option>
+            <option value="3">기타 문의</option>
+        </select>
+    </div>
+    <div style="margin-bottom:15px;">
+        <input type="text" name="qtitle" id="qnaTitle" placeholder="제목" style="width:100%; padding:10px; border:2px solid #FFE08C; border-radius:5px; outline:none; box-sizing:border-box;">
+    </div>
+    <div style="margin-bottom:15px;">
+        <textarea name="content" id="qnaContent" placeholder="문의 내용을 입력해주세요" style="width:100%; height:150px; padding:10px; border:2px solid #FFE08C; border-radius:5px; outline:none; resize:none; box-sizing:border-box;"></textarea>
+    </div>
+    <div style="margin-bottom:15px;">
+        <label style="display:block; margin-bottom:5px;">
+            <input type="checkbox" id="secret" onchange="chgSecretValue()"> 비밀글로 문의하기
+        </label>
+    </div>
+    <div style="text-align:center;">
+        <input type="submit" value="문의하기" style="background:#FFE08C; color:#CC723D; border:none; padding:10px 20px; border-radius:5px; font-size:16px; cursor:pointer;">
+    </div>
+</div>
+
+
+<div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999;"></div>
+
+
+</form> <!-- form close -->
 	
 	<div id="third">
 		<div id="space2">&nbsp;</div>
@@ -485,6 +589,7 @@ section #fourth #a {
 				</table>
 			</div> 
 		</div> 
+
 </section>
 
 	

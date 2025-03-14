@@ -15,7 +15,7 @@ import com.example.demo.dto.CartDto;
 import com.example.demo.dto.ProductDto;
 
 import com.example.demo.dto.ReservationDto;
-
+import com.example.demo.dto.QnaDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -69,6 +69,11 @@ public class ProductController {
 		return service.reservationOk(session, model,request);
 	}
 	
+	@PostMapping("/product/qnaWriteOk")
+	public String qnaWrite(QnaDto qdto,HttpSession session) {
+		return service.qnaWriteOk(qdto,session);
+	}
+
 	@GetMapping("/product/UnavailableDates")
 	public @ResponseBody ArrayList<ReservationDto> UnavailableDates(HttpServletRequest request) {
 		return service.UnavailableDates(request);

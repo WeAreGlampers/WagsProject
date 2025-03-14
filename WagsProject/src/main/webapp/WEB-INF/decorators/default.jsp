@@ -230,7 +230,8 @@ a {
 				<ul id="privateSub">
 					<li> <a href="../member/memberInfo"> 마이페이지 </a></li>
 					<li> <a href="../member/cartView"> 장바구니 </a></li>
-					<li> <a href="../member/reservationStatus"> 예약현황 </a></li>						
+					<li> <a href="../member/reservationStatus"> 예약현황 </a></li>	
+					<li> <a href="../member/reviewList"> 리뷰관리 </a></li>						
 				</ul>
 			</span>		
 		
@@ -285,9 +286,11 @@ a {
 			<li>
 			<span class="category" onmouseover="viewCategory(3)" onmouseout="hideCategory(3)"> COMMUNITY
 					<ul class="sub">
+
 						<li> <a href="../community/noticeList"> 공지사항 </a> </li>
 						<li> <a href="../community/freeBoard"> 게시판 </a> </li>
-						<li> <a href="../community/qnaList"> Q&A </a> </li>
+						<li> <a href="../community/comQnaList"> Q&A </a> </li>
+
 					</ul>				
 				</span>
 			

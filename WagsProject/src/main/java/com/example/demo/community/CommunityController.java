@@ -1,3 +1,4 @@
+
 package com.example.demo.community;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.dto.FreeBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
+
+import com.example.demo.dto.QnaDto;
+
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -18,6 +22,11 @@ public class CommunityController {
 	@Qualifier("cs")
 	private CommunityService service;
 	
+	@GetMapping("/community/comQnaList")
+	public String comQnaList(HttpSession session, Model model, QnaDto qdto) {
+		return service.comQnaList(session, model, qdto);
+	}
+
 	@GetMapping("/community/write")
 	public String write(HttpSession session,Model model) {
 		return service.write(session, model);
@@ -53,4 +62,5 @@ public class CommunityController {
 		return service.noticeContent(id, model);
 	}
 }
+
 

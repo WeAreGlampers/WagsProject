@@ -95,8 +95,6 @@ public class ProductServiceImpl implements ProductService {
 			String outday = dates[3].trim() + "-" + dates[4] + "-" + dates[5];
 			cdto.setOutday(outday);
 
-			System.out.println(date);
-
 			// 옵션 가격
 			int optionPrice = (cdto.getFireWoodPrice()) + (cdto.getGrillPrice());
 
@@ -110,12 +108,10 @@ public class ProductServiceImpl implements ProductService {
 			// 방 가격
 			int roomPrice = cdto.getRoomPrice() * (int) stay;
 			cdto.setRoomPrice(roomPrice);
-			System.out.println(cdto.getRoomPrice());
 
 			// 총가격
 			int totalPrice = roomPrice + optionPrice;
 			cdto.setTotalPrice(totalPrice);
-			System.out.println(cdto.getTotalPrice());
 
 			if (mapper.isCart(cdto))
 
@@ -214,7 +210,7 @@ public class ProductServiceImpl implements ProductService {
 			
 			long[] days=new long[pcodes.length];
 			int totalPriceAll=0;
-			
+			// chk가 없으면 장바구니에서
 			if(request.getParameter("chk")==null){
 					
 				String[] roomPrices=request.getParameter("roomPrice").split(",");
@@ -241,14 +237,18 @@ public class ProductServiceImpl implements ProductService {
 					long day = ChronoUnit.DAYS.between(inday1, outday1);
 					days[i] = day;
 					clist.add(cdto);
+
         }
+
 				
 			}
 			else{
 			
 				int roomPrice=Integer.parseInt(request.getParameter("roomPrice"));
 				String date=request.getParameter("inday");
+
 				String[] dates=date.replace(" ","").split("-");
+
 				String inday=dates[0]+"-"+dates[1]+"-"+dates[2];
 				String outday=dates[3].trim()+"-"+dates[4]+"-"+dates[5];
 				LocalDate inday1=LocalDate.parse(inday);
@@ -340,6 +340,7 @@ public class ProductServiceImpl implements ProductService {
 				rdto.setBank2(Integer.parseInt(bank2));
 				addSave += mapper.getSave(rdto.getPcode());
 				mapper.reservationOk(rdto);
+				mapper.reserveCartDel(rdto);
 			}
 			mapper.setSave(userid, Integer.parseInt(useSave), addSave);
 			return "/product/reservationOk";
@@ -347,6 +348,18 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public String qnaWriteOk(QnaDto qdto, HttpSession session) {
+		if (session.getAttribute("userid")==null) {
+			return "redirect:/login/login";
+		} else {
+			String userid = session.getAttribute("userid").toString();
+			qdto.setUserid(userid);
+			mapper.qnaWriteOk(qdto);
+			return "redirect:/product/productContent?pcode="+qdto.getPcode();
+		}
+	}
+
+  @Override
 	public ArrayList<ReservationDto> UnavailableDates(HttpServletRequest request) {
 		
 		ArrayList<ReservationDto> rlist = mapper.getReservation(request.getParameter("pcode")); 
@@ -386,5 +399,6 @@ public class ProductServiceImpl implements ProductService {
 		
 		return "redirect:/product/productContent?pcode=" + pcode;
 	}
+
 
 }

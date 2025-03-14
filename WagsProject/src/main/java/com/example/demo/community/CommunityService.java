@@ -3,12 +3,15 @@ package com.example.demo.community;
 
 import org.springframework.ui.Model;
 
+import com.example.demo.dto.QnaDto;
 import com.example.demo.dto.FreeBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public interface CommunityService {
+
+	public String comQnaList(HttpSession session, Model model, QnaDto qdto);
 
 	public String write(HttpSession session, Model model);
 	
