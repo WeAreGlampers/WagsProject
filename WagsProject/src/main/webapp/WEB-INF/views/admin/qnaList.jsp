@@ -65,7 +65,7 @@
     }
 </style>
 <script>
-   function answer(id,pcode,rtitle)
+   function answer(id,pcode,qtitle)
    {
 	   var w=window.innerWidth;
 	   var h=window.innerHeight;
@@ -84,7 +84,7 @@
 	   document.getElementById("modal").style.display="block";
 	   document.getElementById("ref").value=id;
 	   document.getElementById("pcode").value=pcode;
-	   document.getElementById("rtitle").value=rtitle;
+	   document.getElementById("qtitle").value=qtitle;
    }
 </script>
 </head>
@@ -100,7 +100,7 @@
             답변완료
           </c:if>
           <c:if test="${qdto.ref==0}">
-            <a href="javascript:answer(${qdto.id},'${qdto.pcode}','${qdto.rtitle}')">답변 전</a>
+            <a href="javascript:answer(${qdto.id},'${qdto.pcode}','${qdto.qtitle}')">답변 전</a>
           </c:if>
         </td>
         <td>${qdto.userid}</td>
@@ -115,7 +115,7 @@
     <form method="post" action="qnaAnswer">
       <input type="hidden" name="pcode" id="pcode">
       <input type="hidden" name="ref" id="ref">
-      <input type="hidden" name="rtitle" id="rtitle">
+      <input type="hidden" name="qtitle" id="qtitle">
       <div> <textarea name="content" id="qnaContent" maxlength="200"></textarea> </div>
       <div> <input type="submit" value="답변저장"> </div>
     </form>

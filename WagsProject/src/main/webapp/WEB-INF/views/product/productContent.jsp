@@ -260,7 +260,7 @@ section #fourth #a {
 			} else {
 				// 장바구니 메시지 띄우기
 				document.getElementById("cartLayer").style.visibility="visible";
-				alert("cartLayer 보이기 실행됨");
+				//alert("cartLayer 보이기 실행됨");
 				// 3초 뒤 숨기기
 				ss=setTimeout(function(){
 					document.getElementById("cartLayer").style.visibility="hidden";
@@ -467,9 +467,7 @@ section #fourth #a {
 			<!-- 기간 + 기간에 따른 요금 + pcode + fireWood + grill -->
 				<input type="submit" value="예약"> 
 		</div>
-		<div>
-			<input type="button" value="문의하기" onclick="showQnA()">
-		</div>
+		
 	</div>	<!-- second close -->
 
 	
@@ -542,7 +540,7 @@ section #fourth #a {
 				</c:forEach>
 				(${rdto.writeday})
 			</div>
-			<div id="userid"> ${rdto.chUserid} </div>
+			<div id="userid"> ${rdto.userid} </div>
 			<div id="title"> ${rdto.title} </div>
 			<div id="content"> ${rdto.content} </div>
 				<div id="upDel" align="right">
@@ -563,7 +561,7 @@ section #fourth #a {
 			<div id="space3">&nbsp;</div>
 			<div>
 				<div id="left"> <h3> 상품문의 </h3> </div>
-				<div id="right"> <input type="button" value="문의하기" onclick="qnaView()"> </div>
+				<div id="right"><input type="button" value="문의하기" onclick="showQnA()"></div>
 			</div>
 				<div>
 				<table width="1100" align="center">
