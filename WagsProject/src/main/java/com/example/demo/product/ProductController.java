@@ -1,6 +1,7 @@
 package com.example.demo.product;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -49,6 +50,11 @@ public class ProductController {
 		return service.dibsDel(session,request);
 	}
 	
+	@GetMapping("/product/qnaDel")
+	public String qnaDel(HttpServletRequest request) {
+		return service.qnaDel(request);
+	}
+	
 	@RequestMapping("/product/productList")
 	public String productList(HttpServletRequest request,Model model) {
 		return service.productList(request,model);
@@ -68,4 +74,9 @@ public class ProductController {
 		return service.qnaWriteOk(qdto,session);
 	}
 
+	@GetMapping("/product/UnavailableDates")
+	public @ResponseBody ArrayList<ReservationDto> UnavailableDates(HttpServletRequest request) {
+		return service.UnavailableDates(request);
+	}
+	
 }

@@ -1,3 +1,4 @@
+
 package com.example.demo.dto;
 
 import lombok.Data;
@@ -8,3 +9,4 @@ public class ReviewDto {
 	private String userid,pcode,title,content,writeday;
 
 }
+

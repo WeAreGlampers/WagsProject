@@ -44,6 +44,33 @@
 		select * from cart
 	</select>
 
+	<select id="getReservation" resultType="com.example.demo.dto.ReservationDto">
+		select * from reservation
+		where pcode=#{pcode}
+	</select>
+	
+	<select id="getReview" resultType="com.example.demo.dto.ReviewDto">
+		select * from review
+		where pcode=#{pcode}
+	</select>
+
+	<delete id="qnaDel1">
+		delete from qna
+		where id=#{id}
+	</delete>
+	
+	<delete id="qnaDel2">
+		delete from qna
+		where ref=#{ref}
+	</delete>
+	
+	<select id="getQna" resultType="com.example.demo.dto.QnaDto">
+		select * from qna
+		where pcode=#{pcode}
+	</select>
+
+
+
 	<select id="productList" resultType="com.example.demo.dto.ProductDto">
 		select * from product
 		order by id desc
@@ -76,8 +103,8 @@
 	</select>
 	
 	<insert id="reservationOk">
-		insert into reservation(useSave,review,pay,card1,halbu,bank1,card2,tel,bank2,totalPrice,fireWood,grill,userid,pcode,writeday,jumuncode,inday,outday,title,req,fireWoodPrice,grillPrice,roomPrice)
-		values(#{useSave},0,#{pay},#{card1},#{halbu},#{bank1},#{card2},#{tel},#{bank2},#{totalPrice},#{fireWood},#{grill},#{userid},#{pcode},now(),#{jumuncode},#{inday},#{outday},#{title},#{req},#{fireWoodPrice},#{grillPrice},#{roomPrice})
+		insert into reservation(useSave,review,pay,card1,halbu,bank1,card2,tel,bank2,totalPrice,fireWood,grill,userid,pcode,writeday,jumuncode,inday,outday,title,req,fireWoodPrice,grillPrice,roomPrice,people)
+		values(#{useSave},0,#{pay},#{card1},#{halbu},#{bank1},#{card2},#{tel},#{bank2},#{totalPrice},#{fireWood},#{grill},#{userid},#{pcode},now(),#{jumuncode},#{inday},#{outday},#{title},#{req},#{fireWoodPrice},#{grillPrice},#{roomPrice},#{people})
 	</insert>
 	
 	<update id="setSave">
@@ -89,6 +116,7 @@
 		select save from product
 		where pcode=#{pcode}
 	</select>
+
 	<delete id="reserveCartDel">
 		delete from cart where userid=#{userid} and pcode=#{pcode} and inday=#{inday} and outday=#{outday}
 	</delete>
@@ -98,4 +126,10 @@
 		(userid,content,writeday,qtitle,ref,qna,pcode,secret,type)
 		values (#{userid},#{content},now(),#{qtitle},'0','1',#{pcode},#{secret},#{type})
 	</insert>
+
+	
+	
+	
+
+
 </mapper>
