@@ -29,12 +29,57 @@
 			<!-- 글 작성 버튼 -->
 			<tr>
 				<td colspan="4" align="right">
-					<a href="write"> <input type="button" value="글 작성"> </a>
+					<a href="freeBoardWrite"> <input type="button" value="글 작성"> </a>
 				</td>
 			</tr>
 			
 			<!-- 페이지 처리 -->
-	
+	   <tr>
+       <td colspan="4" align="center">
+        <!-- 이전 그룹 -->
+         <c:if test="${pstart > 1}">
+          <a href="freeBoard?page=${pstart-1}"> ◁◁ </a>
+         </c:if>
+         <c:if test="${pstart==1}">
+          ◁◁
+         </c:if>
+        
+        <!-- 이전 페이지 -->
+         <c:if test="${page > 1}">
+          <a href="freeBoard?page=${page-1}"> ◁ </a>
+         </c:if>
+         <c:if test="${page == 1}"> 
+          ◁
+         </c:if>
+         
+        <c:forEach var="i" begin="${pstart}" end="${pend}">
+         <c:if test="${page == i}"> <!-- 현재페이지랑 출력된 i의 값이 같을때 -->
+          <a href="freeBoard?page=${i}" style="color:red;"> ${i} </a>
+         </c:if>
+         <c:if test="${page != i}">
+          <a href="freeBoard?page=${i}"> ${i} </a>
+         </c:if> 
+        </c:forEach>
+        
+        <!-- 다음페이지 -->
+         <c:if test="${page != totalPages}">
+          <a href="freeBoard?page=${page+1}"> ▷ </a>
+         </c:if>
+         <c:if test="${page == totalPages}"> 
+          ▷
+         </c:if>
+         
+         <!-- 다음 그룹 -->
+         <c:if test="${pend < totalPages}"> 
+          <a href="freeBoard?page=${pend+1}"> ▷▷ </a>
+         </c:if>
+         <c:if test="${pend==totalPages}">
+          ▷▷
+         </c:if>
+       </td>
+     </tr>
+			
+			
 	
 	</table>
 

@@ -57,13 +57,13 @@ public class CommunityServiceImpl implements CommunityService {
 
 		model.addAttribute("userid");
 
-		return "community/write";
+		return "community/freeBoardWrite";
 	}
 
 	@Override
 	public String writeOk(FreeBoardDto bdto) {
 
-		mapper.writeOk(bdto);
+		mapper.freeBoardWriteOk(bdto);
 
 		return "redirect:/community/freeBoard";
 	}
@@ -82,7 +82,7 @@ public class CommunityServiceImpl implements CommunityService {
 		if (page % 10 == 0)
 			pstart = pstart - 1;
 
-		pstart = (pstart * 10) - 1;
+		pstart = (pstart * 10) + 1;
 		pend = pstart + 9;
 
 		totalPages = mapper.getTotal();
@@ -111,7 +111,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 		mapper.views(id);
 
-		return "redirect:/community/content";
+		return "redirect:/community/freeBoardContent?id="+id+"&page="+page;
 	}
 
 	@Override
@@ -119,14 +119,62 @@ public class CommunityServiceImpl implements CommunityService {
 		String id=request.getParameter("id");
 		String page=request.getParameter("page");
 		
-		FreeBoardDto bdto = mapper.content(id); // 조건에 맞는 내용만 가져오기
+		FreeBoardDto bdto = mapper.freeBoardContent(id); // 조건에 맞는 내용만 가져오기
 		
 		model.addAttribute("bdto",bdto);
 		model.addAttribute("page",page);
 		
-		return "community/content";
+		return "community/freeBoardContent";
 	}
-
+	
+	@Override
+	public String update(HttpServletRequest request, Model model) {
+		String id=request.getParameter("id");
+		String page=request.getParameter("page");
+		
+ 		FreeBoardDto bdto=mapper.freeBoardContent(id);
+		
+		model.addAttribute("bdto",bdto);
+		model.addAttribute("page",page);
+		
+		return "community/freeBoardUpdate";
+	}
+	
+	@Override
+	public String updateOk(FreeBoardDto bdto, HttpServletRequest request) {
+		String page=request.getParameter("page");
+		
+		if(mapper.isPwd(bdto.getId(),bdto.getPwd()))
+		{
+			mapper.updateOk(bdto);
+			
+			return "redirect:/community/freeBoardContent?id="+bdto.getId()+"&page="+page;
+		}
+		else
+		{
+			return "redirect:/community/freeBoardUpdate?id="+bdto.getId()+"&page="+page;
+		}
+	}
+	
+	@Override
+	public String delete(HttpServletRequest request) {
+		int id=Integer.parseInt(request.getParameter("id"));
+		String page=request.getParameter("page");
+		String pwd=request.getParameter("pwd");
+		
+		if(mapper.isPwd(id, pwd))
+		{
+			mapper.delete(id);
+			
+			return "redirect:/community/freeBoard?page="+page;
+		}
+		else
+		{
+			return "redirect:/community/freeBoardContent?id="+id+"&page="+page;
+		}
+			
+	}
+	
 	@Override
 	public String noticeList(Model model) {
 		ArrayList<NoticeDto> nlist=mapper.noticeList();
@@ -141,6 +189,7 @@ public class CommunityServiceImpl implements CommunityService {
 		model.addAttribute("ndto",ndto);
 		return "/community/noticeContent";
 	}
+
 }
 
 

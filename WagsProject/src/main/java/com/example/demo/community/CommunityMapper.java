@@ -17,7 +17,7 @@ public interface CommunityMapper {
 
 	public String getPtitle(String pcode);
 
-	public void writeOk(FreeBoardDto bdto);
+	public void freeBoardWriteOk(FreeBoardDto bdto);
 
 	public ArrayList<FreeBoardDto> getList(int index);
 
@@ -25,12 +25,19 @@ public interface CommunityMapper {
 
 	public void views(String id);
 
-	public FreeBoardDto content(String id);
+	public FreeBoardDto freeBoardContent(String id);
+	
+	public boolean isPwd(int id,String pwd);
+	
+	public void updateOk(FreeBoardDto bdto);
 	
 	public ArrayList<NoticeDto> noticeList();
   
 	public NoticeDto noticeContent(String id);
 
+	public void delete(int id);
+
+	
 }
 
 

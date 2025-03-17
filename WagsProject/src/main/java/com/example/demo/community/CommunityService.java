@@ -26,5 +26,11 @@ public interface CommunityService {
 	public String noticeList(Model model);
   
 	public String noticeContent(String id,Model model);
+
+	public String update(HttpServletRequest request, Model model);
+
+	public String updateOk(FreeBoardDto bdto, HttpServletRequest request);
+
+	public String delete(HttpServletRequest request);
 }
 

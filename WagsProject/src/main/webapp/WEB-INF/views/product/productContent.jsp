@@ -105,7 +105,7 @@ input[type="submit"]:hover {
 }
 
 section #cartLayer {
-	position: absolute;
+	position: fixed;
 	visibility: hidden;
 	background: #CC723D;
 	color: #fff;
@@ -124,7 +124,7 @@ section .number {
 }
 
 section #datepicker {
-	width: 150px;
+	width: 250px;
 	background: #FFE08C;
 	color: #CC723D;
 	border: none;
@@ -225,7 +225,14 @@ section #fourth #a {
 		//alert(--quantity.value);
 		if(quantity.value > 0) {
 			quantity.value = --quantity.value;
-			optionPrice.textContent =  quantity.value * 20000;
+			
+			if(document.getElementsByClassName("optionPrice")[2])
+				optionPrice.textContent = quantity.value * 15000;
+			else 
+				optionPrice.textContent =  quantity.value * 20000;
+			
+			
+			
 		}
 	}
 	
@@ -235,7 +242,12 @@ section #fourth #a {
 		var optionPrice=document.getElementsByClassName("optionPrice")[n];
 
 		quantity.value = ++quantity.value;
-		optionPrice.innerText = quantity.value * 20000;
+		if(document.getElementsByClassName("optionPrice")[2])
+			optionPrice.innerText = quantity.value * 15000;
+		else
+			optionPrice.innerText = quantity.value * 20000;
+			
+		
 	}
 	
 	// 장바구니에 상품 추가
@@ -243,6 +255,7 @@ section #fourth #a {
 		// 수량
 		var fireWood=document.getElementsByClassName("quantity")[0].value;
 		var grill=document.getElementsByClassName("quantity")[1].value;
+		var people=document.getElementsByClassName("quantity")[2].value;
 		// 가격
 		var fireWoodPrice= parseInt(document.getElementById("fireWoodPrice").innerText);
 		var grillPrice= parseInt(document.getElementById("grillPrice").innerText);
@@ -421,7 +434,6 @@ section #fourth #a {
 			<li> <a href="#space1"> 객실 </a> </li>
 			<li> <a href="#space2"> 리뷰 </a> </li>
 			<li> <a href="#space3"> Q&A </a> </li>
-			<li> 부가 서비스 </li>
 		</ul>
 	</div> <!-- menu close -->
 	
@@ -453,6 +465,14 @@ section #fourth #a {
 		          	<input type="text" name="grill" value="0" class="quantity" readonly>
 		         	<img src="../static/plus.png" valign="middle" onclick="plus(1)">
 					가격(인당 20,000원) : <span class="optionPrice" name="grillPrice" id="grillPrice"> 0 </span> 원 					     		
+				</div>
+			
+			<span> 추가 인원 선택 </span> 
+				<div class="number">
+					<img src="../static/minus.png" valign="middle" onclick="minus(2)">
+		          	<input type="text" name="people" value="0" class="quantity" readonly>
+		         	<img src="../static/plus.png" valign="middle" onclick="plus(2)">
+					가격(인당 15,000원) : <span class="optionPrice" name="people" id="people"> 0 </span> 명					     		
 				</div>
 			</div>
 		</div>

@@ -27,7 +27,7 @@ public class CommunityController {
 		return service.comQnaList(session, model, qdto);
 	}
 
-	@GetMapping("/community/write")
+	@GetMapping("/community/freeBoardWrite")
 	public String write(HttpSession session,Model model) {
 		return service.write(session, model);
 	}
@@ -47,9 +47,24 @@ public class CommunityController {
 		return service.views(request);
 	}
 	
-	@GetMapping("/community/content")
+	@GetMapping("/community/freeBoardContent")
 	public String content(Model model,HttpServletRequest request) {
 		return service.content(model,request);
+	}
+	
+	@GetMapping("/community/freeBoardUpdate")
+	public String update(HttpServletRequest request, Model model) {
+		return service.update(request,model);
+	}
+	
+	@PostMapping("/community/updateOk")
+	public String updateOk(FreeBoardDto bdto,HttpServletRequest request) {
+		return service.updateOk(bdto,request);
+	}
+	
+	@PostMapping("/community/delete")
+	public String delete(HttpServletRequest request) {
+		return service.delete(request);
 	}
 	
 	@GetMapping("/community/noticeList")
@@ -61,6 +76,8 @@ public class CommunityController {
 	public String noticeContent(String id,Model model) {
 		return service.noticeContent(id, model);
 	}
+	
+	
 }
 
 

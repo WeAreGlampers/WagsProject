@@ -18,6 +18,8 @@
      <tr>
        <td> 작성자 </td>
        <td> ${bdto.userid} </td>
+     </tr>
+     <tr>
        <td> 조회수 </td>
        <td> ${bdto.views} </td>
      </tr>
@@ -31,9 +33,9 @@
      </tr>
      <tr>
        <td colspan="4" align="center">
-        <a href="list?page=${page}" id="btn1"> <input type="button" value="목록"> </a>
-        <a href="update?id=${bdto.id}&page=${page}" id="btn2"> <input type="button" value="수정"> </a>
-        <a href="javascript:viewform()" id="btn3"> <input type="button" value="삭제"> </a>
+        <a href="freeBoard?page=${page}"> <input type="button" value="목록"> </a>
+        <a href="freeBoardUpdate?id=${bdto.id}&page=${page}"> <input type="button" value="수정"> </a>
+        <a href="javascript:viewform()"> <input type="button" value="삭제"> </a>
        </td>
      </tr>
     

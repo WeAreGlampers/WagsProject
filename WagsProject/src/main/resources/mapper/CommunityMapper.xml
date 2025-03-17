@@ -14,7 +14,7 @@
 		where pcode=#{pcode}
 	</select>
    	
-   	<insert id="writeOk" parameterType="com.example.demo.dto.FreeBoardDto">
+   	<insert id="freeBoardWriteOk" parameterType="com.example.demo.dto.FreeBoardDto">
    		insert into freeBoard(title,userid,views,content,pwd,writeday)
    		values(#{title},#{userid},#{views},#{content},#{pwd},now())
    	</insert>
@@ -36,11 +36,26 @@
    		where id=#{id}
    	</update>
    	
-   	<select id="content" resultType="com.example.demo.dto.FreeBoardDto">
+   	<select id="freeBoardContent" resultType="com.example.demo.dto.FreeBoardDto">
    		select * from freeBoard
    		where id=#{id}
    	</select>
-
+	
+	<select id="isPwd" resultType="Boolean">
+	   select count(*) from freeBoard
+	   where id=#{id} and pwd=#{pwd}
+	 </select>
+	
+	<update id="updateOk" parameterType="com.example.demo.dto.FreeBoardDto">
+	   update freeBoard
+	   set title=#{title}, content=#{content}
+	   where id=#{id}
+	 </update>
+	
+	<delete id="delete">
+	   delete from freeBoard
+	   where id=#{id}
+	 </delete>
 	
 	  <select id="noticeList" resultType="com.example.demo.dto.NoticeDto">
 		select * from notice 
