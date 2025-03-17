@@ -22,4 +22,8 @@ public class MainController {
 		return service.main();
 	}
 	
+	@GetMapping("/main/map")
+	public String map() {
+		return service.map();
+	}
 }

@@ -255,7 +255,7 @@ a {
 				<span class="category" onmouseover="viewCategory(0)" onmouseout="hideCategory(0)"> GLAMPING & CARAVAN
 				 	<ul class="sub">
 				 		<li> 인사말 </li>
-				 		<li id="long"> 찾아오시는 길 </li>	
+				 		<li id="long"> <a href="../main/map">찾아오시는 길</a> </li>	
 				 	</ul>
 				 </span>
 			</li>

@@ -41,7 +41,7 @@ function subCheck() {
 		document.getElementById("allChk").checked=false;
 	}
 }
-
+/*
 function reserve() {
 	var pcodes = "";
 	var titles = "";
@@ -74,7 +74,7 @@ function reserve() {
 	location="../product/reservation?people="+peoples+"&pcode="+pcodes+"&title="+titles+"&fireWood="+fireWoods+"&grill="+grills+"&fireWoodPrice="+fireWoodPrices+"&grillPrice="+grillPrices+"&inday="+indays+"&outday="+outdays+"&roomPrice="+roomPrices+"&totalPrice="+totalPrices;
 	
 }
-
+*/
 function cartDel() {
 	var subChk = document.getElementsByClassName("subChk");
 	var cartId = document.getElementsByClassName("cartId");
@@ -95,20 +95,14 @@ window.onload = function() {
 </script>
 </head>
 <body>  <!-- /member/cartView.jsp -->
+<form method="post" action="../product/reservation">
 <div id="allChkDiv"><input type="checkbox" id="allChk" onclick="allCheck(this)">
-<input id="reserveBtn" type="button" onclick="reserve()" value="선택예약">
+<input id="reserveBtn" type="submit" value="선택예약">
 <input type="button" onclick="cartDel()" value="선택삭제">
 </div>
 <c:forEach items="${cartMap}" var="map">
 	<div>
-		<input type="hidden" class="cartId" value="${map.id}">
-		<input type="hidden" class="fireWoodPrice" value="${map.fireWoodPrice}">
-		<input type="hidden" class="grillPrice" value="${map.grillPrice}">
-		<input type="hidden" class="totalPrice" value="${map.totalPrice}">
-		<input type="hidden" name="pcode" value="${map.pcode}" class="pcode">
-		<input type="hidden" name="people" class="people" value="1">
-		<input type="hidden" name="roomPrice" value="${map.roomPrice}" class="roomPrice">
-		<input type="checkbox" name="subChk" class="subChk" onclick="subCheck()">
+		<input type="checkbox" name="subChk" class="subChk" onclick="subCheck()" value="${map.id}">
 		<div class="title">${map.title}</div>
 		<div class="pimg"><img src="../static/product/${map.pimg}"></div>
 		<div><span class="inday">${map.inday}</span> ~ <span class="outday">${map.outday}</span></div>
@@ -119,7 +113,7 @@ window.onload = function() {
 	</div>
 	<input type="button" value="삭제" onclick="location='cartDel?ids=${map.id}'">
 </c:forEach>
-
+</form>
 
 </body>
 </html>

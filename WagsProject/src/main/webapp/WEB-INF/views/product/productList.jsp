@@ -189,7 +189,7 @@ window.onload=function(){
   </div>
   <div id="second">
     <c:forEach items="${plist}" var="pdto">
-      <div id="room" onclick="location='productContent?pcode=${pdto.pcode}'">
+      <div id="room" onclick="location='productContent?pcode=${pdto.pcode}&date=${date}'">
         <img src="../static/product/${pdto.pimg}" width="500" height="270">
         <div id="title">${pdto.title}</div>
         <div id="price">

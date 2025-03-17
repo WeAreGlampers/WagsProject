@@ -73,6 +73,16 @@ public class ProductServiceImpl implements ProductService {
 		model.addAttribute("test", test);
 		
 		model.addAttribute("pdto", pdto);
+		
+		if(request.getParameter("date")!="") {
+			String date = request.getParameter("date").replace(" ", "");
+			String[] dates = date.split("-");
+			String inday = dates[0] + "-" + dates[1] + "-" + dates[2];
+			String outday = dates[3].trim() + "-" + dates[4] + "-" + dates[5];
+			model.addAttribute("inday",inday);
+			model.addAttribute("outday",outday);
+			
+		}
 
 		return "/product/productContent";
 	}
@@ -160,28 +170,39 @@ public class ProductServiceImpl implements ProductService {
 	public String productList(HttpServletRequest request, Model model) {
 		ArrayList<ProductDto> plist;
 		if (request.getParameter("date") != null) {
-			String date = request.getParameter("date");
+			String date = request.getParameter("date").replace(" ", "");
 			String[] dates = date.split("-");
-			String inday = dates[0] + "-" + dates[1] + "-" + dates[2];
-			String outday = dates[3].trim() + "-" + dates[4] + "-" + dates[5];
+			String inday1 = dates[0] + "-" + dates[1] + "-" + dates[2];
+			String outday1 = dates[3].trim() + "-" + dates[4] + "-" + dates[5];
+			LocalDate inday = LocalDate.parse(inday1);
+			LocalDate outday = LocalDate.parse(outday1);
+			long cnt = ChronoUnit.DAYS.between(inday, outday);
 			int num = Integer.parseInt(request.getParameter("num"));
 			model.addAttribute("date", date);
 			model.addAttribute("num", num);
 			ArrayList<ProductDto> plistOld = mapper.productList();
 			plist = new ArrayList<ProductDto>();
 			for (int i = 0; i < plistOld.size(); i++) {
+				int chk=0;
+				LocalDate day=inday;
 				ProductDto pdto = plistOld.get(i);
-				if (!mapper.isCheck(outday, pdto.getPcode())) {
-					if (pdto.getMax() >= num) {
-						plist.add(pdto);
+				for(int j=0;j<cnt;j++) {
+					if(mapper.isCheck(day.toString(), pdto.getPcode())) {
+						chk=1;
 					}
+					day=day.plusDays(1);
+				}
+				if (chk==0 && pdto.getMax() >= num) {
+					plist.add(pdto);
 				}
 			}
-		} else if (request.getParameter("num") != null) {
+		} 
+		else if (request.getParameter("num") != null) {
 			int num = Integer.parseInt(request.getParameter("num"));
 			model.addAttribute("num", num);
 			plist = mapper.productList2(num);
-		} else {
+		} 
+		else {
 			plist = mapper.productList();
 		}
 		model.addAttribute("plist", plist);
@@ -189,7 +210,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public String reservation(HttpSession session, Model model, HttpServletRequest request) {
+	public String reservation(HttpSession session, Model model, HttpServletRequest request,CartDto cdto) {
 
 		if (session.getAttribute("userid") == null) {
 			return "redirect:/login/login";
@@ -199,80 +220,45 @@ public class ProductServiceImpl implements ProductService {
 			MemberDto mdto=mapper.getMember(userid);
 			model.addAttribute("mdto",mdto);
 			ArrayList<CartDto> clist=new ArrayList<CartDto>();
-
-			String[] pcodes=request.getParameter("pcode").split(",");
-			String[] titles=request.getParameter("title").split(",");
-			String[] grills=request.getParameter("grill").split(",");
-			String[] fireWoods=request.getParameter("fireWood").split(",");
-			String[] grillPrices=request.getParameter("grillPrice").split(",");
-			String[] fireWoodPrices=request.getParameter("fireWoodPrice").split(",");
-			String[] peoples=request.getParameter("people").split(",");
-			
-			long[] days=new long[pcodes.length];
 			int totalPriceAll=0;
 			// chk가 없으면 장바구니에서
 			if(request.getParameter("chk")==null){
-					
-				String[] roomPrices=request.getParameter("roomPrice").split(",");
-				String[] totalPrices=request.getParameter("totalPrice").split(",");
-				String[] indays=request.getParameter("inday").split(",");
-				String[] outdays=request.getParameter("outday").split(",");
 				
-				for(int i=0;i<pcodes.length;i++) {
-					CartDto cdto=new CartDto();
-					cdto.setPcode(pcodes[i]);
-					cdto.setTitle(titles[i]);
-					cdto.setGrill(Integer.parseInt(grills[i]));
-					cdto.setFireWood(Integer.parseInt(fireWoods[i]));
-					cdto.setGrillPrice(Integer.parseInt(grillPrices[i]));
-					cdto.setFireWoodPrice(Integer.parseInt(fireWoodPrices[i]));
-					cdto.setRoomPrice(Integer.parseInt(roomPrices[i]));
-					cdto.setPeople(Integer.parseInt(peoples[i]));
-					cdto.setTotalPrice(Integer.parseInt(totalPrices[i])+cdto.getPeople()*15000);
+				String[] cid=request.getParameterValues("subChk");
+				long[] days=new long[cid.length];
+				for(int i=0;i<cid.length;i++) {
+					cdto=mapper.getCart2(cid[i]);
+					cdto.setTotalPrice(cdto.getTotalPrice()+cdto.getPeople()*15000);
 					totalPriceAll+=cdto.getTotalPrice();
-					cdto.setInday(indays[i]);
-					cdto.setOutday(outdays[i]);
 					LocalDate inday1 = LocalDate.parse(cdto.getInday());
 					LocalDate outday1 = LocalDate.parse(cdto.getOutday());
 					long day = ChronoUnit.DAYS.between(inday1, outday1);
 					days[i] = day;
 					clist.add(cdto);
-
-        }
-
+				}
+				model.addAttribute("days", days);
 				
 			}
 			else{
-			
-				int roomPrice=Integer.parseInt(request.getParameter("roomPrice"));
-				String date=request.getParameter("inday");
-
+				long[] days=new long[1];
+				String date=cdto.getInday();
 				String[] dates=date.replace(" ","").split("-");
-
 				String inday=dates[0]+"-"+dates[1]+"-"+dates[2];
 				String outday=dates[3].trim()+"-"+dates[4]+"-"+dates[5];
-				LocalDate inday1=LocalDate.parse(inday);
-			  LocalDate outday1=LocalDate.parse(outday);
-			  long day=ChronoUnit.DAYS.between(inday1,outday1);
-			  days[0]=day;
-				roomPrice=roomPrice*(int)day; 
-			  CartDto cdto=new CartDto();
-				cdto.setPcode(pcodes[0]);
-				cdto.setTitle(titles[0]);
-				cdto.setGrill(Integer.parseInt(grills[0]));
-				cdto.setFireWood(Integer.parseInt(fireWoods[0]));
-				System.out.println(grillPrices[0]);
-				cdto.setGrillPrice(Integer.parseInt(grillPrices[0]));
-				cdto.setFireWoodPrice(Integer.parseInt(fireWoodPrices[0]));
-				cdto.setRoomPrice(roomPrice);
-				cdto.setPeople(Integer.parseInt(peoples[0]));
-				totalPriceAll=roomPrice+cdto.getFireWoodPrice()+cdto.getGrillPrice()+cdto.getPeople()*15000;
-				cdto.setTotalPrice(totalPriceAll);
 				cdto.setInday(inday);
 				cdto.setOutday(outday);
-				clist.add(cdto);
+				LocalDate inday1=LocalDate.parse(inday);
+			    LocalDate outday1=LocalDate.parse(outday);
+			    long day=ChronoUnit.DAYS.between(inday1,outday1);
+			    days[0]=day;
+			    cdto.setRoomPrice(cdto.getRoomPrice()*(int)day);
+			    totalPriceAll=cdto.getRoomPrice()+cdto.getFireWoodPrice()+cdto.getGrillPrice()+cdto.getPeople()*15000;
+			    cdto.setTotalPrice(totalPriceAll);
+			    clist.add(cdto);
+				model.addAttribute("days", days);
+			    
 			}
-			model.addAttribute("days", days);
+			
 			model.addAttribute("totalPriceAll", totalPriceAll);
 			model.addAttribute("clist", clist);
 			return "/product/reservation";
@@ -314,6 +300,7 @@ public class ProductServiceImpl implements ProductService {
 			int num=mapper.getNumber(jumuncode);
 			jumuncode+=String.format("%03d", num);
 			int addSave=0;
+			
 			for(int i=0;i<pcodes.length;i++) {
 				ReservationDto rdto=new ReservationDto();
 				rdto.setPcode(pcodes[i]);
@@ -342,6 +329,7 @@ public class ProductServiceImpl implements ProductService {
 				mapper.reservationOk(rdto);
 				mapper.reserveCartDel(rdto);
 			}
+		
 			mapper.setSave(userid, Integer.parseInt(useSave), addSave);
 			return "/product/reservationOk";
 		}

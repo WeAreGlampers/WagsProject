@@ -16,4 +16,9 @@ public class MainServiceImpl implements MainService {
 		return "/main/main";
 	}
 
+	@Override
+	public String map() {
+		return "/main/map";
+	}
+
 }
