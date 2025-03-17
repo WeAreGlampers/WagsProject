@@ -226,7 +226,7 @@ section #fourth #a {
 		if(quantity.value > 0) {
 			quantity.value = --quantity.value;
 			
-			if(document.getElementsByClassName("optionPrice")[2])
+			if(n == 2)
 				optionPrice.textContent = quantity.value * 15000;
 			else 
 				optionPrice.textContent =  quantity.value * 20000;
@@ -242,7 +242,7 @@ section #fourth #a {
 		var optionPrice=document.getElementsByClassName("optionPrice")[n];
 
 		quantity.value = ++quantity.value;
-		if(document.getElementsByClassName("optionPrice")[2])
+		if(n == 2)
 			optionPrice.innerText = quantity.value * 15000;
 		else
 			optionPrice.innerText = quantity.value * 20000;
@@ -264,7 +264,7 @@ section #fourth #a {
 		var date=document.getElementById("datepicker").value;
 		var roomPrice=parseInt(document.getElementById("roomPrice").innerText);
 		
-		alert("addCart?pcode=p0101&fireWood="+fireWood+"&grill="+grill+"&fireWoodPrice="+fireWoodPrice+"&grillPrice="+grillPrice+"&title="+title+"&date="+date+"&roomPrice="+roomPrice);
+		// alert("addCart?pcode=p0101&fireWood="+fireWood+"&grill="+grill+"&fireWoodPrice="+fireWoodPrice+"&grillPrice="+grillPrice+"&title="+title+"&date="+date+"&roomPrice="+roomPrice);
 		
 		var chk=new XMLHttpRequest();
 		chk.onload=function() {
@@ -281,7 +281,7 @@ section #fourth #a {
 				},3000);
 			}
 		}
-		chk.open("GET","addCart?pcode=${pdto.pcode}&fireWood="+fireWood+"&grill="+grill+"&fireWoodPrice="+fireWoodPrice+"&grillPrice="+grillPrice+"&title="+title+"&date="+date+"&roomPrice="+roomPrice); 
+		chk.open("GET","addCart?pcode=${pdto.pcode}&fireWood="+fireWood+"&grill="+grill+"&fireWoodPrice="+fireWoodPrice+"&grillPrice="+grillPrice+"&title="+title+"&date="+date+"&roomPrice="+roomPrice+"&people="+people); 
 		chk.send();
 	}
 	
