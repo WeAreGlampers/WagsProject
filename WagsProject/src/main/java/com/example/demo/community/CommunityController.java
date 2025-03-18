@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.dto.CommentDto;
 import com.example.demo.dto.FreeBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,8 +39,8 @@ public class CommunityController {
 	}
 	
 	@GetMapping("/community/freeBoard")
-	public String freeBoard(Model model, HttpServletRequest request) {
-		return service.freeBoard(model, request);
+	public String freeBoard(Model model, HttpServletRequest request, CommentDto cdto) {
+		return service.freeBoard(model, request, cdto);
 	}
 	
 	@GetMapping("/community/views")
@@ -62,9 +63,9 @@ public class CommunityController {
 		return service.updateOk(bdto,request);
 	}
 	
-	@PostMapping("/community/delete")
+	@PostMapping("/community/freeBoardDelete")
 	public String delete(HttpServletRequest request) {
-		return service.delete(request);
+		return service.freeBoardDelete(request);
 	}
 	
 	@GetMapping("/community/noticeList")
@@ -75,6 +76,11 @@ public class CommunityController {
 	@GetMapping("/community/noticeContent")
 	public String noticeContent(String id,Model model) {
 		return service.noticeContent(id, model);
+	}
+	
+	@PostMapping("/community/commentWriteOk")
+	public String commentWriteOk(CommentDto cdto,HttpServletRequest request) {
+		return service.commentWriteOk(cdto,request);
 	}
 	
 	

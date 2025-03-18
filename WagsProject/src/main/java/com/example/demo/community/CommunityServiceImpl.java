@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.example.demo.dto.CommentDto;
 import com.example.demo.dto.FreeBoardDto;
 import com.example.demo.dto.NoticeDto;
 import com.example.demo.dto.QnaDto;
@@ -69,7 +70,7 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public String freeBoard(Model model, HttpServletRequest request) {
+	public String freeBoard(Model model, HttpServletRequest request, CommentDto cdto) {
 		// 페이지 처리
 		int page = 1;
 		if (request.getParameter("page") != null) {
@@ -91,10 +92,16 @@ public class CommunityServiceImpl implements CommunityService {
 			pend = totalPages;
 
 		ArrayList<FreeBoardDto> blist = mapper.getList(index);
-
+		
+		ArrayList<CommentDto> clist = mapper.getComment(cdto.getCid());
+		
 		// blist 보내기
 		model.addAttribute("blist", blist);
-
+		
+		// clist 보내기
+		model.addAttribute("clist", clist);
+		System.out.println(blist.size());
+		System.out.println(clist.size());
 		// page 관련 보내기
 		model.addAttribute("page", page);
 		model.addAttribute("pstart", pstart);
@@ -152,19 +159,19 @@ public class CommunityServiceImpl implements CommunityService {
 		}
 		else
 		{
-			return "redirect:/community/freeBoardUpdate?id="+bdto.getId()+"&page="+page;
+			return "redirect:/community/freeBoardUpdate?err=1&id="+bdto.getId()+"&page="+page;
 		}
 	}
 	
 	@Override
-	public String delete(HttpServletRequest request) {
+	public String freeBoardDelete(HttpServletRequest request) {
 		int id=Integer.parseInt(request.getParameter("id"));
 		String page=request.getParameter("page");
 		String pwd=request.getParameter("pwd");
 		
 		if(mapper.isPwd(id, pwd))
 		{
-			mapper.delete(id);
+			mapper.freeBoardDelete(id);
 			
 			return "redirect:/community/freeBoard?page="+page;
 		}
@@ -188,6 +195,18 @@ public class CommunityServiceImpl implements CommunityService {
 		ndto.setContent(ndto.getContent().replace("\r\n", "<br>"));
 		model.addAttribute("ndto",ndto);
 		return "/community/noticeContent";
+	}
+
+	@Override
+	public String commentWriteOk(CommentDto cdto,HttpServletRequest request) {
+		int cid=Integer.parseInt(request.getParameter("cid"));
+		cdto.setCid(cid);
+		
+		String page=request.getParameter("page");
+		
+		mapper.commentWriteOk(cdto);
+		
+		return "redirect:/community/freeBoardContent?id="+ cdto.getCid() + "&page=" + page;
 	}
 
 }

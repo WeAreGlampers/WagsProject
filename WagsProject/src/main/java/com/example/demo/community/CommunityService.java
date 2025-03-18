@@ -4,6 +4,7 @@ package com.example.demo.community;
 import org.springframework.ui.Model;
 
 import com.example.demo.dto.QnaDto;
+import com.example.demo.dto.CommentDto;
 import com.example.demo.dto.FreeBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +18,7 @@ public interface CommunityService {
 	
 	public String writeOk(FreeBoardDto bdto);
 	
-	public String freeBoard(Model model, HttpServletRequest request);
+	public String freeBoard(Model model, HttpServletRequest request, CommentDto cdto);
 	
 	public String views(HttpServletRequest request);
 	
@@ -31,6 +32,8 @@ public interface CommunityService {
 
 	public String updateOk(FreeBoardDto bdto, HttpServletRequest request);
 
-	public String delete(HttpServletRequest request);
+	public String freeBoardDelete(HttpServletRequest request);
+
+	public String commentWriteOk(CommentDto cdto,HttpServletRequest request);
 }
 

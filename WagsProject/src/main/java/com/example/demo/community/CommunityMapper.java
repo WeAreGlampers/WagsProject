@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.demo.dto.CommentDto;
 import com.example.demo.dto.FreeBoardDto;
 
 import com.example.demo.dto.NoticeDto;
@@ -35,7 +36,11 @@ public interface CommunityMapper {
   
 	public NoticeDto noticeContent(String id);
 
-	public void delete(int id);
+	public void freeBoardDelete(int id);
+
+	public ArrayList<CommentDto> getComment(int cid);
+
+	public void commentWriteOk(CommentDto cdto);
 
 	
 }

@@ -24,7 +24,11 @@
 			<tr>
 				<td>비밀번호</td>
 				<td> <input type="password" name="pwd"> </td>
+				<c:if test="${param.err == 1}">
+					<td style="font-size:12px; color:red;"> 비밀번호가 일치하지 않습니다.  </td>
+				</c:if>
 			</tr>
+			
 			<tr>
 				<td>조회수</td>
 				<td> ${bdto.views} </td>

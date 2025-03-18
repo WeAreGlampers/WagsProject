@@ -214,6 +214,10 @@ section #fourth #a {
 	width: 1100px;
 	height: 60px;
 }
+
+section #menu li {
+	background:white;
+}
 </style>
 <script>
 
@@ -343,6 +347,18 @@ section #fourth #a {
 		}
 		
 	}
+	
+	window.onscroll=function() {
+    	var top=document.documentElement.scrollTop;
+    	
+    	if(top>=805) {
+    		document.getElementById("menu").style.position="fixed";
+    		document.getElementById("menu").style.top="-66px";
+    	} else {
+    		document.getElementById("menu").style.position="relative";
+    		document.getElementById("menu").style.top="0px";
+    	}	
+    }
 	
 	// QnA 레이어 표시
 	function showQnA() {
@@ -596,7 +612,16 @@ section #fourth #a {
 								</c:if>
 							</td>
 							<td width="100">${qdto.userid}</td> 
-							<td>${qdto.content}</td>
+							<!-- 비밀글이 아닐 때 -->
+							<c:if test="${qdto.secret==0 || userid == qdto.userid || qdto.userid == '관리자'}">
+								<td>${qdto.content}</td>
+							</c:if>
+							
+							<!-- 비밀글일 때 -->
+							<c:if test="${qdto.secret==1 && userid != qdto.userid && qdto.userid != '관리자'}">
+								<td> 비밀글입니다.<img src="../static/secretIcon.png" width="20" valign="middle"> </td>						
+							</c:if>
+							
 							<td width="180" align="center">${qdto.writeday} 
 								<c:if test="${userid==qdto.userid}">
 									<input type="button" value="삭제" onclick="location='qnaDel?id=${qdto.id}&pcode=${qdto.pcode}&ref=${qdto.ref}'">
