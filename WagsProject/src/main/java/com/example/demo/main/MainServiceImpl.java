@@ -21,4 +21,9 @@ public class MainServiceImpl implements MainService {
 		return "/main/map";
 	}
 
+	@Override
+	public String introduce() {
+		return "/main/introduce";
+	}
+
 }

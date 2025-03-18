@@ -11,6 +11,9 @@ section{
 	margin:auto;
 	margin-bottom:30px;
 }
+h3{
+	color:#CC723D;
+}
 </style>
 </head>
 <body>

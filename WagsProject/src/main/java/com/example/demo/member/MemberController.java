@@ -128,5 +128,8 @@ public class MemberController {
 		return service.reviewUpdateOk(session,rdto);
 	}
 	
-
+	@GetMapping("/member/cancel")
+	public String cancel(HttpSession session, HttpServletRequest request) {
+		return service.cancel(session,request);
+	}
 }

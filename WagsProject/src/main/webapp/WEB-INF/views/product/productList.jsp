@@ -19,11 +19,12 @@ section{
   text-align:center;
 }
 #fouter{
-  border:1px solid black;
+  border:2px solid #FFE08C;
   border-radius:3px;
   width:500px;
   height:30px;
   margin:auto;
+  color:#CC723D;
 }
 #left{
   display:inline-block;
@@ -39,6 +40,7 @@ section{
   outline:none;
   border:none;
   font-size:16px;
+  color:#CC723D;
 }
 #right{
   display:inline-block;
@@ -69,10 +71,11 @@ section{
 #room{
   width:500px;
   height:400px;
-  border:1px solid black;
+  border:2px solid #FFE08C;
   border-radius:3px;
   margin:auto;
   margin-bottom:10px;
+  color:#CC723D;
 }
 #room #title{
   padding-top:5px;
@@ -105,35 +108,50 @@ section{
   border:none;
   outline:none;
   font-weight:600;
+  color:#CC723D;
+  valign:top;
+  font-size:15px;
 }
 #number{
   display:inline-block;
   width:74px;
-  height:28px;
-  border:1px solid #005ae0;
+  height:30px;
+  border:1px solid #FFE08C;
   padding-top:2px;
   border-radius:3px;
   margin-bottom:10px;
 }
 #chkPeople{
-  border:1px solid black;
+  border:2px solid #FFE08C;
   width:500px;
   height:200px;
   text-align:center;
   background:white;
   margin:auto;
   padding-top:40px;
+  color:#CC723D;
+  border-radius:3px;
 }
-
+input[type=button]{
+	background:#FFE08C;
+	border:1px solid #FFE08C;
+	color:#CC723D;
+	border-radius:5px;
+	font-size:15px;
+}
+#operator{
+	font-size:20px;
+	font-weight:800;
+}
 </style>
 <script>
 function showChk(){
 	var calData="<div id='chkPeople'>";
 	calData+="<div style='margin-bottom:10px;'><b>인원을 선택하세요</b></div>";
 	calData+="인원  <div id='number'>";
-	calData+="<img src='../static/minus.png' valign='middle' onclick='downSu()'>";
+	calData+="<span onclick='downSu()' id='operator'> - </span>";
 	calData+="<input type='text' name='su' value='1' id='su' readonly>";
-	calData+="<img src='../static/plus.png' valign='middle' onclick='upSu()'>";
+	calData+="<span onclick='upSu()' id='operator'> + </span>";
 	calData+="</div><div><input type='button' value='검색' onclick='productList()'></div></div>";
 	document.getElementById("cal").innerHTML=calData;	
 }
@@ -196,7 +214,7 @@ window.onload=function(){
           <fmt:formatNumber value="${pdto.price}" type="number" pattern="#,###"/><span id="won">원</span>
         </div>
         <div id="people">기준 ${pdto.standard}명 ( 최대 ${pdto.max}명 )</div>
-        <div style="font-size:15px;color:gray;">리뷰 ${pdto.review}</div>
+        <div style="font-size:15px;color:#FFE08C;">리뷰 ${pdto.review}</div>
       </div>
     </c:forEach>
   </div>

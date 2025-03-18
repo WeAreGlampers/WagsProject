@@ -26,4 +26,9 @@ public class MainController {
 	public String map() {
 		return service.map();
 	}
+	
+	@GetMapping("/main/introduce")
+	public String introduce() {
+		return service.introduce();
+	}
 }

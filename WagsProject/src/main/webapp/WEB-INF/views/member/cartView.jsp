@@ -77,11 +77,10 @@ function reserve() {
 */
 function cartDel() {
 	var subChk = document.getElementsByClassName("subChk");
-	var cartId = document.getElementsByClassName("cartId");
 	var ids = "";
 	for (i=0;i<subChk.length;i++){
 		if (subChk[i].checked) {
-			ids = ids + cartId[i].value + ",";
+			ids = ids + subChk[i].value + ",";
 		}
 	}
 	location="cartDel?ids="+ids;
