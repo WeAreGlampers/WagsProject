@@ -25,6 +25,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public String comQnaList(HttpSession session, Model model, QnaDto qdto) {
+	
 		ArrayList<HashMap> qnaMap = mapper.getQna();
 		model.addAttribute("qnaMap",qnaMap);
 		for (int i = 0; i < qnaMap.size(); i++) {
@@ -128,17 +129,42 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public String noticeList(Model model) {
-		ArrayList<NoticeDto> nlist=mapper.noticeList();
+	public String noticeList(Model model, HttpServletRequest request) {
+		int page = 1;
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		int index = (page - 1) * 10;
+
+		int pstart, pend, totalPages;
+		pstart = page / 10 ;
+		if (page % 10 == 0)
+			pstart = pstart - 1;
+
+		pstart = (pstart * 10) + 1;
+		pend = pstart + 9;
+
+		totalPages = mapper.getNoticeTotal();
+
+		if (pend > totalPages)
+			pend = totalPages;
+
+		ArrayList<NoticeDto> nlist=mapper.noticeList(index);
 		model.addAttribute("nlist",nlist);
+		model.addAttribute("page", page);
+		model.addAttribute("pstart", pstart);
+		model.addAttribute("pend", pend);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("index",index);
 		return "/community/noticeList";
 	}
 
 	@Override
-	public String noticeContent(String id, Model model) {
-		NoticeDto ndto=mapper.noticeContent(id);
+	public String noticeContent(HttpServletRequest request, Model model) {
+		NoticeDto ndto=mapper.noticeContent(request.getParameter("id"));
 		ndto.setContent(ndto.getContent().replace("\r\n", "<br>"));
 		model.addAttribute("ndto",ndto);
+		model.addAttribute("page",request.getParameter("page"));
 		return "/community/noticeContent";
 	}
 }

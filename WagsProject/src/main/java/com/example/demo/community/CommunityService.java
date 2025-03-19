@@ -23,8 +23,8 @@ public interface CommunityService {
 	
 	public String content(Model model,HttpServletRequest request);
 
-	public String noticeList(Model model);
+	public String noticeList(Model model, HttpServletRequest request);
   
-	public String noticeContent(String id,Model model);
+	public String noticeContent(HttpServletRequest request,Model model);
 }
 

@@ -6,11 +6,33 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+section{
+	margin-bottom:30px;
+}
+table{
+	border-collapse: collapse;
+	margin-bottom:20px;
+}
+caption{
+	color: #CC723D;
+}
 table tr{
 	height:50px;
 }
 table tr:nth-child(4){
  	height:100px;
+}
+td {
+    padding: 10px;
+    border: 1px solid #FFE08C;
+}
+input[type=button]{
+	background:#FFE08C;
+	border:1px solid #FFE08C;
+	color:#CC723D;
+	border-radius:5px;
+	font-size:17px;
+	font-weight:bold;
 }
 </style>
 </head>
@@ -34,10 +56,10 @@ table tr:nth-child(4){
       <td>내용</td>
       <td>${ndto.content}</td>
     </tr>
-    <tr>
-      <td colspan="2"><a href="noticeList">목록</a></td>
-    </tr>
   </table>
+  <div>
+  	<input type="button" value="목록" onclick="location='noticeList?page=${page}'">
+  </div>
 </section>
 </body>
 </html>
