@@ -30,6 +30,11 @@
    		from freeBoard
    	</select>
    	
+   	<select id="getNoticeTotal" resultType="Integer">
+   		select ceil(count(*)/10)
+   		from notice
+   	</select>
+   	
    	<update id="views">
    		update freeBoard
    		set views=views+1
@@ -60,6 +65,7 @@
 	  <select id="noticeList" resultType="com.example.demo.dto.NoticeDto">
 		select * from notice 
 		order by id desc
+		limit #{index},10
 	  </select>
 	
 	  <select id="noticeContent" resultType="com.example.demo.dto.NoticeDto">

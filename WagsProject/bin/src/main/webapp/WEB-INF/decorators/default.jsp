@@ -161,6 +161,9 @@ nav .category .sub #long {
 	width:110px;
 }
 
+nav .category .sub #long2 {
+	width:110px;
+}
 #logo img {
 	width: 250px;
 	height: 100px;
@@ -227,7 +230,8 @@ a {
 				<ul id="privateSub">
 					<li> <a href="../member/memberInfo"> 마이페이지 </a></li>
 					<li> <a href="../member/cartView"> 장바구니 </a></li>
-					<li> <a href="../member/reservationStatus"> 예약현황 </a></li>						
+					<li> <a href="../member/reservationStatus"> 예약현황 </a></li>	
+					<li> <a href="../member/reviewList"> 리뷰관리 </a></li>						
 				</ul>
 			</span>		
 		
@@ -260,8 +264,7 @@ a {
 			<li>
 				<span class="category" onmouseover="viewCategory(1)" onmouseout="hideCategory(1)"> ROOMS
 				  	<ul class="sub">
-				  		<li> <a href="../product/productList"> 카라반 </a> </li>
-				  		<li> <a href="../product/productList"> 글램핑 </a> </li>
+				  		<li id="long2"> <a href="../product/productList"> 글램핑&카라반 </a> </li>
 				  	</ul>
 				  </span>
 			</li>
@@ -281,13 +284,13 @@ a {
 			
 			<!-- fourth -->
 			<li>
-			<span class="category" onmouseover="viewCategory(3)" onmouseout="hideCategory(3)"> COMMUNITY TOUR
+			<span class="category" onmouseover="viewCategory(3)" onmouseout="hideCategory(3)"> COMMUNITY
 					<ul class="sub">
-						<li> 공지사항 </li>
-						<li> 이벤트 </li>
-						<li> 게시판 </li>
-						<li> Q&A </li>
-						<li> 여행후기 </li>
+
+						<li> <a href="../community/noticeList"> 공지사항 </a> </li>
+						<li> <a href="../community/freeBoard"> 게시판 </a> </li>
+						<li> <a href="../community/comQnaList"> Q&A </a> </li>
+
 					</ul>				
 				</span>
 			
@@ -299,7 +302,7 @@ a {
 
 	<footer>
 	    <div>
-	        <p>상호: WeAreGlampers · 대표자: 윤영제·이지헌·강동완 · 통신판매신고번호: 제 2022-경기고양-0362 호</p>
+	        <p>상호: WeAreGlampers · 대표자: 윤영제·이지현·강동완 · 통신판매신고번호: 제 2022-경기고양-0362 호</p>
 	        <p>COMPANY REGISTRATION NUMBER: 058-59-00369 · ADDRESS: 55, Goyang-si, Ilsan-dong-gu ,Madhu-dong, , Gyeonggi-do, Korea</p>
 	        <p>CARAVAN&GLAMPING: 010-2237-1667 · EMAIL: wags@naver.com</p>
 	    </div>

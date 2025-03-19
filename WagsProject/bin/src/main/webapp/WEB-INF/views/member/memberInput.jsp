@@ -132,7 +132,7 @@ function inputChk() {
 			<input type="text" class="txt" name="userid" placeholder="아이디" onblur="useridDupChk(this.value)"> <p>
 			<span id="idChkMsg"></span>
 		</div>
-		<div><input type="password" name="pwd" class="txt" placeholder="비번"></div>
+		<div><input type="password" name="pwd" class="txt" placeholder="비번" onkeyup="pwdSameChk()"></div>
 		<div>
 			<input type="password" name="pwd2" class="txt" placeholder="비번확인" onkeyup="pwdSameChk()"> <p>
 			<span id="pwdChkMsg"></span>

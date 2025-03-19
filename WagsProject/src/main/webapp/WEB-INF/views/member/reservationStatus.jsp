@@ -92,6 +92,9 @@ section .reviewWrite {
       		<div class="reviewWrite"><input type="button" value="리뷰작성" onclick="location='/member/reviewWrite?id=${map.id}'"></div>
       	</c:if>
       </c:if>
+      <c:if test="${map.state == 0}">
+      		<div class="reviewWrite"><input type="button" value="취소요청" onclick="location='cancel?id=${map.id}'"></div>
+      </c:if>
     </div>
   </c:forEach>
 </section>

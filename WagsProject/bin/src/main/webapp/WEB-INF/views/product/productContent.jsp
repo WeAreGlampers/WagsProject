@@ -55,16 +55,26 @@ a {
 	text-decoration: none;
 	color: black;
 }
-
+#datepicker {
+	background: #FFE08C;
+    color: #CC723D;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
 input[type="button"] {
 	background: #FFE08C;
-	color: #CC723D;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	font-size: 16px;
-	cursor: pointer;
-	transition: background 0.3s;
+    color: #CC723D;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top:15px;
 }
 
 input[type="button"]:hover {
@@ -125,6 +135,85 @@ section #datepicker {
 	transition: background 0.3s;
 	text-align: center;
 }
+
+section #third .inReview {
+	width: 1080px;
+	height: 150px;
+	overflow: auto;
+	border: 1px solid black;
+	margin-top: 20px;
+	padding: 10px;
+}
+
+section #third .inReview #userid {
+	font-size: 17px;
+	font-weight: 900;
+	margin-top: 10px;
+}
+
+section #third .inReview #title {
+	font-weight: 900;
+	margin-top: 10px;
+}
+
+section #third .inReview #content {
+	margin-top: 10px;
+}
+
+section #fourth {
+    width: 1100px;
+    margin: 40px auto 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+section #fourth #left {
+    float: left;
+    width: 50%;
+}
+
+section #fourth #right {
+    float: right;
+    width: 50%;
+    text-align: right;
+    margin-top: 20px;
+}
+
+section #fourth table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    clear: both;
+}
+
+section #fourth table tr {
+    border-bottom: 1px solid #eee;
+}
+
+section #fourth table td {
+    padding: 12px 10px;
+}
+
+section #fourth #q {
+    background: #FFE08C;
+    color: #CC723D;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+section #fourth #a {
+    background: #f0f0f0;
+    color: #666;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+#space1, #space2, #space3 {
+	width: 1100px;
+	height: 60px;
+}
 </style>
 <script>
 
@@ -171,7 +260,7 @@ section #datepicker {
 			} else {
 				// 장바구니 메시지 띄우기
 				document.getElementById("cartLayer").style.visibility="visible";
-				alert("cartLayer 보이기 실행됨");
+				//alert("cartLayer 보이기 실행됨");
 				// 3초 뒤 숨기기
 				ss=setTimeout(function(){
 					document.getElementById("cartLayer").style.visibility="hidden";
@@ -242,6 +331,56 @@ section #datepicker {
 		
 	}
 	
+	// QnA 레이어 표시
+	function showQnA() {
+	    document.getElementById("qnaLayer").style.display = "block";
+	    document.getElementById("overlay").style.display = "block";
+	    document.getElementById("qnaTitle").value="";
+	    document.getElementById("qnaContent").value="";
+	    document.getElementById("secret").checked=false;
+	    
+	    document.body.style.overflow = "hidden"; // 스크롤 방지
+	}
+
+	// QnA 레이어 닫기
+	function closeQnA() {
+	    document.getElementById("qnaLayer").style.display = "none";
+	    document.getElementById("overlay").style.display = "none";
+	    document.body.style.overflow = "auto"; // 스크롤 허용
+	}
+	function chgSecretValue() {
+		var secretCheckbox = document.getElementById("secret");
+		var secret = document.getElementById("secretValue");
+	    if(secretCheckbox.checked) {
+	    	secret.value = "1";
+	    } else {
+	    	secret.value = "0";
+	    }
+	}
+	
+	// QnA 제출 처리
+	function submitQnA() {
+	    var qnaType = document.getElementById("qnaType").value;
+	    var qnaTitle = document.getElementById("qnaTitle").value;
+	    var qnaContent = document.getElementById("qnaContent").value;
+	    
+	      
+	    
+	    if(qnaType == "") {
+	        alert("문의 유형을 선택해주세요.");
+	        return false;
+	    } else if (qnaTitle.trim() == "") {
+	        alert("제목을 입력해주세요.");
+	        return false;
+	    } else if(qnaContent.trim() == "") {
+	        alert("문의 내용을 입력해주세요.");
+	        return false;
+	    } else {
+	    	alert("문의가 등록되었습니다.");
+	    	return true;
+	    }
+	    closeQnA();
+	}
 </script>
 </head>
 <body>
@@ -279,17 +418,19 @@ section #datepicker {
 	
 	<div id="menu">
 		<ul>
-			<li> 객실 </li>
-			<li> 리뷰 </li>
-			<li> Q&A </li>
+			<li> <a href="#space1"> 객실 </a> </li>
+			<li> <a href="#space2"> 리뷰 </a> </li>
+			<li> <a href="#space3"> Q&A </a> </li>
 			<li> 부가 서비스 </li>
 		</ul>
 	</div> <!-- menu close -->
 	
 
 	<div id="second">
+		<div id="space1">&nbsp;</div>
 		<div>
-				<input type="text" name="inday" value="일정선택 ▽" id="datepicker">
+
+				<input type="text" name="inday" value="일정선택 ▽" id="datepicker" readonly>
 		</div>
 		
 		<div> <img src="../static/room.png"> </div> 
@@ -327,42 +468,129 @@ section #datepicker {
 				<input type="submit" value="예약"> 
 		</div>
 		
-		<!-- <input type="button" value="버튼" onclick="UnavailableDates('${pdto.pcode}')"> --> 
 	</div>	<!-- second close -->
-	</form> <!-- form close -->
+
 	
-	<%-- <form method="post" action="qnaWriteOk">
-		<input type="hidden" name="pcode" value="${pdto.pcode}">
-		<input type="button" value="작성">
-	</form> --%>
+	</form>
+	<!-- QnA -->
+<form method="post" action="qnaWriteOk" onsubmit="return submitQnA()">
+<input type="hidden" name="pcode" value="${pdto.pcode}">
+<input type="hidden" name="secret" id="secretValue" value="0">
+<div id="qnaLayer" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:600px; background:#fff; border-radius:10px; box-shadow:0 0 15px rgba(0,0,0,0.3); z-index:1000; padding:20px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <h3 style="margin:0; color:#CC723D;">Q&A 문의하기</h3>
+        <img src="../static/close.png" onclick="closeQnA()" style="width:20px; height:20px; cursor:pointer;">
+    </div>
+    <div style="margin-bottom:15px;">
+        <select name="type" id="qnaType" style="width:100%; padding:10px; border:2px solid #FFE08C; border-radius:5px; outline:none;">
+            <option value="">문의 유형을 선택해주세요</option>
+            <option value="0">예약 관련</option>
+            <option value="1">시설 관련</option>
+            <option value="2">서비스 관련</option>
+            <option value="3">기타 문의</option>
+        </select>
+    </div>
+    <div style="margin-bottom:15px;">
+        <input type="text" name="qtitle" id="qnaTitle" placeholder="제목" style="width:100%; padding:10px; border:2px solid #FFE08C; border-radius:5px; outline:none; box-sizing:border-box;">
+    </div>
+    <div style="margin-bottom:15px;">
+        <textarea name="content" id="qnaContent" placeholder="문의 내용을 입력해주세요" style="width:100%; height:150px; padding:10px; border:2px solid #FFE08C; border-radius:5px; outline:none; resize:none; box-sizing:border-box;"></textarea>
+    </div>
+    <div style="margin-bottom:15px;">
+        <label style="display:block; margin-bottom:5px;">
+            <input type="checkbox" id="secret" onchange="chgSecretValue()"> 비밀글로 문의하기
+        </label>
+    </div>
+    <div style="text-align:center;">
+        <input type="submit" value="문의하기" style="background:#FFE08C; color:#CC723D; border:none; padding:10px 20px; border-radius:5px; font-size:16px; cursor:pointer;">
+    </div>
+</div>
+
+
+<div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999;"></div>
+
+
+</form> <!-- form close -->
 	
 	<div id="third">
+		<div id="space2">&nbsp;</div>
 		<h3> 상품평 </h3>
 		<div> 
-			<c:forEach begin="1" end="${pdto.Ystar}">
-				<img src="../static/star1.png">
+			<c:forEach begin="1" end="${pdto.ystar}">
+				<img src="../static/star1.png" width="30" valign="middle">
 			</c:forEach>
 			<c:forEach begin="1" end="${pdto.hstar}">
-				<img src="../static/star3.png">
+				<img src="../static/star3.png" width="30" valign="middle">
 			</c:forEach>
-			<c:forEach begin="1" end="${pdto.Gstar}">
-				<img src="../static/star2.png">
+			<c:forEach begin="1" end="${pdto.gstar}">
+				<img src="../static/star2.png" width="30" valign="middle">
 			</c:forEach>
 			${pdto.review}개 상품평
 		</div>
-		
-		<c:forEach items="${rlist}" var="rdto">
-			
-		
-		
+		<!-- 개인 -->
+		<c:forEach items="${reviewList}" var="rdto">
+		<div class="inReview">
+			<div >
+				<!-- 노란별 출력 -->
+				<c:forEach begin="1" end="${rdto.star}">
+					<img src="../static/star1.png" width="20">
+				</c:forEach>
+				<c:forEach begin="1" end="${5-rdto.star}">
+					<img src="../static/star2.png" width="20">
+				</c:forEach>
+				(${rdto.writeday})
+			</div>
+			<div id="userid"> ${rdto.userid} </div>
+			<div id="title"> ${rdto.title} </div>
+			<div id="content"> ${rdto.content} </div>
+				<div id="upDel" align="right">
+					<c:if test="${userid != rdto.userid}">
+						신고하기
+					</c:if>
+					<c:if test="${userid == rdto.userid}">
+						<a href="../member/reviewUpdate?id=${rdto.id}&pcode=${rdto.pcode}"> 수정 </a> |
+						<a href="../member/reviewDelete?id=${rdto.id}&pcode=${rdto.pcode}&rid=${rdto.rid}"> 삭제 </a>
+					</c:if>	
+				</div>
+				
+			</div>
 		</c:forEach>
-		
+	</div> <!-- review 끝 -->
 	
-	
-	
-	</div>
-	
+	<div id="fourth"> <!-- qna -->
+			<div id="space3">&nbsp;</div>
+			<div>
+				<div id="left"> <h3> 상품문의 </h3> </div>
+				<div id="right"><input type="button" value="문의하기" onclick="showQnA()"></div>
+			</div>
+				<div>
+				<table width="1100" align="center">
+					<c:forEach items="${qlist}" var="qdto">
+						<tr>
+							<td width="100">
+								<c:if test="${qdto.qna==1}">
+									<span id="q">질문</span>
+								</c:if> 
+								<c:if test="${qdto.qna==2}"> 
+			              			-> <span id="a">답변</span>
+								</c:if>
+							</td>
+							<td width="100">${qdto.userid}</td> 
+							<td>${qdto.content}</td>
+							<td width="180" align="center">${qdto.writeday} 
+								<c:if test="${userid==qdto.userid}">
+									<input type="button" value="삭제" onclick="location='qnaDel?id=${qdto.id}&pcode=${qdto.pcode}&ref=${qdto.ref}'">
+								</c:if>
+							</td> 
+						</tr>
+					</c:forEach>
+				</table>
+			</div> 
+		</div> 
+
 </section>
+
+	
 
 <!-- easePick 달력 라이브러리 사용 -->
 
@@ -419,6 +647,6 @@ section #datepicker {
         }
       });
     </script>
-
+    
 </body>
 </html>

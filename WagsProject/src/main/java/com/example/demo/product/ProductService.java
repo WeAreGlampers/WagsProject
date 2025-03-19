@@ -19,7 +19,7 @@ public interface ProductService {
 	public String dibsOk(HttpSession session,HttpServletRequest request);
 	public @ResponseBody String dibsDel(HttpSession session,HttpServletRequest request); 
 	public String productList(HttpServletRequest request,Model model);
-	public String reservation(HttpSession session,Model model,HttpServletRequest request);
+	public String reservation(HttpSession session,Model model,HttpServletRequest request,CartDto cdto);
 	public String reservationOk(HttpSession session,Model model,HttpServletRequest request);
 
 	public String qnaWriteOk(QnaDto qdto, HttpSession session);

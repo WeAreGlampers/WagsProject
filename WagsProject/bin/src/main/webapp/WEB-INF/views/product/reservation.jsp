@@ -207,6 +207,7 @@ window.onpageshow=function(){
  <input type="hidden" name="grillPrice" value="${cdto.grillPrice}"> 
  <input type="hidden" name="totalPrice" value="${cdto.totalPrice}">
  <input type="hidden" name="roomPrice" value="${cdto.roomPrice}">
+ <input type="hidden" name="people" value="${cdto.people}">
   <div class="check">
 	<div id="content">
 		<input type="text" id="title" name="title" value="${cdto.title}" readonly>
@@ -219,9 +220,15 @@ window.onpageshow=function(){
 		<div id="left">${cdto.title}</div>
 		<div id="right"><fmt:formatNumber value="${cdto.roomPrice}" type="number" pattern="#,###"/>원</div>
 	  </div>
-		<c:if test="${cdto.fireWood>0 || cdto.grill>0}">
+		<c:if test="${cdto.fireWood>0 || cdto.grill>0 || cdto.people>0}">
 			<hr>
 			<div id="price2">옵션</div>
+			<c:if test="${cdto.people>0}">
+			  <div id="price2">
+			    <div id="left">추가인원</div>
+		        <div id="right"><fmt:formatNumber value="${cdto.people*15000}" type="number" pattern="#,###"/>원</div>
+	          </div>
+			</c:if>
 			<c:if test="${cdto.fireWood>0}">
 			  <div id="price2">
 				<div id="left">장작 ${cdto.fireWood}</div>

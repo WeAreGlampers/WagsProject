@@ -51,5 +51,7 @@ public interface MemberService {
 	public String reviewUpdate(HttpSession session, ReviewDto rdto, Model model);
 
 	public String reviewUpdateOk(HttpSession session, ReviewDto rdto);
+	
+	public String cancel(HttpSession session, HttpServletRequest request);
 
 }

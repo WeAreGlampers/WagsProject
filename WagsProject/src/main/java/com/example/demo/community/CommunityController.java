@@ -69,13 +69,13 @@ public class CommunityController {
 	}
 	
 	@GetMapping("/community/noticeList")
-	public String noticeList(Model model) {
-		return service.noticeList(model);
+	public String noticeList(Model model, HttpServletRequest request) {
+		return service.noticeList(model,request);
 	}
 	
 	@GetMapping("/community/noticeContent")
-	public String noticeContent(String id,Model model) {
-		return service.noticeContent(id, model);
+	public String noticeContent(HttpServletRequest request,Model model) {
+		return service.noticeContent(request, model);
 	}
 	
 	@PostMapping("/community/commentWriteOk")

@@ -676,6 +676,8 @@ section #menu li {
             one: 'night',
             other: 'nights',
           },
+          startDate:'${inday}',
+          endDate:'${outday}',
         },
         LockPlugin: {
           minDate: new Date(),

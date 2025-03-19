@@ -43,6 +43,11 @@
 	<select id="getCart" resultType="com.example.demo.dto.CartDto">
 		select * from cart
 	</select>
+	
+	<select id="getCart2" resultType="com.example.demo.dto.CartDto">
+		select * from cart
+		where id=#{id}
+	</select>
 
 	<select id="getReservation" resultType="com.example.demo.dto.ReservationDto">
 		select * from reservation
@@ -77,7 +82,7 @@
 	</select>
 	
 	<select id="isCheck" resultType="Boolean">
-		<![CDATA[ select count(*) from reservation where inday < #{outday} and outday >= #{outday} and pcode=#{pcode} ]]>
+		<![CDATA[ select count(*) from reservation where inday <= #{day} and outday > #{day} and pcode=#{pcode} ]]>
 	</select>
 	
 	<select id="productList2" resultType="com.example.demo.dto.ProductDto">
@@ -118,7 +123,8 @@
 	</select>
 
 	<delete id="reserveCartDel">
-		delete from cart where userid=#{userid} and pcode=#{pcode} and inday=#{inday} and outday=#{outday}
+		delete from cart 
+		where userid=#{userid} and pcode=#{pcode} and inday=#{inday} and outday=#{outday}
 	</delete>
 	
 	<insert id="qnaWriteOk">

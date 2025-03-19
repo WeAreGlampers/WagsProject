@@ -24,6 +24,8 @@ public interface CommunityMapper {
 
 	public int getTotal();
 
+	public int getNoticeTotal();
+	
 	public void views(String id);
 
 	public FreeBoardDto freeBoardContent(String id);
@@ -32,7 +34,7 @@ public interface CommunityMapper {
 	
 	public void updateOk(FreeBoardDto bdto);
 	
-	public ArrayList<NoticeDto> noticeList();
+	public ArrayList<NoticeDto> noticeList(int index);
   
 	public NoticeDto noticeContent(String id);
 
