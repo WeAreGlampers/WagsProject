@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.example.demo.dto.CommentDto;
 import com.example.demo.dto.FreeBoardDto;
 import com.example.demo.dto.NoticeDto;
 import com.example.demo.dto.QnaDto;
@@ -58,19 +59,19 @@ public class CommunityServiceImpl implements CommunityService {
 
 		model.addAttribute("userid");
 
-		return "community/write";
+		return "community/freeBoardWrite";
 	}
 
 	@Override
 	public String writeOk(FreeBoardDto bdto) {
 
-		mapper.writeOk(bdto);
+		mapper.freeBoardWriteOk(bdto);
 
 		return "redirect:/community/freeBoard";
 	}
 
 	@Override
-	public String freeBoard(Model model, HttpServletRequest request) {
+	public String freeBoard(Model model, HttpServletRequest request, CommentDto cdto) {
 		// 페이지 처리
 		int page = 1;
 		if (request.getParameter("page") != null) {
@@ -83,7 +84,7 @@ public class CommunityServiceImpl implements CommunityService {
 		if (page % 10 == 0)
 			pstart = pstart - 1;
 
-		pstart = (pstart * 10) - 1;
+		pstart = (pstart * 10) + 1;
 		pend = pstart + 9;
 
 		totalPages = mapper.getTotal();
@@ -92,10 +93,16 @@ public class CommunityServiceImpl implements CommunityService {
 			pend = totalPages;
 
 		ArrayList<FreeBoardDto> blist = mapper.getList(index);
-
+		
+		ArrayList<CommentDto> clist = mapper.getComment(cdto.getCid());
+		
 		// blist 보내기
 		model.addAttribute("blist", blist);
-
+		
+		// clist 보내기
+		model.addAttribute("clist", clist);
+		System.out.println(blist.size());
+		System.out.println(clist.size());
 		// page 관련 보내기
 		model.addAttribute("page", page);
 		model.addAttribute("pstart", pstart);
@@ -112,7 +119,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 		mapper.views(id);
 
-		return "redirect:/community/content";
+		return "redirect:/community/freeBoardContent?id="+id+"&page="+page;
 	}
 
 	@Override
@@ -120,14 +127,62 @@ public class CommunityServiceImpl implements CommunityService {
 		String id=request.getParameter("id");
 		String page=request.getParameter("page");
 		
-		FreeBoardDto bdto = mapper.content(id); // 조건에 맞는 내용만 가져오기
+		FreeBoardDto bdto = mapper.freeBoardContent(id); // 조건에 맞는 내용만 가져오기
 		
 		model.addAttribute("bdto",bdto);
 		model.addAttribute("page",page);
 		
-		return "community/content";
+		return "community/freeBoardContent";
 	}
-
+	
+	@Override
+	public String update(HttpServletRequest request, Model model) {
+		String id=request.getParameter("id");
+		String page=request.getParameter("page");
+		
+ 		FreeBoardDto bdto=mapper.freeBoardContent(id);
+		
+		model.addAttribute("bdto",bdto);
+		model.addAttribute("page",page);
+		
+		return "community/freeBoardUpdate";
+	}
+	
+	@Override
+	public String updateOk(FreeBoardDto bdto, HttpServletRequest request) {
+		String page=request.getParameter("page");
+		
+		if(mapper.isPwd(bdto.getId(),bdto.getPwd()))
+		{
+			mapper.updateOk(bdto);
+			
+			return "redirect:/community/freeBoardContent?id="+bdto.getId()+"&page="+page;
+		}
+		else
+		{
+			return "redirect:/community/freeBoardUpdate?err=1&id="+bdto.getId()+"&page="+page;
+		}
+	}
+	
+	@Override
+	public String freeBoardDelete(HttpServletRequest request) {
+		int id=Integer.parseInt(request.getParameter("id"));
+		String page=request.getParameter("page");
+		String pwd=request.getParameter("pwd");
+		
+		if(mapper.isPwd(id, pwd))
+		{
+			mapper.freeBoardDelete(id);
+			
+			return "redirect:/community/freeBoard?page="+page;
+		}
+		else
+		{
+			return "redirect:/community/freeBoardContent?id="+id+"&page="+page;
+		}
+			
+	}
+	
 	@Override
 	public String noticeList(Model model, HttpServletRequest request) {
 		int page = 1;
@@ -167,6 +222,19 @@ public class CommunityServiceImpl implements CommunityService {
 		model.addAttribute("page",request.getParameter("page"));
 		return "/community/noticeContent";
 	}
+
+	@Override
+	public String commentWriteOk(CommentDto cdto,HttpServletRequest request) {
+		int cid=Integer.parseInt(request.getParameter("cid"));
+		cdto.setCid(cid);
+		
+		String page=request.getParameter("page");
+		
+		mapper.commentWriteOk(cdto);
+		
+		return "redirect:/community/freeBoardContent?id="+ cdto.getCid() + "&page=" + page;
+	}
+
 }
 
 

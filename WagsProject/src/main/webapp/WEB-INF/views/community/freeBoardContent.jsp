@@ -18,6 +18,8 @@
      <tr>
        <td> 작성자 </td>
        <td> ${bdto.userid} </td>
+     </tr>
+     <tr>
        <td> 조회수 </td>
        <td> ${bdto.views} </td>
      </tr>
@@ -31,15 +33,15 @@
      </tr>
      <tr>
        <td colspan="4" align="center">
-        <a href="list?page=${page}" id="btn1"> <input type="button" value="목록"> </a>
-        <a href="update?id=${bdto.id}&page=${page}" id="btn2"> <input type="button" value="수정"> </a>
-        <a href="javascript:viewform()" id="btn3"> <input type="button" value="삭제"> </a>
+        <a href="freeBoard?page=${page}"> <input type="button" value="목록"> </a>
+        <a href="freeBoardUpdate?id=${bdto.id}&page=${page}"> <input type="button" value="수정"> </a>
+        <a href="javascript:viewform()"> <input type="button" value="삭제"> </a>
        </td>
      </tr>
     
      <tr id="delform">
        <td colspan="4" align="center">
-         <form method="post" action="delete">
+         <form method="post" action="freeBoardDelete">
            <input type="hidden" name="id" value="${bdto.id}">
            <input type="hidden" name="page" value="${page}">
            비밀번호 <input type="password" name="pwd">
@@ -48,7 +50,30 @@
        </td>
      </tr>
    </table>
-
+	
+	<!-- 댓글 목록 -->
+	<h3>댓글</h3>
+	<table width="700" align="center" border="1">
+	    <c:forEach items="${clist}" var="cdto">
+	        <tr>
+	            <td>${cdto.userid}</td>
+	            <td>${cdto.content}</td>
+	            <td>${cdto.writeday}</td>
+	        </tr>
+	    </c:forEach>
+	</table>
+	
+	<!-- 댓글 입력 폼 -->
+	<div>
+		<form method="post" action="commentWriteOk">
+			<input type="hidden" name="cid" value="${bdto.id}"> <!-- freeBoard 테이블의  id -->
+			<input type="hidden" name="page" value="${page}">
+		    <input type="text" name="userid" placeholder="이름" required>
+		    <input type="text" name="content" placeholder="댓글을 입력하세요" required> <!-- 입력해야만 등록 가능 -->
+		    <input type="submit" value="댓글 작성">
+		</form>
+	</div>
+	
   <script>
 			function viewform() // 숨어있는 id="delform"요소를 보이게 하기
 			{

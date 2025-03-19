@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.dto.CommentDto;
 import com.example.demo.dto.FreeBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +28,7 @@ public class CommunityController {
 		return service.comQnaList(session, model, qdto);
 	}
 
-	@GetMapping("/community/write")
+	@GetMapping("/community/freeBoardWrite")
 	public String write(HttpSession session,Model model) {
 		return service.write(session, model);
 	}
@@ -38,8 +39,8 @@ public class CommunityController {
 	}
 	
 	@GetMapping("/community/freeBoard")
-	public String freeBoard(Model model, HttpServletRequest request) {
-		return service.freeBoard(model, request);
+	public String freeBoard(Model model, HttpServletRequest request, CommentDto cdto) {
+		return service.freeBoard(model, request, cdto);
 	}
 	
 	@GetMapping("/community/views")
@@ -47,9 +48,24 @@ public class CommunityController {
 		return service.views(request);
 	}
 	
-	@GetMapping("/community/content")
+	@GetMapping("/community/freeBoardContent")
 	public String content(Model model,HttpServletRequest request) {
 		return service.content(model,request);
+	}
+	
+	@GetMapping("/community/freeBoardUpdate")
+	public String update(HttpServletRequest request, Model model) {
+		return service.update(request,model);
+	}
+	
+	@PostMapping("/community/updateOk")
+	public String updateOk(FreeBoardDto bdto,HttpServletRequest request) {
+		return service.updateOk(bdto,request);
+	}
+	
+	@PostMapping("/community/freeBoardDelete")
+	public String delete(HttpServletRequest request) {
+		return service.freeBoardDelete(request);
 	}
 	
 	@GetMapping("/community/noticeList")
@@ -61,6 +77,13 @@ public class CommunityController {
 	public String noticeContent(HttpServletRequest request,Model model) {
 		return service.noticeContent(request, model);
 	}
+	
+	@PostMapping("/community/commentWriteOk")
+	public String commentWriteOk(CommentDto cdto,HttpServletRequest request) {
+		return service.commentWriteOk(cdto,request);
+	}
+	
+	
 }
 
 

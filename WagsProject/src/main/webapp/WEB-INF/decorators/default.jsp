@@ -64,11 +64,15 @@ body {
 	margin: auto;
 	text-align: right;
 	background: white;
+	display:inline-block;
+	height:30px;
 }
 
 #newSection #privateMenu {
 	position:relative;
 	cursor:pointer;
+	display:inline-block;
+	height:30px;
 }
 
 #newSection #privateSub {
@@ -78,6 +82,7 @@ body {
 	top:7px;
 	padding-left:0px;
 	background:#FFE08C;
+	z-index:5;
 }
 
 #newSection #privateSub > li {
@@ -201,6 +206,7 @@ a {
 	function hideCategory(n) {
 		document.getElementsByClassName("sub")[n].style.visibility = "hidden";
 	}
+	
 </script>
 
 
