@@ -61,8 +61,8 @@ public class ProductController {
 	}
 
 	@RequestMapping("/product/reservation")
-	public String reservation(HttpSession session,Model model,HttpServletRequest request) {
-		return service.reservation(session, model,request);
+	public String reservation(HttpSession session,Model model,HttpServletRequest request,CartDto cdto) {
+		return service.reservation(session, model,request,cdto);
 	}
 	@PostMapping("/product/reservationOk")
 	public String reservationOk(HttpSession session,Model model,HttpServletRequest request) {

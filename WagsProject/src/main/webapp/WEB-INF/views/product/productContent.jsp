@@ -631,6 +631,8 @@ section #fourth #a {
             one: 'night',
             other: 'nights',
           },
+          startDate:'${inday}',
+          endDate:'${outday}',
         },
         LockPlugin: {
           minDate: new Date(),

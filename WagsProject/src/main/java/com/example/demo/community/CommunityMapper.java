@@ -23,11 +23,13 @@ public interface CommunityMapper {
 
 	public int getTotal();
 
+	public int getNoticeTotal();
+	
 	public void views(String id);
 
 	public FreeBoardDto content(String id);
 	
-	public ArrayList<NoticeDto> noticeList();
+	public ArrayList<NoticeDto> noticeList(int index);
   
 	public NoticeDto noticeContent(String id);
 

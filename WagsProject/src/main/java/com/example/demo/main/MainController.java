@@ -22,4 +22,13 @@ public class MainController {
 		return service.main();
 	}
 	
+	@GetMapping("/main/map")
+	public String map() {
+		return service.map();
+	}
+	
+	@GetMapping("/main/introduce")
+	public String introduce() {
+		return service.introduce();
+	}
 }

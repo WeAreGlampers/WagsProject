@@ -335,6 +335,19 @@ public class MemberServiceImpl implements MemberService {
 			return "redirect:/member/reviewList";
 		}
 	}
+
+	@Override
+	public String cancel(HttpSession session, HttpServletRequest request) {
+		if(session.getAttribute("userid")==null) {
+			return "redirect:/login/login";
+		}
+		else {
+			String id=request.getParameter("id");
+			mapper.chgStateDday(6, id);
+			return "redirect:/member/reservationStatus";
+		}
+		
+	}
 	
 	
 	

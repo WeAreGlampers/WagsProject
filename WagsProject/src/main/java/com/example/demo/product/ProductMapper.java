@@ -12,6 +12,7 @@ import com.example.demo.dto.ReviewDto;
 @Mapper
 public interface ProductMapper {
 	public ArrayList<CartDto> getCart();
+	public CartDto getCart2(String id);
 	public void addCart(CartDto cdto);
 	public boolean isCart(CartDto cdto);
 	public void upCart(CartDto cdto);
@@ -26,7 +27,7 @@ public interface ProductMapper {
 	public ArrayList<QnaDto> getQna(String pcode);
 
 	public ArrayList<ProductDto> productList();
-	public boolean isCheck(String outday,String pcode);
+	public boolean isCheck(String day,String pcode);
 	public ArrayList<ProductDto> productList2(int num);
 	public MemberDto getMember(String userid);
 	public int getNumber(String jumuncode);
