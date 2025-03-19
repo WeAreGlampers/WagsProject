@@ -75,6 +75,7 @@ section{
   margin-bottom:10px;
 }
 #room #title{
+  padding-top:5px;
   font-size:25px;
   font-weight:500;
   padding-left:15px;
@@ -92,9 +93,6 @@ section{
 #room #people{
   padding-left:15px;
   padding-bottom:3px;
-}
-#room #content{
-  padding-left:15px;
 }
 #cal{
   position:absolute;
@@ -198,7 +196,7 @@ window.onload=function(){
           <fmt:formatNumber value="${pdto.price}" type="number" pattern="#,###"/><span id="won">원</span>
         </div>
         <div id="people">기준 ${pdto.standard}명 ( 최대 ${pdto.max}명 )</div>
-        <div id="content">${pdto.content}</div>
+        <div style="font-size:15px;color:gray;">리뷰 ${pdto.review}</div>
       </div>
     </c:forEach>
   </div>

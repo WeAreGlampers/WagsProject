@@ -39,8 +39,8 @@ public class CommunityController {
 	}
 	
 	@GetMapping("/community/freeBoard")
-	public String freeBoard(Model model, HttpServletRequest request, CommentDto cdto) {
-		return service.freeBoard(model, request, cdto);
+	public String freeBoard(Model model, HttpServletRequest request) {
+		return service.freeBoard(model, request);
 	}
 	
 	@GetMapping("/community/views")
@@ -49,8 +49,8 @@ public class CommunityController {
 	}
 	
 	@GetMapping("/community/freeBoardContent")
-	public String content(Model model,HttpServletRequest request) {
-		return service.content(model,request);
+	public String content(Model model,HttpServletRequest request, CommentDto cdto, HttpSession session) {
+		return service.content(model,request, cdto, session);
 	}
 	
 	@GetMapping("/community/freeBoardUpdate")
@@ -83,6 +83,15 @@ public class CommunityController {
 		return service.commentWriteOk(cdto,request);
 	}
 	
+	@GetMapping("/community/commentDelete")
+	public String commentDelete(HttpServletRequest request, HttpSession session) {
+		return service.commentDelete(request,session);
+	}
+	
+	@PostMapping("/community/commentUpdateOk")
+	public String commentUpdateOk(HttpServletRequest request, CommentDto cdto) {
+		return service.commentUpdateOk(request, cdto);
+	}
 	
 }
 

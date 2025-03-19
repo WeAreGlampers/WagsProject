@@ -54,13 +54,28 @@
 	<!-- 댓글 목록 -->
 	<h3>댓글</h3>
 	<table width="700" align="center" border="1">
-	    <c:forEach items="${clist}" var="cdto">
+	    <c:forEach items="${clist}" var="cdto" varStatus="sts">
 	        <tr>
 	            <td>${cdto.userid}</td>
 	            <td>${cdto.content}</td>
 	            <td>${cdto.writeday}</td>
+	            <c:if test="${cdto.userid == userid}">
+	            	<td> <span onclick="viewUform(${cdto.id})"> 수정 </span> </a> </td>
+	            	<td> <a href="commentDelete?cid=${cdto.cid}&userid=${cdto.userid}&id=${cdto.id}&page=${page}"> 삭제 </a> </td>
+	            </c:if>
 	        </tr>
 	    </c:forEach>
+	    
+	    <div id="uform">
+			<form method="post" action="commentUpdateOk">
+				<input type="hidden" name="cid" value="${bdto.id}"> <!-- freeBoard 테이블의  id -->
+				<input type="hidden" name="id" id="id" value="">
+				<input type="hidden" name="page" value="${page}">
+			    <input type="text" name="userid" value="${userid}" readonly>
+			    <input type="text" name="content" placeholder="댓글을 입력하세요" required> <!-- 입력해야만 등록 가능 -->
+			    <input type="submit" value="댓글 수정">
+			</form>
+		</div>
 	</table>
 	
 	<!-- 댓글 입력 폼 -->
@@ -68,20 +83,28 @@
 		<form method="post" action="commentWriteOk">
 			<input type="hidden" name="cid" value="${bdto.id}"> <!-- freeBoard 테이블의  id -->
 			<input type="hidden" name="page" value="${page}">
-		    <input type="text" name="userid" placeholder="이름" required>
+		    <input type="text" name="userid" value="${userid}" readonly>
 		    <input type="text" name="content" placeholder="댓글을 입력하세요" required> <!-- 입력해야만 등록 가능 -->
 		    <input type="submit" value="댓글 작성">
 		</form>
 	</div>
 	
   <script>
-			function viewform() // 숨어있는 id="delform"요소를 보이게 하기
-			{
-				document.getElementById("delform").style.display = "table-row";
-			}
-		</script>
+	function viewform() { // 숨어있는 id="delform"요소를 보이게 하기
+		document.getElementById("delform").style.display = "table-row";
+	}
+	
+	function viewUform(id) {
+		document.getElementById("uform").style.display = "table-row";
+		document.getElementById("id").value = id;
+	}
+  </script>
   <style>
 #delform {
+	display: none;
+}
+
+#uform {
 	display: none;
 }
 </style>

@@ -75,6 +75,10 @@ section #pwd2Msg {
 					document.getElementById("pwd1Msg").innerText="이미 사용중인 비밀번호 입니다.";
 					document.getElementById("pwd1Msg").style.color="red";
 					document.getElementById("pwd1Msg").style.fontSize="12px";
+					document.getElementById("pwd2Msg").style.visibility="hidden";
+					document.getElementById("pwd2Msg").innerText="";
+					appr = 0;
+					infoChk = 1;
 				} else {
 					document.getElementById("pwd1Msg").style.visibility="hidden";
 					document.getElementById("pwd1Msg").innerText="";

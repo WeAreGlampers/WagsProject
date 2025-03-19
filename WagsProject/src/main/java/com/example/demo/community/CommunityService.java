@@ -18,11 +18,11 @@ public interface CommunityService {
 	
 	public String writeOk(FreeBoardDto bdto);
 	
-	public String freeBoard(Model model, HttpServletRequest request, CommentDto cdto);
+	public String freeBoard(Model model, HttpServletRequest request);
 	
 	public String views(HttpServletRequest request);
 	
-	public String content(Model model,HttpServletRequest request);
+	public String content(Model model,HttpServletRequest request, CommentDto cdto, HttpSession session);
 
 	public String noticeList(Model model);
   
@@ -35,5 +35,13 @@ public interface CommunityService {
 	public String freeBoardDelete(HttpServletRequest request);
 
 	public String commentWriteOk(CommentDto cdto,HttpServletRequest request);
+
+	public String commentDelete(HttpServletRequest request, HttpSession session);
+
+	public String commentUpdateOk(HttpServletRequest request, CommentDto cdto);
+
+	
+	
+	
 }
 

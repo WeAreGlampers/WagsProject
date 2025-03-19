@@ -76,5 +76,17 @@
 	  	insert into comment(userid,content,writeday,cid)
 	  	values(#{userid},#{content},now(),#{cid})
 	  </insert>
+	  
+	  <delete id="commentDelete">
+	  	delete from comment
+	  	where id=#{id}
+	  </delete>
+	  
+	  <update id="commentUpdateOk">
+	  	update comment
+	  	set content=#{content}
+	  	where id=#{id}
+	  </update>
+	  
   </mapper>
 
