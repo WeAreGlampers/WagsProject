@@ -33,12 +33,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 
 	public String productContent(HttpSession session, HttpServletRequest request, Model model) {
-		String userid = session.getAttribute("userid").toString();
+		
 		String pcode = request.getParameter("pcode");
 		ProductDto pdto = mapper.getRoom(pcode); // pcode에 해당하는 상품의 정보들
 
 		int ok = 0;
 		if (session.getAttribute("userid") != null) {
+			String userid = session.getAttribute("userid").toString();
 			ok = mapper.isDibs(userid, pcode);
 		}
 		model.addAttribute("ok", ok);
@@ -67,8 +68,6 @@ public class ProductServiceImpl implements ProductService {
 		for(int i=0; i<reservationList.size(); i++) {
 			test = test + "['" + reservationList.get(i).getInday() + "','" + reservationList.get(i).getOutday() + "'],";
 		}
-		
-		System.out.println(test);
 		
 		model.addAttribute("test", test);
 		
