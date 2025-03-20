@@ -26,7 +26,7 @@ public interface CommunityService {
 
 	public String noticeList(Model model, HttpServletRequest request);
   
-	public String noticeContent(String id,Model model);
+	//public String noticeContent(String id,Model model);
 
 	public String update(HttpServletRequest request, Model model);
 

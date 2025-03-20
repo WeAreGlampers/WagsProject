@@ -235,6 +235,7 @@ public class CommunityServiceImpl implements CommunityService {
 		return "redirect:/community/freeBoardContent?id="+ cdto.getCid() + "&page=" + page;
 	}
 
+
 }
 
 
