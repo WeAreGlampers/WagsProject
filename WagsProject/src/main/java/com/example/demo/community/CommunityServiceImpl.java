@@ -94,15 +94,10 @@ public class CommunityServiceImpl implements CommunityService {
 
 		ArrayList<FreeBoardDto> blist = mapper.getList(index);
 		
-		ArrayList<CommentDto> clist = mapper.getComment(cdto.getCid());
 		
 		// blist 보내기
 		model.addAttribute("blist", blist);
 		
-		// clist 보내기
-		model.addAttribute("clist", clist);
-		System.out.println(blist.size());
-		System.out.println(clist.size());
 		// page 관련 보내기
 		model.addAttribute("page", page);
 		model.addAttribute("pstart", pstart);
@@ -123,11 +118,19 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public String content(Model model,HttpServletRequest request) {
+	public String content(Model model,HttpServletRequest request,HttpSession session) {
 		String id=request.getParameter("id");
 		String page=request.getParameter("page");
 		
+		String userid= session.getAttribute("userid").toString();
+		
+		model.addAttribute("userid");
+		
 		FreeBoardDto bdto = mapper.freeBoardContent(id); // 조건에 맞는 내용만 가져오기
+		
+		ArrayList<CommentDto> clist = mapper.getComment(id);
+		// clist 보내기
+		model.addAttribute("clist", clist);
 		
 		model.addAttribute("bdto",bdto);
 		model.addAttribute("page",page);
@@ -233,6 +236,25 @@ public class CommunityServiceImpl implements CommunityService {
 		mapper.commentWriteOk(cdto);
 		
 		return "redirect:/community/freeBoardContent?id="+ cdto.getCid() + "&page=" + page;
+	}
+	
+	@Override
+	public String commentDelete(HttpServletRequest request, HttpSession session) {
+		String cid= request.getParameter("cid");
+		String id= request.getParameter("id");
+		String page=request.getParameter("page");
+		
+		mapper.commentDelete(id);
+			
+		return "redirect:/community/freeBoardContent?id=" + cid + "&page=" + page;
+	}
+
+	@Override
+	public String commentUpdateOk(HttpServletRequest request, CommentDto cdto) {
+		
+		mapper.commentUpdateOk(cdto);
+		
+		return "redirect:/community/freeBoardContent?id=" + cdto.getCid() + "&page=" + cdto.getPage();
 	}
 
 }

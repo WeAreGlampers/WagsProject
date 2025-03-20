@@ -40,9 +40,14 @@ public interface CommunityMapper {
 
 	public void freeBoardDelete(int id);
 
-	public ArrayList<CommentDto> getComment(int cid);
+	public ArrayList<CommentDto> getComment(String id);
 
 	public void commentWriteOk(CommentDto cdto);
+
+	public void commentDelete(String id);
+	
+	public void commentUpdateOk(CommentDto cdto);
+
 
 	
 }
