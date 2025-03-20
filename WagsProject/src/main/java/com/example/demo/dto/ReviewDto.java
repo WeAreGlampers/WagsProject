@@ -7,6 +7,8 @@ import lombok.Data;
 public class ReviewDto {
 	private int id,star,rid;
 	private String userid,pcode,title,content,writeday;
+	
+	private String ptitle;
 
 }
 

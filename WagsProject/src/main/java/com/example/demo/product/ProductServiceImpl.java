@@ -73,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		model.addAttribute("pdto", pdto);
 		
-		if(request.getParameter("date")!="") {
+		if(request.getParameter("date")!="" && request.getParameter("date")!=null) {
 			String date = request.getParameter("date").replace(" ", "");
 			String[] dates = date.split("-");
 			String inday = dates[0] + "-" + dates[1] + "-" + dates[2];
@@ -212,7 +212,8 @@ public class ProductServiceImpl implements ProductService {
 	public String reservation(HttpSession session, Model model, HttpServletRequest request,CartDto cdto) {
 
 		if (session.getAttribute("userid") == null) {
-			return "redirect:/login/login";
+			String pcode = request.getParameter("pcode");
+			return "redirect:/login/login?move=2&pcode="+pcode;
 		}
 		else { 
 			String userid=session.getAttribute("userid").toString();

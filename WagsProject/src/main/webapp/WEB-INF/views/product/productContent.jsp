@@ -584,7 +584,7 @@ section #menu li {
 						신고하기
 					</c:if>
 					<c:if test="${userid == rdto.userid}">
-						<a href="../member/reviewUpdate?id=${rdto.id}&pcode=${rdto.pcode}"> 수정 </a> |
+						<a href="../member/reviewUpdate?id=${rdto.id}&pcode=${rdto.pcode}&rid=${rdto.rid}"> 수정 </a> |
 						<a href="../member/reviewDelete?id=${rdto.id}&pcode=${rdto.pcode}&rid=${rdto.rid}"> 삭제 </a>
 					</c:if>	
 				</div>

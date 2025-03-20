@@ -8,10 +8,77 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	#reserveBtn {
-		width:100px;
-		height:30px;
-	}
+/* 기존 CSS 유지하면서 수정 */
+#allChkDiv {
+    width: 800px;
+    margin: auto;
+    padding: 15px;
+    text-align: left;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#allChk {
+    margin-right: 15px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* 체크박스 스타일 */
+.subChk {
+    margin: 10px;
+    left: 10px;
+    top: 15px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* 선택예약 버튼과 선택삭제 버튼 통일 */
+#reserveBtn, input[type="button"][onclick="cartDel()"] {
+    width: 100px;
+    height: 36px;
+    background: #FFE08C;
+    color: #CC723D;
+    font-weight: 600;
+    border: #FFE08C;
+    border-radius: 8px;
+    margin-right: 15px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#reserveBtn:hover, input[type="button"][onclick="cartDel()"]:hover {
+    text-decoration: underline;
+}
+
+/* allChkDiv 안의 요소들 간격 조정 */
+#allChkDiv label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: auto;
+}
+
+/* 삭제 버튼 스타일 통일 */
+form > input[type="button"] {
+    width: 100px;
+    height: 36px;
+    background: #FFE08C;
+    color: #CC723D;
+    font-weight: 600;
+    border: #FFE08C;
+    border-radius: 8px;
+    margin: 0 auto 30px;
+    display: block;
+    cursor: pointer;
+}
+
+form > input[type="button"]:hover {
+    text-decoration: underline;
+}
 </style>
 <script>
 function allCheck(my) {
@@ -95,9 +162,13 @@ window.onload = function() {
 </head>
 <body>  <!-- /member/cartView.jsp -->
 <form method="post" action="../product/reservation">
-<div id="allChkDiv"><input type="checkbox" id="allChk" onclick="allCheck(this)">
-<input id="reserveBtn" type="submit" value="선택예약">
-<input type="button" onclick="cartDel()" value="선택삭제">
+<div id="allChkDiv">
+  <label for="allChk">
+    <input type="checkbox" id="allChk" onclick="allCheck(this)">
+    전체선택
+  </label>
+  <input type="submit" id="reserveBtn" value="선택예약">
+  <input type="button" onclick="cartDel()" value="선택삭제">
 </div>
 <c:forEach items="${cartMap}" var="map">
 	<div>
