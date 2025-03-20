@@ -351,7 +351,7 @@ section #menu li {
 	window.onscroll=function() {
     	var top=document.documentElement.scrollTop;
     	
-    	if(top>=805) {
+    	if(top>=550) {
     		document.getElementById("menu").style.position="fixed";
     		document.getElementById("menu").style.top="-66px";
     	} else {

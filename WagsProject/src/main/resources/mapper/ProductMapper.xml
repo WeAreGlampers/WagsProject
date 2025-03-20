@@ -72,6 +72,7 @@
 	<select id="getQna" resultType="com.example.demo.dto.QnaDto">
 		select * from qna
 		where pcode=#{pcode}
+		order by ref desc, qna asc
 	</select>
 
 
