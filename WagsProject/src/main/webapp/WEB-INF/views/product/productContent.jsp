@@ -601,6 +601,7 @@ section #menu li {
 			</div>
 				<div>
 				<table width="1100" align="center">
+					<c:set var="ref" value="-1"/>
 					<c:forEach items="${qlist}" var="qdto">
 						<tr>
 							<td width="100">
@@ -613,12 +614,13 @@ section #menu li {
 							</td>
 							<td width="100">${qdto.userid}</td> 
 							<!-- 비밀글이 아닐 때 -->
-							<c:if test="${qdto.secret==0 || userid == qdto.userid || qdto.userid == '관리자'}">
+							<c:if test="${qdto.secret==0 || userid == qdto.userid || ref == qdto.ref}">
 								<td>${qdto.content}</td>
+								<c:set var="ref" value="${qdto.ref}"/>
 							</c:if>
 							
 							<!-- 비밀글일 때 -->
-							<c:if test="${qdto.secret==1 && userid != qdto.userid && qdto.userid != '관리자'}">
+							<c:if test="${qdto.secret==1 && userid != qdto.userid && ref != qdto.ref}">
 								<td> 비밀글입니다.<img src="../static/secretIcon.png" width="20" valign="middle"> </td>						
 							</c:if>
 							
