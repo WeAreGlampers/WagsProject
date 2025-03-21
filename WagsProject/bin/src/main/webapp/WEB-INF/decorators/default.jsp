@@ -22,6 +22,7 @@ body {
 	padding: 0px;
 	background-color: white;
 	text-align: center;
+	color: #333;
 }
 
 #outer {
@@ -38,7 +39,7 @@ body {
 	width: 1100px;
 	height: 40px;
 	margin: auto;
-	background: white;
+	background: #FFF6E0;
 }
 
 #outer #first #greet {
@@ -60,7 +61,7 @@ body {
 }
 
 #newSection {
-	width: 1100px;
+	width: 100%;
 	margin: auto;
 	text-align: right;
 	background: white;
@@ -94,7 +95,7 @@ body {
 }
 
 header {
-	width: 1100px;
+	width: 100%;
 	height: 100px;
 	margin: auto;
 	background: white;
@@ -102,11 +103,12 @@ header {
 }
 
 nav {
-    width: 1100px;
+    width: 100%;
     height: 80px;
     margin: auto;
     position: relative;
     background: white;
+    border-bottom: 2px solid #FFE08C;
 }
 
 nav > ul {
@@ -114,7 +116,6 @@ nav > ul {
 }
 
 nav  ul {
-
     margin: 0px;
     padding: 0px;
     display: flex; 
@@ -213,13 +214,6 @@ a {
 <sitemesh:write property="head"/>
 </head> 
 <body> <!-- default.jsp -->
-	<div id="outer">
-		<div id="first">
-			<div id="greet"> 환영합니다. WeAreGlampers 입니다. </div>
-			<div id="close"> <span id="X" onclick="outerClose()"> X </span> </div>
-		</div>
-	</div>
-	
 	<div id="newSection">
 		<!-- 장바구니 -->
 		<a href="../member/cartView"> 장바구니 </a>
