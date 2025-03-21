@@ -56,21 +56,6 @@
           </c:if>
         </td>
         <td>
-          <c:if test="${rdto.state==0}">
-            <input type="button" value="3일전" onclick="location='chgState?id=${rdto.id}'">
-          </c:if>
-          <c:if test="${rdto.state==1}">
-            <input type="button" value="2일전" onclick="location='chgState?id=${rdto.id}'">
-          </c:if>
-          <c:if test="${rdto.state==2}">
-            <input type="button" value="1일전" onclick="location='chgState?id=${rdto.id}'">
-          </c:if>
-          <c:if test="${rdto.state==3}">
-            <input type="button" value="예약당일" onclick="location='chgState?id=${rdto.id}'">
-          </c:if>
-          <c:if test="${rdto.state==4}">
-            <input type="button" value="이용완료" onclick="location='chgState?id=${rdto.id}'">
-          </c:if>
           <c:if test="${rdto.state==6}">
             <input type="button" value="취소완료" onclick="location='chgState?id=${rdto.id}'">
           </c:if>

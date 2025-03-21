@@ -7,21 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    section table {
-       border-spacing:0px;
-    }
-    section  table tr td {
-       height:80px;
-       border-bottom:1px solid black;
-       padding-top:6px;
-       padding-bottom:6px;
-    }
-    section table tr:first-child td {
-       border-top:2px solid black;
-    }
-    section table tr:last-child td {
-       border-bottom:2px solid black;
-    }
     section #modal {
        display: none;   
        position:fixed;
@@ -53,16 +38,7 @@
        width:280px;
        height:220px;
     }
-    section #qnaForm #ptitle {
-       border:none;
-       outline:none;
-       width:96%;
-       text-align:center;
-       overflow:hidden;
-       height:40px;
-       font-weight:900;
-       resize:none;
-    }
+    
 </style>
 <script>
    function answer(id,pcode,qtitle,secret,type)
@@ -94,7 +70,16 @@
 <body>
 <section>
   <h3 align="center">상품 문의 리스트</h3>
-  <table width="800" align="center">
+  <table width="1100" align="center">
+    <tr>
+      <td>상태</td>
+      <td>작성자</td>
+      <td>제목</td>
+      <td>내용</td>
+      <td>문의상품</td>
+      <td>분류</td>
+      <td>작성일</td>
+    </tr>
     <c:forEach items="${qlist}" var="qdto">
       <c:if test="${qdto.qna==1}">
       <tr>
@@ -107,7 +92,10 @@
           </c:if>
         </td>
         <td>${qdto.userid}</td>
+        <td>${qdto.qtitle}</td>
         <td>${qdto.content}</td>
+        <td>${qdto.pcode}</td>
+        <td>${qdto.typeStr}</td>
         <td>${qdto.writeday}</td> 
       </tr>
       </c:if>

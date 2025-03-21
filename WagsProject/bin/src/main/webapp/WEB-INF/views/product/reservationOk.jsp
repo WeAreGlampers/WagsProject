@@ -11,6 +11,8 @@ section{
   margin:auto;
   height:500px;
   line-height:400px;
+  color:#CC723D;
+  font-size:20px;
 }
 </style>
 </head>

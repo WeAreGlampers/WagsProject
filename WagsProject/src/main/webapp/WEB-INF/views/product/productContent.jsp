@@ -272,7 +272,10 @@ section #menu li {
 		
 		var chk=new XMLHttpRequest();
 		chk.onload=function() {
-			if(chk.responseText.trim() != "1") {
+			if(chk.responseText.trim() == "2"){
+				location="../login/login";
+			}
+			else if(chk.responseText.trim() != "1") {
 				alert("날짜를 선택해주세요!");
 			} else {
 				// 장바구니 메시지 띄우기
@@ -616,7 +619,9 @@ section #menu li {
 							<!-- 비밀글이 아닐 때 -->
 							<c:if test="${qdto.secret==0 || userid == qdto.userid || ref == qdto.ref}">
 								<td>${qdto.content}</td>
-								<c:set var="ref" value="${qdto.ref}"/>
+								<c:if test="${qdto.ref!=0}">
+									<c:set var="ref" value="${qdto.ref}"/>
+								</c:if>
 							</c:if>
 							
 							<!-- 비밀글일 때 -->

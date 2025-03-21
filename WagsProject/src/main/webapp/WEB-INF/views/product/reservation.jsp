@@ -8,23 +8,48 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+.pagination {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.pagination a {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 0 3px;
+  border-radius: 3px;
+  text-decoration: none;
+  color: #333;
+}
+
+.pagination a:hover {
+  background-color: #f5f5f5;
+}
+
+.pagination .current {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.pagination .nav-btn {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+}
 section{
 	width:1100px;
 	margin:auto;
 }
 .check{
-	border-bottom:5px solid #FFE08C;
+	border-bottom:5px solid #FFF6E0;
 	width:400px;
 	margin:auto;
 	padding-bottom:20px;
 	margin-top:20px;
 }
 b{
-	color:#CC723D;
+	color:#333;
 }
-input[type=radio]{
-	accent-color:#FFE08C;
-}
+
 #content{
 	border:2px solid #FFE08C;
 	border-radius:3px;
@@ -32,7 +57,7 @@ input[type=radio]{
 	width:400px;
 	margin:auto;
 	margin-top:20px;
-	color:#CC723D;
+	color:#333;
 }
 #title{
 	line-height:60px;
@@ -41,13 +66,13 @@ input[type=radio]{
 	text-align:center;
 	border:none;
 	outline:none;
-	color:#CC723D;
+	color:#333;
 }
 #price{
 	width:400px;
 	margin:auto;
 	margin-top:20px;
-	color:#CC723D;
+	color:#333;
 }
 #price2{
 	height:30px;
@@ -62,7 +87,7 @@ input[type=radio]{
   height:40px;
 }
 #totalPrice{
-	color:red;
+	color:#333;
 	font-size:20px;
 	font-weight:800px;
 	float:right;
@@ -83,24 +108,24 @@ hr{
 	text-align:left;
 	height:60px;
 	line-height:60px;
-	color:#CC723D;
+	color:#333;
 }
 #member{
 	height:50px;
 	text-align:left;
-	color:#CC723D;
+	color:#333;
 }
 #title3{
 	margin-top:15px;
 	text-align:left;
 	font-size:16px;
 	font-weight:700;
-	color:#CC723D;
+	color:#333;
 }
 #req{
 	text-align:left;
 	margin-top:10px;
-	border:1px solid #CC723D;
+	border:1px solid #333;
 	border-radius:3px;
 	height:110px;
 	margin-bottom:20px;
@@ -120,11 +145,11 @@ textarea{
 #pay1{
 	height:40px;
 	text-align:left;
-	color:#CC723D;
+	color:#333;
 }
 #useSave{
 	text-align:right;
-	border:1px solid #CC723D;
+	border:1px solid #333;
 	border-radius:3px;
 	outline:none;
 }
@@ -145,7 +170,7 @@ textarea{
 .tdPay{
 	text-align:left;
 	width:400px;
-	color:#CC723D;
+	color:#333;
 }
 .pay{
 	display:none;
@@ -157,21 +182,21 @@ textarea{
 input[type=button]{
 	background:#FFE08C;
 	border:1px solid #FFE08C;
-	color:#CC723D;
+	color:#333;
 	border-radius:5px;
 	font-size:15px;
 }
 input[type=submit]{
 	background:#FFE08C;
 	border:2px solid #FFE08C;
-	color:#CC723D;
+	color:#333;
 	border-radius:5px;
 	font-size:15px;
 	width:100px;
 	height:30px;
 }
 select{
-	color:#CC723D;
+	color:#333;
 	border:2px solid #FFE08C;
 	border-radius:5px;
 	outline:none;
