@@ -22,6 +22,7 @@ body {
 	padding: 0px;
 	background-color: white;
 	text-align: center;
+	color: #333;
 }
 
 #outer {
@@ -38,7 +39,7 @@ body {
 	width: 1100px;
 	height: 40px;
 	margin: auto;
-	background: white;
+	background: #FFF6E0;
 }
 
 #outer #first #greet {
@@ -60,7 +61,7 @@ body {
 }
 
 #newSection {
-	width: 1100px;
+	width: 100%;
 	margin: auto;
 	text-align: right;
 	background: white;
@@ -94,7 +95,7 @@ body {
 }
 
 header {
-	width: 1100px;
+	width: 100%;
 	height: 100px;
 	margin: auto;
 	background: white;
@@ -102,11 +103,12 @@ header {
 }
 
 nav {
-    width: 1100px;
+    width: 100%;
     height: 80px;
     margin: auto;
     position: relative;
     background: white;
+    border-bottom: 2px solid #FFE08C;
 }
 
 nav > ul {
@@ -114,7 +116,6 @@ nav > ul {
 }
 
 nav  ul {
-
     margin: 0px;
     padding: 0px;
     display: flex; 

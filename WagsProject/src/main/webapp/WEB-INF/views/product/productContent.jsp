@@ -6,23 +6,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style>
 body {
-	font-family: 'Noto Sans KR', sans-serif;
-	background-color: #f8f9fa;
-	color: #333;
-	margin: 0;
-	padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: white;
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
 section {
-	width: 1100px;
-	margin: 40px auto;
-	background: #fff;
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-	position: relative;
+    width: 1100px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    border: 2px solid #FFE08C;
 }
 
 section #menu {
@@ -32,6 +34,7 @@ section #menu {
     margin-top: 50px;
     margin-bottom: 40px;
     margin-left: -20px;
+    background-color: white;
 }
 
 section #menu ul {
@@ -50,174 +53,65 @@ section #menu ul li {
     border: 2px solid #FFE08C;
     border-left: none;
     line-height: 50px;
+    transition: background-color 0.2s;
 }
 
 section #menu ul li:first-child {
     border-left: 2px solid #FFE08C;
 }
 
-a {
-	text-decoration: none;
-	color: black;
-}
-#datepicker {
-	background: #FFE08C;
-    color: #CC723D;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-input[type="button"] {
-	background: #FFE08C;
-    color: #CC723D;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
-    margin-top:15px;
+section #menu li:hover {
+    background-color: #FFF9C4;
 }
 
-input[type="submit"] {
-	background: #FFE08C;
-	color: #CC723D;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	font-size: 16px;
-	cursor: pointer;
-	transition: background 0.3s;
+a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#datepicker, input[type="button"], input[type="submit"] {
+    background: #FFE08C;
+    color: #CC723D;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 15px;
+    text-align: center;
+}
+
+#datepicker:hover, input[type="button"]:hover, input[type="submit"]:hover {
+    background: #FFC107;
 }
 
 .quantity {
-	width: 40px;
-	text-align: center;
-	border: none;
-	font-size: 16px;
-	background: transparent; /* 배경 투명 */
+    width: 40px;
+    text-align: center;
+    border: 1px solid #FFE08C;
+    font-size: 16px;
+    background: white;
+    border-radius: 3px;
 }
 
-section #cartLayer {
-	position: fixed;
-	visibility: hidden;
-	background: #CC723D;
-	color: #fff;
-	padding: 10px;
-	border-radius: 5px;
-	top: 83%; /* 버튼 위에 나타나게 위치 조정 */
-	left: 50%;
-	transform: translateX(-50%);
-	z-index: 1000; /* 버튼보다 위로 보이도록 설정 */
+#first h2 {
+    color: #333;
+    border-bottom: 2px solid #FFE08C;
+    padding-bottom: 10px;
+    font-size:30px;
 }
 
-section #datepicker {
-	width: 250px;
-	background: #FFE08C;
-	color: #CC723D;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	font-size: 16px;
-	cursor: pointer;
-	transition: background 0.3s;
-	text-align: center;
-}
-
-section #third .inReview {
-	width: 1050px;
-	height: 150px;
-	overflow: auto;
-	border: 1px solid black;
-	margin-top: 20px;
-	padding: 10px;
-}
-
-section #third .inReview #userid {
-	font-size: 17px;
-	font-weight: 900;
-	margin-top: 10px;
-}
-
-section #third .inReview #title {
-	font-weight: 900;
-	margin-top: 10px;
-}
-
-section #third .inReview #content {
-	margin-top: 10px;
-}
-
-section #fourth {
-    width: 1050px;
-    margin: 40px auto 20px;
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
-}
-
-
-
-section #fourth #right {
-    float: right;
-    width: 50%;
-    text-align: right;
-    margin-top: 20px;
-}
-
-section #fourth table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    clear: both;
-}
-
-section #fourth table tr {
-    border-bottom: 1px solid #eee;
-}
-
-section #fourth table td {
-    padding: 12px 10px;
-}
-
-section #fourth #q {
-    background: #FFE08C;
-    color: #CC723D;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-section #fourth #a {
-    background: #f0f0f0;
-    color: #666;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-#space1, #space2, #space3 {
-	width: 1100px;
-	height: 60px;
-}
-
-section #menu li {
-	background:white;
-}
-
-#heart {
+#first #heart {
     margin-left: 10px;
     cursor: pointer;
 }
 
-#menu li:hover {
-    background-color: #FFF9C4;
-}
-
 #option {
     margin-top: 40px;
+    background-color: #FFF9C4;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 #option h2 {
@@ -227,22 +121,17 @@ section #menu li {
 }
 
 #option .number {
-	width: 400px;
-	margin: auto; /* 중앙 정렬 */
+    width: 400px;
+    margin: auto;
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 20px;
-}
-
-.quantity {
-    width: 40px;
-    text-align: center;
-    font-size: 16px;
-    background-color: transparent;
-    border: 1px solid #ccc;
-    padding: 5px;
+    background-color: white;
+    padding: 10px;
     border-radius: 5px;
+    border: 1px solid #FFE08C;
+    color: #333;
 }
 
 .number img {
@@ -254,8 +143,125 @@ section #menu li {
     color: #CC723D;
 }
 
+#cartLayer {
+    position: fixed;
+    visibility: hidden;
+    background: #CC723D;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    top: 83%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+#third .inReview {
+    width: 1050px;
+    height: 150px;
+    overflow: auto;
+    border: 2px solid #FFE08C;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #FFF6E0;
+}
+
+#third .inReview #userid {
+    font-size: 17px;
+    font-weight: 900;
+    color: #CC723D;
+    margin-top: 10px;
+}
+
+#fourth {
+    width: 1050px;
+    margin: 40px auto 20px;
+    border-top: 2px solid #FFE08C;
+    padding-top: 20px;
+}
+
+#fourth table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#fourth table tr {
+    border-bottom: 1px solid #FFE08C;
+}
+
+#fourth table td {
+    padding: 12px 10px;
+}
+
+#fourth #q {
+    background: #FFE08C;
+    color: #CC723D;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+#fourth #a {
+    background: #FFF9C4;
+    color: #CC723D;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+#space1, #space2, #space3 {
+    width: 1100px;
+    height: 60px;
+}
+
+#qnaLayer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    padding: 20px;
+    border: 2px solid #FFE08C;
+}
+
+#qnaLayer select, 
+#qnaLayer input[type="text"], 
+#qnaLayer textarea {
+    border: 2px solid #FFE08C;
+    border-radius: 5px;
+    outline: none;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+}
+
+#roomPrice {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#std {
+	font-size: 20px;
+	font-weight: bold;
+}
 
 </style>
+
+
 <script>
 
 	// 수량 빼기
@@ -471,8 +477,8 @@ section #menu li {
 						<img src="../static/jjim2.png" id="heart" onclick="dibsDel()" valign="middle">
 					</c:if>
 				</h2>
-				<span id="roomPrice"> 1박당 가격 : ${pdto.price} </span> 원
-				<div> 기준 : ${pdto.standard}인 (최대 ${pdto.max}인) </div>
+				<span id="roomPrice"> 1박당 가격 : ${pdto.price} 원 </span> 
+				<div id="std"> 기준 : ${pdto.standard}인 (최대 ${pdto.max}인) </div>
 			</div>
 
 		<div>
@@ -485,7 +491,7 @@ section #menu li {
 		<ul>
 			<li> <a href="#space1"> 객실 </a> </li>
 			<li> <a href="#space2"> 리뷰 </a> </li>
-			<li> <a href="#space3"> Q&A </a> </li>
+			<li> <a href="#space3"> 문의 </a> </li>
 		</ul>
 	</div> <!-- menu close -->
 	
@@ -541,9 +547,8 @@ section #menu li {
 		</div>
 		
 	</div>	<!-- second close -->
-
-	
 	</form>
+	
 	<!-- QnA -->
 <form method="post" action="qnaWriteOk" onsubmit="return submitQnA()">
 <input type="hidden" name="pcode" value="${pdto.pcode}">
@@ -669,7 +674,6 @@ section #menu li {
 				</table>
 			</div> 
 		</div> 
-
 </section>
 
 	
