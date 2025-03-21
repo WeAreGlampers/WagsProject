@@ -6,57 +6,71 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style>
 body {
-	font-family: 'Noto Sans KR', sans-serif;
-	background-color: #f8f9fa;
-	color: #333;
-	margin: 0;
-	padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: white;
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
 section {
-	width: 1150px;
-	margin: 40px auto;
-	background: #fff;
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-	position: relative;
+    width: 1100px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    border: 2px solid #FFE08C;
 }
 
 section #menu {
-	width: 1100px;
-	height: 50px;
-	margin: auto;
-	margin-top: 50px;
-	margin-bottom: 40px;
+    width: 1100px;
+    height: 50px;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 40px;
+    margin-left: -20px;
+    background-color: white;
 }
 
 section #menu ul {
-	width: 1100px;
-	height: 50px;
-	padding-left: 0px;
-	margin-left: 6px;
+    width: 100%;
+    height: 50px;
+    padding: 0;
+    margin: 0;
+    display: flex;
 }
 
 section #menu ul li {
-	display: inline-block;
-	list-style-type: none;
-	width: 273px;
-	height: 50px;
-	text-align: center;
-	border: 1px solid black;
-	margin-left: -6px;
-	line-height: 50px;
+    flex: 1;
+    list-style-type: none;
+    height: 50px;
+    text-align: center;
+    border: 2px solid #FFE08C;
+    border-left: none;
+    line-height: 50px;
+    transition: background-color 0.2s;
+}
+
+section #menu ul li:first-child {
+    border-left: 2px solid #FFE08C;
+}
+
+section #menu li:hover {
+    background-color: #FFF9C4;
 }
 
 a {
-	text-decoration: none;
-	color: black;
+    text-decoration: none;
+    font-weight: bold;
 }
-#datepicker {
-	background: #FFE08C;
+
+#datepicker, input[type="button"], input[type="submit"] {
+    background: #FFE08C;
     color: #CC723D;
     border: none;
     padding: 10px 20px;
@@ -64,137 +78,125 @@ a {
     font-size: 16px;
     cursor: pointer;
     transition: background 0.3s;
-}
-input[type="button"] {
-	background: #FFE08C;
-    color: #CC723D;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
-    margin-top:15px;
+    margin-top: 15px;
+    text-align: center;
 }
 
-input[type="button"]:hover {
-	background: #0056b3;
-}
-
-input[type="submit"] {
-	background: #FFE08C;
-	color: #CC723D;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	font-size: 16px;
-	cursor: pointer;
-	transition: background 0.3s;
-}
-
-input[type="submit"]:hover {
-	background: #0056b3;
+#datepicker:hover, input[type="button"]:hover, input[type="submit"]:hover {
+    background: #FFC107;
 }
 
 .quantity {
-	width: 40px;
-	text-align: center;
-	border: none;
-	font-size: 16px;
-	background: transparent; /* 배경 투명 */
+    width: 40px;
+    text-align: center;
+    border: 1px solid #FFE08C;
+    font-size: 16px;
+    background: white;
+    border-radius: 3px;
 }
 
-section #cartLayer {
-	position: fixed;
-	visibility: hidden;
-	background: #CC723D;
-	color: #fff;
-	padding: 10px;
-	border-radius: 5px;
-	top: 83%; /* 버튼 위에 나타나게 위치 조정 */
-	left: 50%;
-	transform: translateX(-50%);
-	z-index: 1000; /* 버튼보다 위로 보이도록 설정 */
+#first h2 {
+    color: #333;
+    border-bottom: 2px solid #FFE08C;
+    padding-bottom: 10px;
+    font-size:30px;
 }
 
-section .number {
-	width: 400px;
-	margin: auto; /* 중앙 정렬 */
-	border: 1px solid red;
+#first #heart {
+    margin-left: 10px;
+    cursor: pointer;
 }
 
-section #datepicker {
-	width: 250px;
-	background: #FFE08C;
-	color: #CC723D;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	font-size: 16px;
-	cursor: pointer;
-	transition: background 0.3s;
-	text-align: center;
+#option {
+    margin-top: 40px;
+    background-color: #FFF9C4;
+    padding: 20px;
+    border-radius: 10px;
 }
 
-section #third .inReview {
-	width: 1080px;
-	height: 150px;
-	overflow: auto;
-	border: 1px solid black;
-	margin-top: 20px;
-	padding: 10px;
+#option h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
 }
 
-section #third .inReview #userid {
-	font-size: 17px;
-	font-weight: 900;
-	margin-top: 10px;
+#option .number {
+    width: 400px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #FFE08C;
+    color: #333;
 }
 
-section #third .inReview #title {
-	font-weight: 900;
-	margin-top: 10px;
+.number img {
+    cursor: pointer;
 }
 
-section #third .inReview #content {
-	margin-top: 10px;
+.optionPrice {
+    font-weight: bold;
+    color: #CC723D;
 }
 
-section #fourth {
-    width: 1100px;
+#cartLayer {
+    position: fixed;
+    visibility: hidden;
+    background: #CC723D;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    top: 83%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+#third .inReview {
+    width: 1050px;
+    height: 150px;
+    overflow: auto;
+    border: 2px solid #FFE08C;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #FFF6E0;
+}
+
+#third .inReview #userid {
+    font-size: 17px;
+    font-weight: 900;
+    color: #CC723D;
+    margin-top: 10px;
+}
+
+#fourth {
+    width: 1050px;
     margin: 40px auto 20px;
-    border-top: 1px solid #ddd;
+    border-top: 2px solid #FFE08C;
     padding-top: 20px;
 }
 
-section #fourth #left {
-    float: left;
-    width: 50%;
-}
-
-section #fourth #right {
-    float: right;
-    width: 50%;
-    text-align: right;
-    margin-top: 20px;
-}
-
-section #fourth table {
+#fourth table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    clear: both;
 }
 
-section #fourth table tr {
-    border-bottom: 1px solid #eee;
+#fourth table tr {
+    border-bottom: 1px solid #FFE08C;
 }
 
-section #fourth table td {
+#fourth table td {
     padding: 12px 10px;
 }
 
-section #fourth #q {
+#fourth #q {
     background: #FFE08C;
     color: #CC723D;
     padding: 5px 10px;
@@ -202,23 +204,64 @@ section #fourth #q {
     font-weight: bold;
 }
 
-section #fourth #a {
-    background: #f0f0f0;
-    color: #666;
+#fourth #a {
+    background: #FFF9C4;
+    color: #CC723D;
     padding: 5px 10px;
     border-radius: 5px;
     font-weight: bold;
 }
 
 #space1, #space2, #space3 {
-	width: 1100px;
-	height: 60px;
+    width: 1100px;
+    height: 60px;
 }
 
-section #menu li {
-	background:white;
+#qnaLayer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    padding: 20px;
+    border: 2px solid #FFE08C;
 }
+
+#qnaLayer select, 
+#qnaLayer input[type="text"], 
+#qnaLayer textarea {
+    border: 2px solid #FFE08C;
+    border-radius: 5px;
+    outline: none;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+}
+
+#roomPrice {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#std {
+	font-size: 20px;
+	font-weight: bold;
+}
+
 </style>
+
+
 <script>
 
 	// 수량 빼기
@@ -429,19 +472,18 @@ section #menu li {
 		
 		<div id="first">
 			<div> 
-				<h3> <span id="title"> ${pdto.title} </span> 
+				<h2> <span id="title"> ${pdto.title} </span> 
 					<c:if test="${ok == 0}">
 						<img src="../static/jjim1.png" id="heart" onclick="dibsOk()" valign="middle">
 					</c:if>
 					<c:if test="${ok == 1}">
 						<img src="../static/jjim2.png" id="heart" onclick="dibsDel()" valign="middle">
 					</c:if>
-				</h3>
-				<span id="roomPrice"> ${pdto.price} </span> 원
-				<div> 기준 : ${pdto.standard}인 (최대 ${pdto.max}인) --> </div>
+				</h2>
+				<span id="roomPrice"> 1박당 가격 : ${pdto.price} 원 </span> 
+				<div id="std"> 기준 : ${pdto.standard}인 (최대 ${pdto.max}인) </div>
 			</div>
-			<!-- <div id="map" style="width:100%;height:400px;"> 거리뷰 </div> -->
-		
+
 		<div>
 			<input type="button" value="객실예약" onclick="location='productList'">
 		</div>
@@ -452,7 +494,7 @@ section #menu li {
 		<ul>
 			<li> <a href="#space1"> 객실 </a> </li>
 			<li> <a href="#space2"> 리뷰 </a> </li>
-			<li> <a href="#space3"> Q&A </a> </li>
+			<li> <a href="#space3"> 문의 </a> </li>
 		</ul>
 	</div> <!-- menu close -->
 	
@@ -508,9 +550,8 @@ section #menu li {
 		</div>
 		
 	</div>	<!-- second close -->
-
-	
 	</form>
+	
 	<!-- QnA -->
 <form method="post" action="qnaWriteOk" onsubmit="return submitQnA()">
 <input type="hidden" name="pcode" value="${pdto.pcode}">
@@ -553,7 +594,7 @@ section #menu li {
 	
 	<div id="third">
 		<div id="space2">&nbsp;</div>
-		<h3> 상품평 </h3>
+		<h3> 리뷰 </h3>
 		<div> 
 			<c:forEach begin="1" end="${pdto.ystar}">
 				<img src="../static/star1.png" width="30" valign="middle">
@@ -564,7 +605,7 @@ section #menu li {
 			<c:forEach begin="1" end="${pdto.gstar}">
 				<img src="../static/star2.png" width="30" valign="middle">
 			</c:forEach>
-			${pdto.review}개 상품평
+			${pdto.review}개 리뷰
 		</div>
 		<!-- 개인 -->
 		<c:forEach items="${reviewList}" var="rdto">
@@ -591,7 +632,6 @@ section #menu li {
 						<a href="../member/reviewDelete?id=${rdto.id}&pcode=${rdto.pcode}&rid=${rdto.rid}"> 삭제 </a>
 					</c:if>	
 				</div>
-				
 			</div>
 		</c:forEach>
 	</div> <!-- review 끝 -->
@@ -626,8 +666,8 @@ section #menu li {
 							
 							<!-- 비밀글일 때 -->
 							<c:if test="${qdto.secret==1 && userid != qdto.userid && ref != qdto.ref}">
-								<td> 비밀글입니다.<img src="../static/secretIcon.png" width="20" valign="middle"> </td>						
-							</c:if>
+								<td> 비밀글입니다.<img src="../static/secretIcon.png" width="20" valign="middle"> </td>
+							</c:if>	
 							
 							<td width="180" align="center">${qdto.writeday} 
 								<c:if test="${userid==qdto.userid}">
@@ -639,7 +679,6 @@ section #menu li {
 				</table>
 			</div> 
 		</div> 
-
 </section>
 
 	
