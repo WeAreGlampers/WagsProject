@@ -16,7 +16,7 @@ body {
 }
 
 section {
-	width: 1150px;
+	width: 1100px;
 	margin: 40px auto;
 	background: #fff;
 	padding: 20px;
@@ -26,29 +26,34 @@ section {
 }
 
 section #menu {
-	width: 1100px;
-	height: 50px;
-	margin: auto;
-	margin-top: 50px;
-	margin-bottom: 40px;
+    width: 1100px;
+    height: 50px;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 40px;
+    margin-left: -20px;
 }
 
 section #menu ul {
-	width: 1100px;
-	height: 50px;
-	padding-left: 0px;
-	margin-left: 6px;
+    width: 100%;
+    height: 50px;
+    padding: 0;
+    margin: 0;
+    display: flex;
 }
 
 section #menu ul li {
-	display: inline-block;
-	list-style-type: none;
-	width: 273px;
-	height: 50px;
-	text-align: center;
-	border: 1px solid black;
-	margin-left: -6px;
-	line-height: 50px;
+    flex: 1;
+    list-style-type: none;
+    height: 50px;
+    text-align: center;
+    border: 2px solid #FFE08C;
+    border-left: none;
+    line-height: 50px;
+}
+
+section #menu ul li:first-child {
+    border-left: 2px solid #FFE08C;
 }
 
 a {
@@ -77,10 +82,6 @@ input[type="button"] {
     margin-top:15px;
 }
 
-input[type="button"]:hover {
-	background: #0056b3;
-}
-
 input[type="submit"] {
 	background: #FFE08C;
 	color: #CC723D;
@@ -90,10 +91,6 @@ input[type="submit"] {
 	font-size: 16px;
 	cursor: pointer;
 	transition: background 0.3s;
-}
-
-input[type="submit"]:hover {
-	background: #0056b3;
 }
 
 .quantity {
@@ -117,12 +114,6 @@ section #cartLayer {
 	z-index: 1000; /* 버튼보다 위로 보이도록 설정 */
 }
 
-section .number {
-	width: 400px;
-	margin: auto; /* 중앙 정렬 */
-	border: 1px solid red;
-}
-
 section #datepicker {
 	width: 250px;
 	background: #FFE08C;
@@ -137,7 +128,7 @@ section #datepicker {
 }
 
 section #third .inReview {
-	width: 1080px;
+	width: 1050px;
 	height: 150px;
 	overflow: auto;
 	border: 1px solid black;
@@ -161,16 +152,13 @@ section #third .inReview #content {
 }
 
 section #fourth {
-    width: 1100px;
+    width: 1050px;
     margin: 40px auto 20px;
     border-top: 1px solid #ddd;
     padding-top: 20px;
 }
 
-section #fourth #left {
-    float: left;
-    width: 50%;
-}
+
 
 section #fourth #right {
     float: right;
@@ -218,6 +206,55 @@ section #fourth #a {
 section #menu li {
 	background:white;
 }
+
+#heart {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#menu li:hover {
+    background-color: #FFF9C4;
+}
+
+#option {
+    margin-top: 40px;
+}
+
+#option h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#option .number {
+	width: 400px;
+	margin: auto; /* 중앙 정렬 */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.quantity {
+    width: 40px;
+    text-align: center;
+    font-size: 16px;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.number img {
+    cursor: pointer;
+}
+
+.optionPrice {
+    font-weight: bold;
+    color: #CC723D;
+}
+
+
 </style>
 <script>
 
@@ -426,19 +463,18 @@ section #menu li {
 		
 		<div id="first">
 			<div> 
-				<h3> <span id="title"> ${pdto.title} </span> 
+				<h2> <span id="title"> ${pdto.title} </span> 
 					<c:if test="${ok == 0}">
 						<img src="../static/jjim1.png" id="heart" onclick="dibsOk()" valign="middle">
 					</c:if>
 					<c:if test="${ok == 1}">
 						<img src="../static/jjim2.png" id="heart" onclick="dibsDel()" valign="middle">
 					</c:if>
-				</h3>
-				<span id="roomPrice"> ${pdto.price} </span> 원
-				<div> 기준 : ${pdto.standard}인 (최대 ${pdto.max}인) --> </div>
+				</h2>
+				<span id="roomPrice"> 1박당 가격 : ${pdto.price} </span> 원
+				<div> 기준 : ${pdto.standard}인 (최대 ${pdto.max}인) </div>
 			</div>
-			<!-- <div id="map" style="width:100%;height:400px;"> 거리뷰 </div> -->
-		
+
 		<div>
 			<input type="button" value="객실예약" onclick="location='productList'">
 		</div>
@@ -550,7 +586,7 @@ section #menu li {
 	
 	<div id="third">
 		<div id="space2">&nbsp;</div>
-		<h3> 상품평 </h3>
+		<h3> 리뷰 </h3>
 		<div> 
 			<c:forEach begin="1" end="${pdto.ystar}">
 				<img src="../static/star1.png" width="30" valign="middle">
@@ -561,7 +597,7 @@ section #menu li {
 			<c:forEach begin="1" end="${pdto.gstar}">
 				<img src="../static/star2.png" width="30" valign="middle">
 			</c:forEach>
-			${pdto.review}개 상품평
+			${pdto.review}개 리뷰
 		</div>
 		<!-- 개인 -->
 		<c:forEach items="${reviewList}" var="rdto">
@@ -588,7 +624,6 @@ section #menu li {
 						<a href="../member/reviewDelete?id=${rdto.id}&pcode=${rdto.pcode}&rid=${rdto.rid}"> 삭제 </a>
 					</c:if>	
 				</div>
-				
 			</div>
 		</c:forEach>
 	</div> <!-- review 끝 -->
@@ -621,8 +656,8 @@ section #menu li {
 							
 							<!-- 비밀글일 때 -->
 							<c:if test="${qdto.secret==1 && userid != qdto.userid && ref != qdto.ref}">
-								<td> 비밀글입니다.<img src="../static/secretIcon.png" width="20" valign="middle"> </td>						
-							</c:if>
+								<td> 비밀글입니다.<img src="../static/secretIcon.png" width="20" valign="middle"> </td>
+							</c:if>	
 							
 							<td width="180" align="center">${qdto.writeday} 
 								<c:if test="${userid==qdto.userid}">

@@ -213,13 +213,6 @@ a {
 <sitemesh:write property="head"/>
 </head> 
 <body> <!-- default.jsp -->
-	<div id="outer">
-		<div id="first">
-			<div id="greet"> 환영합니다. WeAreGlampers 입니다. </div>
-			<div id="close"> <span id="X" onclick="outerClose()"> X </span> </div>
-		</div>
-	</div>
-	
 	<div id="newSection">
 		<!-- 장바구니 -->
 		<a href="../member/cartView"> 장바구니 </a>
