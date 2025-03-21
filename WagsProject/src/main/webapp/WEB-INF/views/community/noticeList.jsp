@@ -8,31 +8,96 @@
 <title>Insert title here</title>
 <style>
 section{
-	height:600px;
-}
-table{
-	border-collapse: collapse;
-}
-caption{
-	color: #CC723D;
-}
-tr:first-child {
-    color: #CC723D;
-    font-weight: bold;
-    background:#FFE08C;
-}
-tr:last-child {
-    background:#FFE08C;
-    
-}
-td {
-    padding: 10px;
-    border-bottom: 1px solid #FFE08C;
-}
-td:nth-child(2) {
-    text-align: left;
+section {
+  width: 1100px;
+  margin: auto;
+  padding: 20px 0;
+  min-height: 600px;
 }
 
+section h3 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+table {
+  width: 800px;
+  margin: auto;
+  border-collapse: collapse;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom:30px;
+}
+
+caption {
+  font-size: 24px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+tr:first-child {
+  background-color: #FFF6E0;
+  color: #333;
+  font-weight: bold;
+}
+
+tr:not(:first-child):not(:last-child):hover {
+  background-color: #FFF6E0;
+}
+
+tr:last-child {
+  background-color: #FFF6E0;
+}
+
+td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+td:nth-child(2) {
+  text-align: left;
+}
+
+td a {
+  color: #333;
+  text-decoration: none;
+}
+
+td a:hover {
+  text-decoration: underline;
+  color: #555;
+}
+
+.pagination {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.pagination a {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 0 3px;
+  border-radius: 3px;
+  text-decoration: none;
+  color: #333;
+}
+
+.pagination a:hover {
+  background-color: #f5f5f5;
+}
+
+.pagination .current {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.pagination .nav-btn {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+}
 </style>
 </head>
 <body>
@@ -58,18 +123,18 @@ td:nth-child(2) {
     <tr>
    	  <td colspan="4">
    	  <c:if test="${page!=1}">
-   	    <a href="noticeList?page=${page-1}" style="color:#CC723D;">이전</a>
+   	    <a href="noticeList?page=${page-1}" style="color:#333;">이전</a>
    	  </c:if>
    	  <c:forEach begin="${pstart}" end="${pend}" var="i">
    	    <c:if test="${page==i}">
-   	      <a href="noticeList?page=${i}">${i}</a>
+   	      <a href="noticeList?page=${i}" style="color:#CC723D;">${i}</a>
    	    </c:if>
    	    <c:if test="${page!=i}">
-   	      <a href="noticeList?page=${i}" style="color:#CC723D;">${i}</a>
+   	      <a href="noticeList?page=${i}" style="color:#333;">${i}</a>
    	    </c:if>
    	  </c:forEach>
    	  <c:if test="${page!=totalPages}">
-   	    <a href="noticeList?page=${page+1}" style="color:#CC723D;">다음</a>
+   	    <a href="noticeList?page=${page+1}" style="color:#333;">다음</a>
    	  </c:if>
    	  </td>
     </tr>

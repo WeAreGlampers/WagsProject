@@ -90,8 +90,9 @@ function viewAnswer() {
 			<div class="qna-type">분류</div>
 			<div class="qna-date">작성일</div>
 		</div>
-
+		<c:set var="ref" value="-1"/>
 		<c:forEach items="${qnaMap}" var="map">
+			
 			<c:set var="viewAnswer" value="" />
 			<c:if test="${map.ref != 0}">
 				<c:set var="viewAnswer" value="onclick='viewAnswer()'" />
@@ -116,14 +117,15 @@ function viewAnswer() {
 			<div class="qna-title">
 				${map.qtitle}
 			</div>
-			<c:if test="${map.secret==1 && userid != map.userid && map.userid != '관리자'}">
+			<c:if test="${map.secret==1 && userid != map.userid && ref != map.ref}">
 				<div class="qna-content">
 					비밀글 입니다. <img src="../static/secretIcon.png" width="20"
 						valign="middle">
 				</div>
 			</c:if>
-			<c:if test="${map.secret==0 || userid == map.userid || map.userid == '관리자'}">
+			<c:if test="${map.secret==0 || userid == map.userid || ref == map.ref}">
 				<div class="qna-content">${map.content}</div>
+				<c:set var="ref" value="${map.ref}"/>
 			</c:if>
 			<div class="qna-author">${map.userid}</div>
 			<div class="qna-product">${map.pcode}</div>

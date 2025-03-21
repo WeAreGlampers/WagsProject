@@ -1,6 +1,7 @@
 package com.example.demo.admin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,7 +19,7 @@ public interface AdminMapper {
 	public ProductDto getProduct(String id);
 	public void productUpdateOk(ProductDto pdto);
 	public ArrayList<ReservationDto> reservationList();
-	public ArrayList<QnaDto> qnaList();
+	public ArrayList<HashMap> qnaList();
 	public void chgState(String id);
 	public void qnaAnswer(QnaDto qdto);
 	public void chgRef(int ref);
@@ -27,4 +28,5 @@ public interface AdminMapper {
 	public NoticeDto noticeContent(String id);
 	public void noticeDelete(String id);
 	public void noticeUpdateOk(NoticeDto ndto);
+	public String getTitle(String pcode);
 }

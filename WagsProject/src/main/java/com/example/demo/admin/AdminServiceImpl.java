@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import com.example.demo.dto.NoticeDto;
 import com.example.demo.dto.ProductDto;
 import com.example.demo.dto.QnaDto;
 import com.example.demo.dto.ReservationDto;
+import com.example.demo.utils.MyUtils;
 
 @Service
 @Qualifier("as")
@@ -162,7 +164,18 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public String qnaList(Model model) {
-		ArrayList<QnaDto> qlist=mapper.qnaList();
+		ArrayList<HashMap> qlist=mapper.qnaList();
+		for(int i=0;i<qlist.size();i++) {
+			HashMap map=qlist.get(i);
+			int type=99;
+			if(map.get("type")!=null) {
+				type= Integer.parseInt(map.get("type").toString());
+			}
+			String typeStr = MyUtils.typeStr(type);
+			map.put("typeStr", typeStr);
+			String ptitle=mapper.getTitle(map.get("pcode").toString());
+			map.put("pcode", ptitle);
+		}
 		model.addAttribute("qlist",qlist);
 		return "admin/qnaList";
 	}

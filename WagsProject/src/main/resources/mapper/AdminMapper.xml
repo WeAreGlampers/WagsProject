@@ -41,7 +41,7 @@
 		order by id desc
 	</select>
 	
-	<select id="qnaList" resultType="com.example.demo.dto.QnaDto">
+	<select id="qnaList" resultType="HashMap">
 		select * from qna
 		order by id desc
 	</select>
@@ -88,4 +88,9 @@
 		set title=#{title},content=#{content}
 		where id=#{id}
 	</update>
+	
+	<select id="getTitle" resultType="String">
+		select title from product
+		where pcode=#{pcode}
+	</select>
 </mapper>

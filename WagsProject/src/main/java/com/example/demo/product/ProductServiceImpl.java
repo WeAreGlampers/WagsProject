@@ -89,7 +89,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public String addCart(CartDto cdto, HttpServletRequest request, HttpSession session) {
 		if (session.getAttribute("userid") == null) {
-			return "redirect:/login/login";
+			return "2";
 		} else {
 
 			// 값을 가져와서 CartDto 에 넣기
@@ -191,7 +191,7 @@ public class ProductServiceImpl implements ProductService {
 					}
 					day=day.plusDays(1);
 				}
-				if (chk==0 && pdto.getMax() >= num) {
+				if (chk==0 && pdto.getMax() >= num && pdto.getStandard() <= num) {
 					plist.add(pdto);
 				}
 			}
