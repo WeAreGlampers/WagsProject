@@ -26,8 +26,8 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login/loginOk")
-	public String loginOk(MemberDto mdto,HttpSession session) {
-		return service.loginOk(mdto,session);	
+	public String loginOk(MemberDto mdto,HttpSession session,HttpServletRequest request) {
+		return service.loginOk(mdto,session,request);	
 	}
 	
 	@GetMapping("/login/getUserid")

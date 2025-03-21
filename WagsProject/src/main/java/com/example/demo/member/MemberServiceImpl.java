@@ -62,7 +62,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String memberInfo(Model model, HttpSession session) {
 		if (session.getAttribute("userid")==null) {
-			return "redirect:/login/login";
+			return "redirect:/login/login?move=1";
 		} else {
 			String userid = (String)session.getAttribute("userid");
 			MemberDto mdto = mapper.getMemInfo(userid);

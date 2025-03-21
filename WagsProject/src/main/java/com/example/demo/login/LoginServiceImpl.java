@@ -20,23 +20,34 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public String login(Model model, HttpServletRequest request) {
 		String err = request.getParameter("err");
+		String move = request.getParameter("move");
+		String pcode = request.getParameter("pcode");
 		
-		
-		
+		model.addAttribute("pcode",pcode);
+		model.addAttribute("move",move);
 		model.addAttribute("err",err);
 		return "login/login";
 	}
 
 	@Override
-	public String loginOk(MemberDto mdto,HttpSession session) {
+	public String loginOk(MemberDto mdto, HttpSession session, HttpServletRequest request) {
 		String name = mapper.loginOk(mdto);
-		if (name==null) {
+		if (name == null) {
 			return "redirect:/login/login?err=1";
 		} else {
-			
+			String move = request.getParameter("move");
+			String pcode = request.getParameter("pcode");
+
 			session.setAttribute("name", name);
 			session.setAttribute("userid", mdto.getUserid());
-			
+			if (move != null) {
+				if (move.equals("1")) {
+					return "redirect:/member/memberInfo";
+				} else if (move.equals("2")) {
+					return "redirect:/product/productContent?pcode=" + pcode;
+				} else {
+				}
+			}
 			return "redirect:/main/main";
 		}
 
