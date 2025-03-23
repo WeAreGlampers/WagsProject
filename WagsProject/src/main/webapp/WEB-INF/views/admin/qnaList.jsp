@@ -94,7 +94,7 @@
         <td>${qdto.userid}</td>
         <td>${qdto.qtitle}</td>
         <td>${qdto.content}</td>
-        <td>${qdto.pcode}</td>
+        <td>${qdto.ptitle}</td>
         <td>${qdto.typeStr}</td>
         <td>${qdto.writeday}</td> 
       </tr>
