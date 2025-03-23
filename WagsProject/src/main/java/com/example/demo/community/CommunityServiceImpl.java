@@ -122,9 +122,16 @@ public class CommunityServiceImpl implements CommunityService {
 		String id=request.getParameter("id");
 		String page=request.getParameter("page");
 		
-		String userid= session.getAttribute("userid").toString();
+		int chk=0;
+		if(session.getAttribute("userid") != null) {
+			String userid= session.getAttribute("userid").toString();
+			model.addAttribute("userid");
+			chk=1;
+			model.addAttribute("chk", chk);
+		} else {
+			model.addAttribute("chk",chk);
+		}
 		
-		model.addAttribute("userid");
 		
 		FreeBoardDto bdto = mapper.freeBoardContent(id); // 조건에 맞는 내용만 가져오기
 		

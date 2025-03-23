@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style>
 	/* Main styles for the free board */
 body {
@@ -39,7 +40,7 @@ caption h3 {
 
 /* Table header row */
 table tr:first-child {
-  background-color: #f0f0f0;
+  background-color: #FFF6E0;
   font-weight: bold;
   border-bottom: 2px solid #ddd;
 }
@@ -55,7 +56,7 @@ table tr:not(:first-child):not(:last-child):not(:nth-last-child(2)) {
 }
 
 table tr:not(:first-child):not(:last-child):not(:nth-last-child(2)):hover {
-  background-color: #f9f9f9;
+  background-color: #FFF6E0;
 }
 
 table td {
@@ -98,7 +99,9 @@ a[style*="color:red"] {
 table tr:nth-last-child(1) td {
   padding-top: 20px;
   text-align: center;
+  background-color: #FFF6E0;
 }
+
 
 /* Write button row */
 table tr:nth-last-child(2) td {
