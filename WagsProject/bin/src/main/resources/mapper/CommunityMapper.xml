@@ -14,7 +14,7 @@
 		where pcode=#{pcode}
 	</select>
    	
-   	<insert id="writeOk" parameterType="com.example.demo.dto.FreeBoardDto">
+   	<insert id="freeBoardWriteOk" parameterType="com.example.demo.dto.FreeBoardDto">
    		insert into freeBoard(title,userid,views,content,pwd,writeday)
    		values(#{title},#{userid},#{views},#{content},#{pwd},now())
    	</insert>
@@ -30,21 +30,42 @@
    		from freeBoard
    	</select>
    	
+   	<select id="getNoticeTotal" resultType="Integer">
+   		select ceil(count(*)/10)
+   		from notice
+   	</select>
+   	
    	<update id="views">
    		update freeBoard
    		set views=views+1
    		where id=#{id}
    	</update>
    	
-   	<select id="content" resultType="com.example.demo.dto.FreeBoardDto">
+   	<select id="freeBoardContent" resultType="com.example.demo.dto.FreeBoardDto">
    		select * from freeBoard
    		where id=#{id}
    	</select>
-
+	
+	<select id="isPwd" resultType="Boolean">
+	   select count(*) from freeBoard
+	   where id=#{id} and pwd=#{pwd}
+	 </select>
+	
+	<update id="updateOk" parameterType="com.example.demo.dto.FreeBoardDto">
+	   update freeBoard
+	   set title=#{title}, content=#{content}
+	   where id=#{id}
+	 </update>
+	
+	<delete id="freeBoardDelete">
+	   delete from freeBoard
+	   where id=#{id}
+	 </delete>
 	
 	  <select id="noticeList" resultType="com.example.demo.dto.NoticeDto">
 		select * from notice 
 		order by id desc
+		limit #{index},10
 	  </select>
 	
 	  <select id="noticeContent" resultType="com.example.demo.dto.NoticeDto">
@@ -52,5 +73,25 @@
 		where id=#{id}
 	  </select>
 	
+	  <select id="getComment" resultType="com.example.demo.dto.CommentDto">
+	  	select * from comment
+	  	where cid=#{cid} order by id asc
+	  </select>
+	  
+	  <insert id="commentWriteOk" parameterType="com.example.demo.dto.CommentDto">
+	  	insert into comment(userid,content,writeday,cid)
+	  	values(#{userid},#{content},now(),#{cid})
+	  </insert>
+	  
+	  <delete id="commentDelete">
+	  	delete from comment
+	  	where id=#{id}
+	  </delete>
+	  
+	  <update id="commentUpdateOk">
+	  	update comment
+	  	set content=#{content}
+	  	where id=#{id}
+	  </update>
   </mapper>
 

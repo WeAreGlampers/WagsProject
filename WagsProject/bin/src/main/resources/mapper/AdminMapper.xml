@@ -41,7 +41,7 @@
 		order by id desc
 	</select>
 	
-	<select id="qnaList" resultType="com.example.demo.dto.QnaDto">
+	<select id="qnaList" resultType="HashMap">
 		select * from qna
 		order by id desc
 	</select>
@@ -53,8 +53,8 @@
 	</update>
 	
 	<insert id="qnaAnswer">
-		insert into qna(userid,content,writeday,qtitle,ref,qna,pcode)
-		values('admin',#{content},now(),#{qtitle},#{ref},2,#{pcode})
+		insert into qna(userid,content,writeday,qtitle,ref,qna,pcode,secret,type)
+		values('admin',#{content},now(),#{qtitle},#{ref},2,#{pcode},#{secret},#{type})
 	</insert>
 	
 	<update id="chgRef">
@@ -88,4 +88,9 @@
 		set title=#{title},content=#{content}
 		where id=#{id}
 	</update>
+	
+	<select id="getTitle" resultType="String">
+		select title from product
+		where pcode=#{pcode}
+	</select>
 </mapper>

@@ -8,24 +8,56 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+.pagination {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.pagination a {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 0 3px;
+  border-radius: 3px;
+  text-decoration: none;
+  color: #333;
+}
+
+.pagination a:hover {
+  background-color: #f5f5f5;
+}
+
+.pagination .current {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.pagination .nav-btn {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+}
 section{
 	width:1100px;
 	margin:auto;
 }
 .check{
-	border-bottom:5px solid gray;
+	border-bottom:5px solid #FFF6E0;
 	width:400px;
 	margin:auto;
 	padding-bottom:20px;
 	margin-top:20px;
 }
+b{
+	color:#333;
+}
+
 #content{
-	border:1px solid black;
+	border:2px solid #FFE08C;
 	border-radius:3px;
 	height:100px;
 	width:400px;
 	margin:auto;
 	margin-top:20px;
+	color:#333;
 }
 #title{
 	line-height:60px;
@@ -34,11 +66,13 @@ section{
 	text-align:center;
 	border:none;
 	outline:none;
+	color:#333;
 }
 #price{
 	width:400px;
 	margin:auto;
 	margin-top:20px;
+	color:#333;
 }
 #price2{
 	height:30px;
@@ -53,13 +87,18 @@ section{
   height:40px;
 }
 #totalPrice{
-	color:red;
+	color:#333;
 	font-size:20px;
 	font-weight:800px;
 	float:right;
 }
+hr{
+	background:#FFE08C;
+	border:1px;
+	height:1px;
+}
 #hr2{
-	background:black;
+	background:#FFE08C;
     height:2px;
 	border:1px;
 }
@@ -69,21 +108,24 @@ section{
 	text-align:left;
 	height:60px;
 	line-height:60px;
+	color:#333;
 }
 #member{
 	height:50px;
 	text-align:left;
+	color:#333;
 }
 #title3{
 	margin-top:15px;
 	text-align:left;
 	font-size:16px;
 	font-weight:700;
+	color:#333;
 }
 #req{
 	text-align:left;
 	margin-top:10px;
-	border:1px solid black;
+	border:1px solid #333;
 	border-radius:3px;
 	height:110px;
 	margin-bottom:20px;
@@ -98,10 +140,18 @@ textarea{
 #num{
 	text-align:right;
 	margin-right:10px;
+	color:#FFE08C;
 }
 #pay1{
 	height:40px;
 	text-align:left;
+	color:#333;
+}
+#useSave{
+	text-align:right;
+	border:1px solid #333;
+	border-radius:3px;
+	outline:none;
 }
 #left2{
 	font-size:17px;
@@ -120,6 +170,7 @@ textarea{
 .tdPay{
 	text-align:left;
 	width:400px;
+	color:#333;
 }
 .pay{
 	display:none;
@@ -127,6 +178,32 @@ textarea{
 #btn{
 	margin-top:10px;
 	margin-bottom:20px;
+}
+input[type=button]{
+	background:#FFE08C;
+	border:1px solid #FFE08C;
+	color:#333;
+	border-radius:5px;
+	font-size:15px;
+}
+input[type=submit]{
+	background:#FFE08C;
+	border:2px solid #FFE08C;
+	color:#333;
+	border-radius:5px;
+	font-size:15px;
+	width:100px;
+	height:30px;
+}
+select{
+	color:#333;
+	border:2px solid #FFE08C;
+	border-radius:5px;
+	outline:none;
+}
+select option{
+	border:2px solid #FFE08C;
+	border-radius:5px;
 }
 </style>
 <script>
@@ -162,7 +239,7 @@ var payChk=0;
 function viewHide(){
 	var pay=document.getElementsByClassName("pay");
 	if(payChk%2==0){
-		document.getElementsByClassName("tdPay")[1].style.height="100px";
+		document.getElementsByClassName("tdPay")[1].style.height="120px";
 		for(i=1;i<pay.length;i++){
 			pay[i].style.display="block";
 		}
@@ -275,7 +352,7 @@ window.onpageshow=function(){
     <div id="title2">결제 정보</div>
     <div id="pay1">
       <div id="left">적립금 사용</div>
-      <div id="right"><input type="text" name="useSave" value="0" size="4" style="text-align:right" onblur="calSave(this)">원 사용 ||
+      <div id="right"><input type="text" name="useSave" value="0" size="4" id="useSave" onblur="calSave(this)">원 사용 ||
         보유: <span id="save"><fmt:formatNumber value="${mdto.save}" type="number" pattern="#,###"/></span>원
       </div>
     </div>

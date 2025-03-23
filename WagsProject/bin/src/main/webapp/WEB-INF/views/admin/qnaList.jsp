@@ -7,21 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    section table {
-       border-spacing:0px;
-    }
-    section  table tr td {
-       height:80px;
-       border-bottom:1px solid black;
-       padding-top:6px;
-       padding-bottom:6px;
-    }
-    section table tr:first-child td {
-       border-top:2px solid black;
-    }
-    section table tr:last-child td {
-       border-bottom:2px solid black;
-    }
     section #modal {
        display: none;   
        position:fixed;
@@ -53,19 +38,10 @@
        width:280px;
        height:220px;
     }
-    section #qnaForm #ptitle {
-       border:none;
-       outline:none;
-       width:96%;
-       text-align:center;
-       overflow:hidden;
-       height:40px;
-       font-weight:900;
-       resize:none;
-    }
+    
 </style>
 <script>
-   function answer(id,pcode,qtitle)
+   function answer(id,pcode,qtitle,secret,type)
    {
 	   var w=window.innerWidth;
 	   var h=window.innerHeight;
@@ -85,13 +61,25 @@
 	   document.getElementById("ref").value=id;
 	   document.getElementById("pcode").value=pcode;
 	   document.getElementById("qtitle").value=qtitle;
+	   document.getElementById("secret").value=secret;
+	   document.getElementById("type").value=type;
+	   
    }
 </script>
 </head>
 <body>
 <section>
   <h3 align="center">상품 문의 리스트</h3>
-  <table width="800" align="center">
+  <table width="1100" align="center">
+    <tr>
+      <td>상태</td>
+      <td>작성자</td>
+      <td>제목</td>
+      <td>내용</td>
+      <td>문의상품</td>
+      <td>분류</td>
+      <td>작성일</td>
+    </tr>
     <c:forEach items="${qlist}" var="qdto">
       <c:if test="${qdto.qna==1}">
       <tr>
@@ -100,12 +88,15 @@
             답변완료
           </c:if>
           <c:if test="${qdto.ref==0}">
-            <a href="javascript:answer(${qdto.id},'${qdto.pcode}','${qdto.qtitle}')">답변 전</a>
+            <a href="javascript:answer(${qdto.id},'${qdto.pcode}','${qdto.qtitle}',${qdto.secret},${qdto.type})">답변 전</a>
           </c:if>
         </td>
         <td>${qdto.userid}</td>
+        <td>${qdto.qtitle}</td>
         <td>${qdto.content}</td>
-        <td>${qdto.writeday}</td>
+        <td>${qdto.pcode}</td>
+        <td>${qdto.typeStr}</td>
+        <td>${qdto.writeday}</td> 
       </tr>
       </c:if>
     </c:forEach>
@@ -116,6 +107,8 @@
       <input type="hidden" name="pcode" id="pcode">
       <input type="hidden" name="ref" id="ref">
       <input type="hidden" name="qtitle" id="qtitle">
+      <input type="hidden" name="secret" id="secret">
+      <input type="hidden" name="type" id="type">
       <div> <textarea name="content" id="qnaContent" maxlength="200"></textarea> </div>
       <div> <input type="submit" value="답변저장"> </div>
     </form>

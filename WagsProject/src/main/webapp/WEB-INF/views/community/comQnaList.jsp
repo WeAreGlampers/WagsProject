@@ -125,7 +125,9 @@ function viewAnswer() {
 			</c:if>
 			<c:if test="${map.secret==0 || userid == map.userid || ref == map.ref}">
 				<div class="qna-content">${map.content}</div>
-				<c:set var="ref" value="${map.ref}"/>
+				<c:if test="${qdto.ref!=0}">
+					<c:set var="ref" value="${qdto.ref}"/>
+				</c:if>
 			</c:if>
 			<div class="qna-author">${map.userid}</div>
 			<div class="qna-product">${map.pcode}</div>
