@@ -153,7 +153,7 @@ function cartDel() {
 	location="cartDel?ids="+ids;
 }
 
-window.onload = function() {
+window.onpageshow = function() {
 	if (document.getElementsByClassName("subChk").length==0) {
 		document.getElementById("allChkDiv").style.display="none";
 	}

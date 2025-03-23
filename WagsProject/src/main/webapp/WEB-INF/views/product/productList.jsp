@@ -175,7 +175,7 @@ function productList(){
 		location="productList?date="+datepicker+"&num="+num;
 	}
 }
-window.onload=function(){
+window.onpageshow=function(){
 	if("${date}"!=""){
 		document.getElementById("datepicker").value="${date}";
 	}

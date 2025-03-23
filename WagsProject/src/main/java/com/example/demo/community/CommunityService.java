@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpSession;
 
 public interface CommunityService {
 
-	public String comQnaList(HttpSession session, Model model, QnaDto qdto);
+	public String comQnaList(HttpServletRequest request, HttpSession session, Model model, QnaDto qdto);
 
 	public String write(HttpSession session, Model model);
 	

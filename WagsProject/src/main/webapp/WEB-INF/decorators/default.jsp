@@ -27,7 +27,7 @@ body {
 #outer {
 	width: 100%;
 	height: 40px;
-	background: red;
+	background: #FFE08C;
 }
 
 #outer #X {
@@ -38,7 +38,7 @@ body {
 	width: 1100px;
 	height: 40px;
 	margin: auto;
-	background: white;
+	background: #FFE08C;
 }
 
 #outer #first #greet {
@@ -47,7 +47,7 @@ body {
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
-	color: black;
+	color: #CC723D;
 }
 
 #outer #first #close {
@@ -207,6 +207,54 @@ a {
 		document.getElementsByClassName("sub")[n].style.visibility = "hidden";
 	}
 	
+	var h=40;
+    function outerClose()
+    {
+    	ss=setInterval(function()
+    	{
+    		h--;
+        	document.getElementById("outer").style.height=h+"px";
+        	document.getElementById("first").style.height=h+"px";
+        	
+        	if(h==0)
+        	{
+        		clearInterval(ss);
+        		document.getElementById("outer").style.display="none";
+        	}	
+    	},10);
+    	
+    	// 쿠키변수에 사용자가 x를 클릭하였으므로 정보를 저장 후 안보여주기
+    	var chk=new XMLHttpRequest();
+    	chk.onload=function()
+    	{
+    		if(chk.responseText=="0")
+    		{
+    			alert("오류");
+    		}	
+    			
+    	}
+    	chk.open("get","../cookie/firstCookie");
+    	chk.send();
+    	
+    }
+    
+    window.onload=function()
+    {
+     	// 쿠키를 체크하여 보여줄지 말지를 결정한다.
+    	var chk=new XMLHttpRequest();
+    	chk.onload=function()
+    	{
+    		var n=chk.responseText;
+    		if(n=="1")
+    		{
+    			document.getElementById("outer").style.display="none"; // 1층 숨기기
+    		}	
+    	 
+    	}
+    	chk.open("get","../cookie/fcookOk");
+    	chk.send();
+    }
+	
 </script>
 
 
@@ -214,8 +262,8 @@ a {
 </head> 
 <body> <!-- default.jsp -->
 	<div id="outer">
-		<div id="first">
-			<div id="greet"> 환영합니다. WeAreGlampers 입니다. </div>
+		<div id="first" onclick="location='../member/memberInput'">
+			<div id="greet"> 신규 회원 가입하고 5000포인트 받기! </div>
 			<div id="close"> <span id="X" onclick="outerClose()"> X </span> </div>
 		</div>
 	</div>

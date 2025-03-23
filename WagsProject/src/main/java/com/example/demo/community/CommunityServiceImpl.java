@@ -25,8 +25,27 @@ public class CommunityServiceImpl implements CommunityService {
 	private CommunityMapper mapper;
 
 	@Override
-	public String comQnaList(HttpSession session, Model model, QnaDto qdto) {
-	
+	public String comQnaList(HttpServletRequest request, HttpSession session, Model model, QnaDto qdto) {
+		
+		int page = 1;
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		int index = (page - 1) * 10;
+
+		int pstart, pend, totalPages;
+		pstart = page / 10;
+		if (page % 10 == 0)
+			pstart = pstart - 1;
+
+		pstart = (pstart * 10) + 1;
+		pend = pstart + 9;
+
+		totalPages = mapper.getQnaTotal();
+
+		if (pend > totalPages)
+			pend = totalPages;
+		
 		ArrayList<HashMap> qnaMap = mapper.getQna();
 		model.addAttribute("qnaMap",qnaMap);
 		for (int i = 0; i < qnaMap.size(); i++) {
@@ -50,6 +69,11 @@ public class CommunityServiceImpl implements CommunityService {
 			String pcode = mapper.getPtitle(map.get("pcode").toString());
 			map.put("pcode", pcode);
 		}
+		
+		model.addAttribute("page", page);
+		model.addAttribute("pstart", pstart);
+		model.addAttribute("pend", pend);
+		model.addAttribute("totalPages", totalPages);
 		return "/community/comQnaList";
 	}
 

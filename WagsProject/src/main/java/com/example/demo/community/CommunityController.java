@@ -24,8 +24,8 @@ public class CommunityController {
 	private CommunityService service;
 	
 	@GetMapping("/community/comQnaList")
-	public String comQnaList(HttpSession session, Model model, QnaDto qdto) {
-		return service.comQnaList(session, model, qdto);
+	public String comQnaList(HttpServletRequest request, HttpSession session, Model model, QnaDto qdto) {
+		return service.comQnaList(request, session, model, qdto);
 	}
 
 	@GetMapping("/community/freeBoardWrite")
