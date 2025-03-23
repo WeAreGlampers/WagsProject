@@ -174,7 +174,7 @@ window.onpageshow = function() {
 	<div>
 		<input type="checkbox" name="subChk" class="subChk" onclick="subCheck()" value="${map.id}">
 		<div class="title">${map.title}</div>
-		<div class="pimg"><img src="../static/product/${map.pimg}"></div>
+		<div class="pimg"><img src="../static/product/${map.pimg}" width="300" height="250"></div>
 		<div><span class="inday">${map.inday}</span> ~ <span class="outday">${map.outday}</span></div>
 		<div>장작<span class="fireWood">${map.fireWood}</span> | <span class="fireWoodPrice1"><fmt:formatNumber value="${map.fireWoodPrice}" type="number" pattern="#,###"/></span>원</div>
 		<div>바베큐<span class="grill">${map.grill}</span> | <span class="grillPrice1"><fmt:formatNumber value="${map.grillPrice}" type="number" pattern="#,###"/></span>원</div>

@@ -12,7 +12,6 @@
 		margin:auto;
 		text-align:center;
 		padding-bottom: 80px;
-		height:800px;
 	}
 	section h3,h4 {
 		color:#CC723D;
