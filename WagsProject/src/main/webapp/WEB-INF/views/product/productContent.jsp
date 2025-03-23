@@ -655,7 +655,8 @@ a {
 			              			-> <span id="a">답변</span>
 								</c:if>
 							</td>
-							<td width="100">${qdto.userid}</td> 
+							<td width="100">${qdto.userid}</td>
+							<td width="100">${qdto.qtitle}</td>
 							<!-- 비밀글이 아닐 때 -->
 							<c:if test="${qdto.secret==0 || userid == qdto.userid || ref == qdto.ref}">
 								<td>${qdto.content}</td>

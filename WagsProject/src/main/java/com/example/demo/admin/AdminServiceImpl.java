@@ -174,7 +174,7 @@ public class AdminServiceImpl implements AdminService{
 			String typeStr = MyUtils.typeStr(type);
 			map.put("typeStr", typeStr);
 			String ptitle=mapper.getTitle(map.get("pcode").toString());
-			map.put("pcode", ptitle);
+			map.put("ptitle", ptitle);
 		}
 		model.addAttribute("qlist",qlist);
 		return "admin/qnaList";

@@ -55,6 +55,20 @@ section #cform {
 	text-align:center;
 	border:2px solid black;
 }
+section input[type="button"] {
+	background:#FFE08C;
+	border:1px solid #FFE08C;
+	color:#CC723D;
+	border-radius:5px;
+	font-size:15px;
+}
+section input[type="submit"] {
+	background:#FFE08C;
+	border:1px solid #FFE08C;
+	color:#CC723D;
+	border-radius:5px;
+	font-size:15px;
+}
 </style>
 <script>
 	function chgMemInfo() {

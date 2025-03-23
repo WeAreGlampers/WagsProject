@@ -17,7 +17,7 @@
 	font-weight: bold;
 	border-bottom: 1px solid #ddd;
 	padding: 10px 0;
-	background-color: #f5f5f5;
+	background-color: #FFE08C;
 }
 
 .qna-row {
@@ -82,13 +82,13 @@ function viewAnswer() {
 	<!-- /community/comQnaList.jsp -->
 	<div class="container">
 		<div class="qna-header">
-			<div class="qna-status">답변상태</div>
-			<div class="qna-title">제목</div>
-			<div class="qna-content">질문내용</div>
-			<div class="qna-author">작성자</div>
-			<div class="qna-product">문의상품</div>
-			<div class="qna-type">분류</div>
-			<div class="qna-date">작성일</div>
+			<div style="color:#CC723D;" class="qna-status">답변상태</div>
+			<div style="color:#CC723D;" class="qna-title">제목</div>
+			<div style="color:#CC723D;" class="qna-content">질문내용</div>
+			<div style="color:#CC723D;" class="qna-author">작성자</div>
+			<div style="color:#CC723D;" class="qna-product">문의상품</div>
+			<div style="color:#CC723D;" class="qna-type">분류</div>
+			<div style="color:#CC723D;" class="qna-date">작성일</div>
 		</div>
 		<c:set var="ref" value="-1"/>
 		<c:forEach items="${qnaMap}" var="map">
@@ -135,6 +135,22 @@ function viewAnswer() {
 			<div class="qna-date">${map.writedayTime}</div>
 	</div>
 	</c:forEach>
+	<div>
+	<c:if test="${page!=1}">
+		<a href="comQnaList?page=${page-1}" style="color: #CC723D;">이전</a>
+	</c:if>
+	<c:forEach begin="${pstart}" end="${pend}" var="i">
+		<c:if test="${page==i}">
+			<a href="comQnaList?page=${i}">${i}</a>
+		</c:if>
+		<c:if test="${page!=i}">
+			<a href="comQnaList?page=${i}" style="color: #CC723D;">${i}</a>
+		</c:if>
+	</c:forEach>
+	<c:if test="${page!=totalPages}">
+		<a href="comQnaList?page=${page+1}" style="color: #CC723D;">다음</a>
+	</c:if>
+	</div>
 	</div>
 </body>
 </html>
