@@ -105,7 +105,7 @@ function submitChk() {
 	}
 }
 	
-window.onload = function() {
+window.onpageshow = function() {
 	var sco = ${rdto.star};
 	var star = document.getElementsByClassName("star");
 
@@ -148,7 +148,7 @@ window.onload = function() {
 				<img src="../static/star2.png" onclick="chgStar(4)" class="star">
 			</div>
 			<div>
-				<input type="submit" value="리뷰 작성">
+				<input type="submit" value="리뷰 작성" id="submit">
 			</div>
 		</form>
 	</section>

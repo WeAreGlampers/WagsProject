@@ -48,6 +48,8 @@ public interface CommunityMapper {
 	
 	public void commentUpdateOk(CommentDto cdto);
 
+	public int getQnaTotal();
+
 
 	
 }

@@ -35,6 +35,11 @@
    		from notice
    	</select>
    	
+   	<select id="getQnaTotal" resultType="Integer">
+   		select ceil(count(*)/10)
+   		from qna
+   	</select>
+   	
    	<update id="views">
    		update freeBoard
    		set views=views+1
