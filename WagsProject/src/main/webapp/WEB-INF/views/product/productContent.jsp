@@ -388,7 +388,7 @@ a {
 			alert("날짜를 선택해주세요!");
 			return false;
 		} else {
-			alert(document.rform.inday.value);
+			//alert(document.rform.inday.value);
 			return true;
 		}
 		
@@ -533,7 +533,7 @@ a {
 					<img src="../static/minus.png" valign="middle" onclick="minus(2)">
 		          	<input type="text" name="people" value="0" class="quantity" readonly>
 		         	<img src="../static/plus.png" valign="middle" onclick="plus(2)">
-					가격(인당 15,000원) : <span class="optionPrice" name="people" id="people"> 0 </span> 명					     		
+					가격(인당 15,000원) : <span class="optionPrice" name="people" id="people"> 0 </span> 원					     		
 				</div>
 			</div>
 		</div>

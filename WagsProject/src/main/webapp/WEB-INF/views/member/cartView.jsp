@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>장바구니</title>
 <style>
 /* 기존 CSS 유지하면서 수정 */
 #allChkDiv {
@@ -29,8 +29,6 @@
 /* 체크박스 스타일 */
 .subChk {
     margin: 10px;
-    left: 10px;
-    top: 15px;
     width: 18px;
     height: 18px;
     cursor: pointer;
@@ -62,22 +60,101 @@
     margin-right: auto;
 }
 
-/* 삭제 버튼 스타일 통일 */
-form > input[type="button"] {
-    width: 100px;
-    height: 36px;
+/* 상품 항목 스타일 - 상품 구분을 위한 새 스타일 */
+.cart-item {
+    width: 800px;
+    margin: 0 auto 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #fff;
+    position: relative;
+}
+
+.cart-item-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.cart-item-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 10px;
+    color: #333;
+}
+
+.cart-item-content {
+    display: flex;
+}
+
+.cart-item-image {
+    flex: 0 0 300px;
+    margin-right: 20px;
+}
+
+.cart-item-image img {
+    border-radius: 8px;
+    width: 300px;
+    height: 250px;
+    object-fit: cover;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+.cart-item-info {
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.cart-item-dates {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.cart-item-options {
+    color: #666;
+}
+
+.cart-item-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #CC723D;
+    margin-top: 15px;
+    text-align: right;
+}
+
+.cart-item-delete {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.delete-btn {
+    width: 80px;
+    height: 32px;
     background: #FFE08C;
     color: #CC723D;
     font-weight: 600;
-    border: #FFE08C;
-    border-radius: 8px;
-    margin: 0 auto 30px;
-    display: block;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
 }
 
-form > input[type="button"]:hover {
+.delete-btn:hover {
     text-decoration: underline;
+}
+
+/* 빈 장바구니 메시지 */
+.empty-cart {
+    text-align: center;
+    padding: 50px 0;
+    color: #888;
 }
 </style>
 <script>
@@ -108,40 +185,7 @@ function subCheck() {
 		document.getElementById("allChk").checked=false;
 	}
 }
-/*
-function reserve() {
-	var pcodes = "";
-	var titles = "";
-	var fireWoods = "";
-	var grills = "";
-	var fireWoodPrices = "";
-	var grillPrices = "";
-	var indays = "";
-	var outdays = "";
-	var roomPrices = "";
-	var totalPrices = "";
-	var peoples = "";
-	
-	for (i=0;i<document.getElementsByClassName("subChk").length;i++) {
-		if (document.getElementsByClassName("subChk")[i].checked) {
-			pcodes = pcodes + document.getElementsByClassName("pcode")[i].value+",";
-			titles = titles + document.getElementsByClassName("title")[i].innerText+",";
-			indays = indays + document.getElementsByClassName("inday")[i].innerText+",";
-			outdays = outdays + document.getElementsByClassName("outday")[i].innerText+",";
-			fireWoods = fireWoods + document.getElementsByClassName("fireWood")[i].innerText+",";
-			grills = grills + document.getElementsByClassName("grill")[i].innerText+",";
-			fireWoodPrices = fireWoodPrices + document.getElementsByClassName("fireWoodPrice")[i].value+",";
-			grillPrices = grillPrices + document.getElementsByClassName("grillPrice")[i].value+",";
-			totalPrices = totalPrices + document.getElementsByClassName("totalPrice")[i].value+",";
-			roomPrices = roomPrices + document.getElementsByClassName("roomPrice")[i].value+","
-			peoples = peoples + document.getElementsByClassName("people")[i].value+","
-		}
-	}
-	
-	location="../product/reservation?people="+peoples+"&pcode="+pcodes+"&title="+titles+"&fireWood="+fireWoods+"&grill="+grills+"&fireWoodPrice="+fireWoodPrices+"&grillPrice="+grillPrices+"&inday="+indays+"&outday="+outdays+"&roomPrice="+roomPrices+"&totalPrice="+totalPrices;
-	
-}
-*/
+
 function cartDel() {
 	var subChk = document.getElementsByClassName("subChk");
 	var ids = "";
@@ -170,18 +214,60 @@ window.onpageshow = function() {
   <input type="submit" id="reserveBtn" value="선택예약">
   <input type="button" onclick="cartDel()" value="선택삭제">
 </div>
+
+<c:if test="${empty cartMap}">
+  <div class="empty-cart">
+    <p>장바구니에 상품이 없습니다.</p>
+  </div>
+</c:if>
+
 <c:forEach items="${cartMap}" var="map">
-	<div>
-		<input type="checkbox" name="subChk" class="subChk" onclick="subCheck()" value="${map.id}">
-		<div class="title">${map.title}</div>
-		<div class="pimg"><img src="../static/product/${map.pimg}" width="300" height="250"></div>
-		<div><span class="inday">${map.inday}</span> ~ <span class="outday">${map.outday}</span></div>
-		<div>장작<span class="fireWood">${map.fireWood}</span> | <span class="fireWoodPrice1"><fmt:formatNumber value="${map.fireWoodPrice}" type="number" pattern="#,###"/></span>원</div>
-		<div>바베큐<span class="grill">${map.grill}</span> | <span class="grillPrice1"><fmt:formatNumber value="${map.grillPrice}" type="number" pattern="#,###"/></span>원</div>
-		<div>기준 ${map.standard}명 / 최대 ${map.max}명 </div>
-		<div><span class="totalPrice1"><fmt:formatNumber value="${map.totalPrice}" type="number" pattern="#,###"/></span>원</div>
+	<div class="cart-item">
+		<div class="cart-item-header">
+			<input type="checkbox" name="subChk" class="subChk" onclick="subCheck()" value="${map.id}">
+			<div class="cart-item-title">${map.title}</div>
+		</div>
+		
+		<div class="cart-item-content">
+			<div class="cart-item-image">
+				<img src="../static/product/${map.pimg}" alt="${map.title}">
+			</div>
+			
+			<div class="cart-item-details">
+				<div class="cart-item-info cart-item-dates">
+					<span class="inday">${map.inday}</span> ~ <span class="outday">${map.outday}</span>
+				</div>
+				
+				<div class="cart-item-info cart-item-options">
+					장작 <span class="fireWood">${map.fireWood}</span> | <span class="fireWoodPrice1"><fmt:formatNumber value="${map.fireWoodPrice}" type="number" pattern="#,###"/></span>원
+				</div>
+				
+				<div class="cart-item-info cart-item-options">
+					바베큐 <span class="grill">${map.grill}</span> | <span class="grillPrice1"><fmt:formatNumber value="${map.grillPrice}" type="number" pattern="#,###"/></span>원
+				</div>
+				
+				<div class="cart-item-info">
+					기준 ${map.standard}명 / 최대 ${map.max}명
+				</div>
+				
+				<div class="cart-item-price">
+					<span class="totalPrice1"><fmt:formatNumber value="${map.totalPrice}" type="number" pattern="#,###"/></span>원
+				</div>
+				
+				<div class="cart-item-delete">
+					<input type="button" class="delete-btn" value="삭제" onclick="location='cartDel?ids=${map.id}'">
+				</div>
+			</div>
+		</div>
+		
+		<!-- 필요한 hidden input 필드들 추가 -->
+		<input type="hidden" name="pcode" value="${map.pcode}" class="pcode">
+		<input type="hidden" name="people" value="${map.standard}" class="people">
+		<input type="hidden" name="fireWoodPrice" value="${map.fireWoodPrice}" class="fireWoodPrice">
+		<input type="hidden" name="grillPrice" value="${map.grillPrice}" class="grillPrice">
+		<input type="hidden" name="roomPrice" value="${map.roomPrice}" class="roomPrice">
+		<input type="hidden" name="totalPrice" value="${map.totalPrice}" class="totalPrice">
 	</div>
-	<input type="button" value="삭제" onclick="location='cartDel?ids=${map.id}'">
 </c:forEach>
 </form>
 
