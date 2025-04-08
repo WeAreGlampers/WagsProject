@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.community.CommunityMapper">
+	<select id="getQna" resultType="HashMap">
+		select * from qna
+		order by ref desc
+	</select>
+	
+	<select id="getPtitle" resultType="String">
+		select title from product
+		where pcode=#{pcode}
+	</select>
+   	
+   	<insert id="freeBoardWriteOk" parameterType="com.example.demo.dto.FreeBoardDto">
+   		insert into freeBoard(title,userid,views,content,pwd,writeday)
+   		values(#{title},#{userid},#{views},#{content},#{pwd},now())
+   	</insert>
+   	
+   	<select id="getList" resultType="com.example.demo.dto.FreeBoardDto">
+   		select * from freeBoard
+   		order by id desc
+   		limit #{index},10
+   	</select>
+   	
+   	<select id="getTotal" resultType="Integer">
+   		select ceil(count(*)/10)
+   		from freeBoard
+   	</select>
+   	
+   	<select id="getNoticeTotal" resultType="Integer">
+   		select ceil(count(*)/10)
+   		from notice
+   	</select>
+   	
+   	<select id="getQnaTotal" resultType="Integer">
+   		select ceil(count(*)/10)
+   		from qna
+   	</select>
+   	
+   	<update id="views">
+   		update freeBoard
+   		set views=views+1
+   		where id=#{id}
+   	</update>
+   	
+   	<select id="freeBoardContent" resultType="com.example.demo.dto.FreeBoardDto">
+   		select * from freeBoard
+   		where id=#{id}
+   	</select>
+	
+	<select id="isPwd" resultType="Boolean">
+	   select count(*) from freeBoard
+	   where id=#{id} and pwd=#{pwd}
+	 </select>
+	
+	<update id="updateOk" parameterType="com.example.demo.dto.FreeBoardDto">
+	   update freeBoard
+	   set title=#{title}, content=#{content}
+	   where id=#{id}
+	 </update>
+	
+	<delete id="freeBoardDelete">
+	   delete from freeBoard
+	   where id=#{id}
+	 </delete>
+	
+	  <select id="noticeList" resultType="com.example.demo.dto.NoticeDto">
+		select * from notice 
+		order by id desc
+		limit #{index},10
+	  </select>
+	
+	  <select id="noticeContent" resultType="com.example.demo.dto.NoticeDto">
+		select * from notice
+		where id=#{id}
+	  </select>
+	
+	  <select id="getComment" resultType="com.example.demo.dto.CommentDto">
+	  	select * from comment
+	  	where cid=#{cid} order by id asc
+	  </select>
+	  
+	  <insert id="commentWriteOk" parameterType="com.example.demo.dto.CommentDto">
+	  	insert into comment(userid,content,writeday,cid)
+	  	values(#{userid},#{content},now(),#{cid})
+	  </insert>
+	  
+	  <delete id="commentDelete">
+	  	delete from comment
+	  	where id=#{id}
+	  </delete>
+	  
+	  <update id="commentUpdateOk">
+	  	update comment
+	  	set content=#{content}
+	  	where id=#{id}
+	  </update>
+  </mapper>
+

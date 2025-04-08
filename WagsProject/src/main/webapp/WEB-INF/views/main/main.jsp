@@ -12,11 +12,19 @@ section {
 	margin: auto;
 	background: white;
 }
+
+section img {
+	width:1100px;
+	height:600px;
+} 
 </style>
 </head>
 <body>
 
-<section></section>
+<section>
+	<img src="../static/main.jpg">
+
+</section>
 
 </body>
 </html>

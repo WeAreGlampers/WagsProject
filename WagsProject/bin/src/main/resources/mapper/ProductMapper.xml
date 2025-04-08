@@ -2,6 +2,141 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.dto.ProductDto">
-   
+<mapper namespace="com.example.demo.product.ProductMapper">
+	
+	<insert id="addCart" parameterType="com.example.demo.dto.CartDto">
+		insert into cart(pcode,writeday,fireWood,grill,userid,fireWoodPrice,grillPrice,inday,outday,title,totalPrice,roomPrice,people)
+		values(#{pcode},now(),#{fireWood},#{grill},#{userid},#{fireWoodPrice},#{grillPrice},#{inday},#{outday},#{title},#{totalPrice},#{roomPrice},#{people})
+	</insert>
+	
+	<select id="isCart" resultType="Boolean">
+		select count(*) from cart
+		where userid=#{userid} and pcode=#{pcode}
+	</select>
+	
+	<update id="upCart" parameterType="com.example.demo.dto.CartDto">
+		update cart
+		set grill=${grill}, fireWood=#{fireWood} , fireWoodPrice=#{fireWoodPrice}, grillPrice=#{grillPrice}
+		where userid=#{userid} and pcode=#{pcode}
+	</update>
+	
+	<select id="getRoom" resultType="com.example.demo.dto.ProductDto">
+		select * from product
+		where pcode=#{pcode}
+	</select>
+		
+	<insert id="dibsOk">
+		insert into dibs(userid,pcode,writeday)
+		values(#{userid},#{pcode},now())
+	</insert>
+	
+	<delete id="dibsDel">
+		delete from dibs
+		where userid=#{userid} and pcode=#{pcode}
+	</delete>
+	
+	<select id="isDibs" resultType="Integer">
+		select count(*) from dibs
+		where userid=#{userid} and pcode=#{pcode}
+	</select>
+	
+	<select id="getCart" resultType="com.example.demo.dto.CartDto">
+		select * from cart
+	</select>
+	
+	<select id="getCart2" resultType="com.example.demo.dto.CartDto">
+		select * from cart
+		where id=#{id}
+	</select>
+
+	<select id="getReservation" resultType="com.example.demo.dto.ReservationDto">
+		select * from reservation
+		where pcode=#{pcode}
+	</select>
+	
+	<select id="getReview" resultType="com.example.demo.dto.ReviewDto">
+		select * from review
+		where pcode=#{pcode}
+	</select>
+
+	<delete id="qnaDel1">
+		delete from qna
+		where id=#{id}
+	</delete>
+	
+	<delete id="qnaDel2">
+		delete from qna
+		where ref=#{ref}
+	</delete>
+	
+	<select id="getQna" resultType="com.example.demo.dto.QnaDto">
+		select * from qna
+		where pcode=#{pcode}
+		order by ref desc, qna asc
+	</select>
+
+
+
+	<select id="productList" resultType="com.example.demo.dto.ProductDto">
+		select * from product
+		order by id desc
+	</select>
+	
+	<select id="isCheck" resultType="Boolean">
+		<![CDATA[ select count(*) from reservation where inday <= #{day} and outday > #{day} and pcode=#{pcode} ]]>
+	</select>
+	
+	<select id="productList2" resultType="com.example.demo.dto.ProductDto">
+		select * from product
+		where <![CDATA[ max>=${num} ]]>
+		order by id desc
+	</select>
+	
+	<select id="getProduct" resultType="com.example.demo.dto.ProductDto">
+		select * from product
+		where pcode=#{pcode}
+	</select>
+	
+	<select id="getMember" resultType="com.example.demo.dto.MemberDto">
+		select * from member
+		where userid=#{userid}
+	</select>
+	
+	<select id="getNumber" resultType="Integer">
+		select ifnull(max(right(jumuncode,3)),0)+1
+		from reservation
+		where jumuncode like concat(#{jumuncode},'%')
+	</select>
+	
+	<insert id="reservationOk">
+		insert into reservation(useSave,review,pay,card1,halbu,bank1,card2,tel,bank2,totalPrice,fireWood,grill,userid,pcode,writeday,jumuncode,inday,outday,title,req,fireWoodPrice,grillPrice,roomPrice,people)
+		values(#{useSave},0,#{pay},#{card1},#{halbu},#{bank1},#{card2},#{tel},#{bank2},#{totalPrice},#{fireWood},#{grill},#{userid},#{pcode},now(),#{jumuncode},#{inday},#{outday},#{title},#{req},#{fireWoodPrice},#{grillPrice},#{roomPrice},#{people})
+	</insert>
+	
+	<update id="setSave">
+		update member set save=save-${useSave}+${addSave}
+		where userid=#{userid}
+	</update>
+	
+	<select id="getSave" resultType="Integer">
+		select save from product
+		where pcode=#{pcode}
+	</select>
+
+	<delete id="reserveCartDel">
+		delete from cart 
+		where userid=#{userid} and pcode=#{pcode} and inday=#{inday} and outday=#{outday}
+	</delete>
+	
+	<insert id="qnaWriteOk">
+		insert into qna
+		(userid,content,writeday,qtitle,ref,qna,pcode,secret,type)
+		values (#{userid},#{content},now(),#{qtitle},'0','1',#{pcode},#{secret},#{type})
+	</insert>
+
+	
+	
+	
+
+
 </mapper>
