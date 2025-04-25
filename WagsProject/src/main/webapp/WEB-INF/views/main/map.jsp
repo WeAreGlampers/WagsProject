@@ -21,7 +21,7 @@ h3{
   <div><h3>찾아오시는 길</h3></div>
   <div id="map" style="width:500px;height:400px;"></div>
 </section>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fb1652b70a810bdfa8a256b7f520e412"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey="></script>
 <script>
 		var container = document.getElementById('map');
 		var options = {
