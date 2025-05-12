@@ -380,7 +380,7 @@ a {
 	
 	function reservationChk() {
 		var fireWoodPrice1 = document.getElementById("fireWoodPrice").innerText;
-		var grillPrice1 = document.getElementById("fireWoodPrice").innerText;
+		var grillPrice1 = document.getElementById("grillPrice").innerText;
 		document.rform.fireWoodPrice.value = fireWoodPrice1;
 		document.rform.grillPrice.value = grillPrice1;
 		
